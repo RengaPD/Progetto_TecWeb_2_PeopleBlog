@@ -75,7 +75,7 @@
     <?php $user=Zend_Auth::getInstance(); ?>
     <?php if($user->hasIdentity()) :?>
         <?php $permesso=$user->getIdentity()->ruolo; ?>
-        <?php if((!$permesso==null)&&($permesso=='utente')) :?>
+        <?php if((!$permesso==null)&&(($permesso=='utente')||($permesso=='staff'))) :?>
             <li><a href="<?= $this->url(array(
                     'controller'=>'user',
                     'action'=>'index'),

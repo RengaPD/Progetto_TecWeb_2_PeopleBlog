@@ -1,1 +1,6 @@
-Questa è l'area utente
+<br><br><br>
+<?php $nome=Zend_Auth::getInstance()->getIdentity()->Nome;
+$cognome=Zend_Auth::getInstance()->getIdentity()->Cognome;
+echo 'Benvenuto/a '.$nome.' '.$cognome.'! '; ?>
+<br>
+Questo è il pannello utente. Seleziona l'azione da eseguire
