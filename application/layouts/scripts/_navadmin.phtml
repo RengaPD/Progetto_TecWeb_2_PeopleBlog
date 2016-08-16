@@ -16,6 +16,19 @@
                 ?>"
                    title="Disconnettiti"><i class="icon-user"></i>Logout</a></li>
         <?php endif ?>
-
+    <li><a href="<?= $this->url(array(
+					'controller'=>'admin',
+					'action'=>'aggiungiutente',),
+					'default',true);
+					?>"
+			title="Aggiunge un nuovo utente">Aggiungi Utente</a>
+	</li>
+	<li><a href="<?= $this->url(array(
+					'controller'=>'admin',
+					'action'=>'seleziona',),
+					'default',true);
+					?>"
+			title="Modifica o cancella informazioni utente esistente">Modifica/Cancella Utente</a>
+	</li>
 
 </ul>

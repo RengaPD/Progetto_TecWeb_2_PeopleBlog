@@ -1,50 +1,57 @@
 <?php
-class Application_Form_Public_Registra extends Zend_Form
+class Application_Form_Amministrazione_Utente_Modifica extends Zend_Form
 {
-    protected $_publicModel;
+    protected $_adminModel;
 
     public function init()
     {
-        $this->_publicModel=new Application_Model_Public();
+        $this->_adminModel=new Application_Model_Admin();
         $this->setMethod('post');
-        $this->setName('registrati');
+        $this->setName('modificautente');
         $this->setAction('');
         $this->setAttrib('enctype', 'multipart/form-data');
 
-        $this->addElement('hidden','id');
-        
-        $this->addElement('text', 'Nome', array(
+        $this->addElement('hidden', 'id');
+
+        $this->addElement('text', 'nome', array(
             'label' => 'Nome',
             'filters' => array('StringTrim'),
-            'required' => true,
+            'required' => false,
             'validators' => array(array('StringLength',true, array(1,25))),
         ));
-        $this->addElement('text', 'Cognome', array(
+        $this->addElement('text', 'cognome', array(
             'label' => 'Cognome',
             'filters' => array('StringTrim'),
-            'required' => true,
+            'required' => false,
             'validators' => array(array('StringLength',true, array(1,25))),
         ));
+
         $this->addElement('text', 'email', array(
-            'label' => 'email',
+            'label' => 'Email',
             'filters' => array('StringTrim'),
-            'required' => true,
+            'required' => false,
             'validators' => array(array('StringLength',true, array(1,25))),
         ));
 
         $this->addElement('text', 'password', array(
             'label' => 'Password',
             'filters' => array('StringTrim'),
-            'required' => true,
+            'required' => false,
+            'validators' => array(array('StringLength',true, array(1,25))),
+        ));
+        $this->addElement('select', 'ruolo', array(
+            'label' => 'Ruolo:',
+            'multiOptions' => array('utente'=>'Utente',
+                'staff'=> 'Staff',
+                'admin'=>'Admin'),
+            'filters' => array('StringTrim'),
+            'required' => false,
             'validators' => array(array('StringLength',true, array(1,25))),
         ));
 
-        $this->addElement('hidden','ruolo');
-        $this->ruolo->setValue('utente');
 
         $this->addElement('submit', 'add', array(
-            'label' => 'Registrati',
+            'label' => 'Modifica',
         ));
     }
 }
-?>

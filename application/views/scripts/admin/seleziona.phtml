@@ -1,0 +1,41 @@
+<p>Utilizza questa form per modificare le informazioni utente nel database</p>
+
+<table >
+    <tr>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Cognome</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>Ruolo</th>
+        <th>Modifica</th>
+        <th>Cancella</th>
+    </tr>
+    <?php foreach($this->risultato as $utenti) :?>
+
+        <?php $id=$utenti['id']; ?>
+        <?php echo "<tr>
+          <td>" . $utenti['id'] . "</td>
+          <td>" . $utenti['Nome'] . "</td>
+          <td>" . $utenti['Cognome'] . "</td>
+          <td>" . $utenti['email'] . "</td>
+          <td>" . $utenti['password'] . "</td>
+          <td>" . $utenti['ruolo'] . "</td>
+          <td>"; ?><a href="<?= $this->url(array(
+            'controller'=>'admin',
+            'action'=>'modificautente',
+            'id'=>"$id"),
+            'default',true);
+        ?>"><?php echo $this->bottonemod ?></a>
+        <?php echo"</td>
+        <td>"; ?><a href="<?= $this->url(array(
+            'controller'=>'admin',
+            'action'=>'cancellautente',
+            'id'=>"$id"),
+            'default',true);
+        ?>"><?php echo $this->bottonedel ?></a>
+        <?php echo"</td>
+        </tr>"; ?>
+
+    <?php endforeach ?>
+</table>
