@@ -1,0 +1,99 @@
+<ul>
+    <li><a href="<?= $this->url(array(
+            'controller'=>'public',
+            'action'=>'index',),
+            'default',true);
+        ?>"
+           title="Home">Home</a>
+    </li>
+    <li><a href="<?= $this->url(array(
+            'controller'=>'public',
+            'action'=>'viewstatic',
+            'staticPage'=>'regolamento'),
+            'default',true);
+        ?>"
+           title="Regolamento community">Regolamento community</a>
+    </li>
+    <li><a href="<?= $this->url(array(
+            'controller'=>'public',
+            'action'=>'viewstatic',
+            'staticPage'=>'faq'),
+            'default',true);
+        ?>"
+           title="Faq">Faq</a>
+    </li>
+    <?php $user=Zend_Auth::getInstance(); ?>
+    <?php if(!$user->hasIdentity()) :?>
+        <li><a href="<?= $this->url(array(
+                'controller'=>'public',
+                'action'=>'login'),
+                'default',true);
+            ?>" role="button" data-toggle="modal"
+               title="Login"><i class="icon-user"></i>Login</a></li>
+    <?php endif ?>
+    <?php $user=Zend_Auth::getInstance(); ?>
+    <?php if(!$user->hasIdentity()) :?>
+    <li><a href="<?= $this->url(array(
+            'controller'=>'public',
+            'action'=>'registrati'),
+            'default',true);
+        ?>"
+           title="Registrati">Registrati</a>
+    </li>
+    <?php endif ?>
+
+    <?php $user=Zend_Auth::getInstance(); ?>
+    <?php if($user->hasIdentity()) :?>
+        <?php $permesso=$user->getIdentity()->ruolo; ?>
+        <?php if((!$permesso==null)&&($permesso=='admin')) :?>
+
+            <li><a href="<?= $this->url(array(
+                    'controller'=>'admin',
+                    'action'=>'index'),
+                    'default',true);
+                ?>"
+                   title="Gestisci sito"><i class="icon-user"></i>Amministrazione</a></li>
+        <?php endif ?>
+
+    <?php endif ?>
+
+    <?php $user=Zend_Auth::getInstance(); ?>
+    <?php if($user->hasIdentity()) :?>
+        <?php $permesso=$user->getIdentity()->ruolo; ?>
+        <?php if((!$permesso==null)&&($permesso=='staff')) :?>
+
+            <li><a href="<?= $this->url(array(
+                    'controller'=>'staff',
+                    'action'=>'index'),
+                    'default',true);
+                ?>"
+                   title="Staff"><i class="icon-user"></i>Staff</a></li>
+        <?php endif ?>
+
+    <?php endif ?>
+
+    <?php $user=Zend_Auth::getInstance(); ?>
+    <?php if($user->hasIdentity()) :?>
+        <?php $permesso=$user->getIdentity()->ruolo; ?>
+        <?php if((!$permesso==null)&&($permesso=='utente')) :?>
+            <li><a href="<?= $this->url(array(
+                    'controller'=>'user',
+                    'action'=>'index'),
+                    'default',true);
+                ?>"
+                   title="Pannello utente"><i class="icon-user"></i>User</a></li>
+        <?php endif ?>
+    <?php endif ?>
+
+    <?php $user=Zend_Auth::getInstance(); ?>
+    <?php if($user->hasIdentity()) :?>
+        <li><a href="<?= $this->url(array(
+                'controller'=>'user',
+                'action'=>'logout'),
+                'default',true);
+            ?>"
+               title="Disconnettiti"><i class="icon-user"></i>Logout</a></li>
+    <?php endif ?>
+
+
+</ul>

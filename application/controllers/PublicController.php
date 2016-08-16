@@ -11,12 +11,7 @@ class PublicController extends Zend_Controller_Action
         $this->_helper->layout->setLayout('layout');
         $this->_logger = Zend_Registry::get('log');
         $this->_publicModel=new Application_Model_Public();
-        $this->db=new Zend_Db_Adapter_Pdo_Mysql(array(
-            'host'     => 'localhost',
-            'username' => 'admin',
-            'password' => 'password',
-            'dbname'   => 'tweb'
-        ));
+        $this->_auth=new Application_Service_Auth();
     }
 
     public function indexAction()
@@ -58,7 +53,14 @@ class PublicController extends Zend_Controller_Action
     }
     
     public function loginAction() {
-        
+        $form=new Application_Form_Public_Auth_Login();
+        if($form->isValid($_POST))
+        {
+            $credenziali=$form->getValues();
+            $this->_auth->autenticazione($credenziali);
+            $this->redirect('index');
+        }
+        $this->view->assign('form',$form);
     }
 
     public function cercaUtenteAction(){
@@ -66,8 +68,8 @@ class PublicController extends Zend_Controller_Action
     }
 
     public function controllaemailAction($info){
-        $a=new Application_Model_User();
-        $email=$a->cercamail($info);
+        $a=new Application_Model_Admin();
+        $email=$a->trovaEmailUtente($info);
         return $email;
     }
     

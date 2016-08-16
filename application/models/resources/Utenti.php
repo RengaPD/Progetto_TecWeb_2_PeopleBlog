@@ -16,6 +16,5 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
         $res=$this->fetchRow($select);
         return $res;
     }
-
-
+    
 }

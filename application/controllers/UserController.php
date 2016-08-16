@@ -1,5 +1,5 @@
 <?php
-class PublicController extends Zend_Controller_Action
+class UserController extends Zend_Controller_Action
 {
     protected $_userModel;
     protected $_authService;
