@@ -1,12 +1,14 @@
 <?php
 class UserController extends Zend_Controller_Action
 {
+    protected $_adminModel;
     protected $_userModel;
     protected $_authService;
 
     public function init()
     {
         $this->_userModel=new Application_Model_User();
+        $this->_adminModel=new Application_Model_Admin();
         $this->_helper->layout->setLayout('layoutuser');
         $this->_authService = new Application_Service_Auth();
     }
@@ -21,9 +23,9 @@ class UserController extends Zend_Controller_Action
     }
     public function modificaprofiloAction()
     {
-        $a=$this->_authService->getIdentity()->Id;
-        $form = new Application_Form_Utente_Modifica();
-        $gigi=$this->_userModel->visualizzaUtentedaID($a)->toArray();
+        $a=$this->_authService->getIdentity()->id;
+        $form = new Application_Form_Utente_Profilo_Aggiorna();
+        $gigi=$this->_adminModel->visualizzaUtentedaID($a)->toArray();
         $form->populate($gigi[0]);
         if($this->getRequest()->isPost())
         {
@@ -41,4 +43,22 @@ class UserController extends Zend_Controller_Action
         $this->view->assign('form', $form);
     }
 
+    public function creablogAction() //da rivedere
+    {
+        $form=new Application_Form_Utente_Blog_Crea();
+        if($this->getRequest()->isPost())
+        {
+            if($form->isValid($_POST))
+            {
+                $dati= $form->getValues();
+                echo 'Blog creato!';
+                $this->_userModel->creaBlog($dati);
+            }
+            else
+            {
+                echo 'Creazione blog fallita';
+            }
+        }
+        $this->view->assign('form', $form);
+    }
 }

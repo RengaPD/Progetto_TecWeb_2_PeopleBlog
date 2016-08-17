@@ -6,6 +6,13 @@
         ?>"
            title="Home">Home</a>
     </li>
+    <li><a href="<?= $this->url(array(
+            'controller'=>'user',
+            'action'=>'modificaprofilo',),
+            'default',true);
+        ?>"
+           title="Modifica profilo">Modifica Profilo</a>
+    </li>
     <?php $user=Zend_Auth::getInstance(); ?>
     <?php if($user->hasIdentity()) :?>
         <li><a href="<?= $this->url(array(
@@ -15,6 +22,24 @@
             ?>"
                title="Disconnettiti"><i class="icon-user"></i>Logout</a></li>
     <?php endif ?>
-
+    <?php $blog=$user->getIdentity()->blog; ?>
+    <?php if($blog==0) :?>
+    <li><a href="<?= $this->url(array(
+            'controller'=>'user',
+            'action'=>'creablog',),
+            'default',true);
+        ?>"
+           title="Crea blog">Crea blog</a>
+    </li>
+    <?php endif; ?>
+    <?php if($blog==1) :?>
+    <li><a href="<?= $this->url(array(
+            'controller'=>'user',
+            'action'=>'gestisciblog',),
+            'default',true);
+        ?>"
+           title="Gestisci">Gestisci blog</a>
+    </li>
+    <?php endif; ?>
 
 </ul>

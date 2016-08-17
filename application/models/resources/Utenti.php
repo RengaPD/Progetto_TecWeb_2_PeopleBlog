@@ -39,7 +39,7 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
 
     public function showUtenti()
     {
-        $select=$this->select()->order('Nome');
+        $select=$this->select()->order('id');
         $res=$this->fetchAll($select);
         return $res;
 

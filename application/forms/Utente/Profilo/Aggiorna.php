@@ -1,5 +1,5 @@
 <?php
-class Application_Form_Public_Registra extends Zend_Form
+class Application_Form_Utente_Profilo_Aggiorna extends Zend_Form
 {
     protected $_publicModel;
 
@@ -7,19 +7,19 @@ class Application_Form_Public_Registra extends Zend_Form
     {
         $this->_publicModel=new Application_Model_Public();
         $this->setMethod('post');
-        $this->setName('registrati');
+        $this->setName('aggiornaprofilo');
         $this->setAction('');
         $this->setAttrib('enctype', 'multipart/form-data');
 
         $this->addElement('hidden','id');
-        
-        $this->addElement('text', 'Nome', array(
+
+        $this->addElement('text', 'nome', array(
             'label' => 'Nome',
             'filters' => array('StringTrim'),
             'required' => true,
             'validators' => array(array('StringLength',true, array(1,25))),
         ));
-        $this->addElement('text', 'Cognome', array(
+        $this->addElement('text', 'cognome', array(
             'label' => 'Cognome',
             'filters' => array('StringTrim'),
             'required' => true,
@@ -60,7 +60,7 @@ class Application_Form_Public_Registra extends Zend_Form
         $this->addElement('hidden','blog');
 
         $this->addElement('submit', 'add', array(
-            'label' => 'Registrati',
+            'label' => 'Aggiorna profilo',
         ));
     }
 }
