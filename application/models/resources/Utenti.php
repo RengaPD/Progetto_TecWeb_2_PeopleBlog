@@ -8,6 +8,7 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
 
     public function init()
     {
+
     }
 
     public function findUserEmail($info)
@@ -57,5 +58,20 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
     {
         $where = $this->getAdapter()->quoteInto('email = ?', $mail);
         $this->delete($where);
+    }
+
+    public function setBlogtrue()
+    {
+        $auth=Zend_Auth::getInstance();
+        $id=$auth->getIdentity()->id;
+        $where=$this->getAdapter()->quoteInto('id=?',$id);
+        $true=true;
+        $this->update(array('nome'=>$auth->getIdentity()->Nome,
+            'cognome'=>$auth->getIdentity()->Cognome,
+            'email'=>$auth->getIdentity()->email,
+            'password'=>$auth->getIdentity()->password,
+            'ruolo'=>$auth->getIdentity()->ruolo,
+            'interessi'=>$auth->getIdentity()->interessi,
+            'blog'=>$true),$where);
     }
 }

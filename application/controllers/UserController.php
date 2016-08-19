@@ -43,7 +43,7 @@ class UserController extends Zend_Controller_Action
         $this->view->assign('form', $form);
     }
 
-    public function creablogAction() //da rivedere
+    public function creablogAction() //ok funziona!
     {
         $form=new Application_Form_Utente_Blog_Crea();
         if($this->getRequest()->isPost())
@@ -51,8 +51,8 @@ class UserController extends Zend_Controller_Action
             if($form->isValid($_POST))
             {
                 $dati= $form->getValues();
-                echo 'Blog creato!';
                 $this->_userModel->creaBlog($dati);
+                echo 'Blog creato!';
             }
             else
             {
@@ -60,5 +60,10 @@ class UserController extends Zend_Controller_Action
             }
         }
         $this->view->assign('form', $form);
+    }
+    
+    public function gestisciblogAction()
+    {
+        
     }
 }

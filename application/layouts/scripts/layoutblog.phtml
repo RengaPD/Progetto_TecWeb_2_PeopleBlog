@@ -1,0 +1,114 @@
+<?php
+$this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
+$this->headTitle()->setSeparator(' - ');
+$this->headTitle('ProgTweb');
+echo $this->doctype(); ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <?php echo $this->headMeta(); ?>
+    <?php echo $this->headTitle(); ?>
+    <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/style.css'); ?>
+    <?php echo $this->headLink()->prependStylesheet('http://fonts.googleapis.com/css?family=Droid+Sans:400,700'); ?>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+<div class="header-wrap">
+    <div class="header">
+        <div class="menu">
+            <?= $this->render('_navblog.phtml')?>
+        </div>
+        <div class="social-media">
+            <ul>
+                <li><a href="#"><img src="<?=$this->baseUrl('images/aim.gif')?>" /></a></li>
+                <li><a href="#"><img src="<?=$this->baseUrl('images/facebook.gif')?>" /></a></li>
+                <li><a href="#"><img src="<?=$this->baseUrl('images/linkedin.gif')?>" /></a></li>
+                <li><a href="#"><img src="<?=$this->baseUrl('images/twitter.gif')?>" /></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- end of header wrapper -->
+<div class="logo-sarch-wrap">
+    <div class="logo-search-container">
+        <div class="logo">
+            <h1><?= $this->render('titoloblog.phtml')?></h1>
+        </div>
+        <div class="search">
+            <div class="search-input">
+                <input type="text" class="search-text-field" value="Search Here ..." />
+            </div>
+            <div class="search-button"><a href="#"><img src="<?=$this->baseUrl('images/search.gif')?>" alt="Cerca" /></a></div>
+        </div>
+    </div>
+</div>
+<!-- end of header wrapper -->
+<?php /*<div class="banner-wrap marginBottom">
+    <div class="banner-left"><img src="images/left-shadow.gif" /></div>
+    <div class="banner">
+        <div class="banner-image">
+            <div class="banner-data">
+                <div class="caption1">
+                    <h1>Pellentesque et aliquet massa donec</h1>
+                </div>
+                <div class="caption2">
+                    <h2> sit amet auctor anteroin sit amet elit doco ipory</h2>
+                </div>
+                <div class="caption3"> Fusce vel ipsum magna, nec tempor neque<br />
+                    orem ipsum dolor sit ametris odonil kusi </div>
+            </div>
+        </div>
+    </div>
+    <div class="banner-right"><img src="images/right-shadow.gif" /></div>
+</div>*/ ?>
+<!-- end of header wrapper -->
+<!-- end of panel wrapper -->
+<div class="page-wrapper">
+    <div class="primary-content">
+        <p><?php echo $this->layout()->content; ?></p>
+    </div>
+    <!-- end of Primary content -->
+    <div class="sidebar marLeft30">
+        <div class="panel">
+            <div class="title">
+                <h1>Suspendise diegnis</h1>
+            </div>
+            <div class="content">
+                <ul>
+                    <li><a href="#">Duis id arcu in odio cursus egest</a></li>
+                    <li><a href="#">Fusce vel ipsum magnigni sompi</a></li>
+                    <li><a href="#">Vestibulum non porta seminaro sin</a></li>
+                    <li><a href="#">Aenean eu dolor quis sapien</a></li>
+                    <li><a href="#">Mauris id ante eget eros integer</a></li>
+                    <li class="borderNone"><a href="#"> Cras ut commodo urna simoure </a></li>
+                </ul>
+            </div>
+            <div class="button-link"></div>
+        </div>
+        <div class="panel marginTop">
+            <div class="title">
+                <h1>Registrati</h1>
+            </div>
+            <div class="content">
+                <div class="subscribe">
+                    <?php /*<input type="text" class="sidebar-text-field" value="Nome e Cognome" />
+                    <input type="text" class="sidebar-text-field" value="Email" />
+                    <input type="text" class="sidebar-text-field" value="Password" />
+                    <div class="button-link"><a href="#">Registrati!</a></div> */ ?>
+
+                </div>
+            </div>
+        </div>
+        <div class="call marginTop">
+            <h1>call us<span>888 888 8888</span></h1>
+        </div>
+    </div>
+    <!-- end of Sidebar -->
+</div>
+<!-- end of page wrapper -->
+<div class="clearing"></div>
+<div class="footer-wrapper marginTop">
+    <div class="footer"> Copyright (c) websitename. All rights reserved. Designed by: <a href="http://alltemplateneeds.com">www.alltemplateneeds.com</a> Images From: www.photorack.net </div>
+</div>
+</body>
+</html>

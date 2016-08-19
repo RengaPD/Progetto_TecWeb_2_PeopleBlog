@@ -16,8 +16,7 @@ class Application_Model_User extends App_Model_Abstract
     
     public function creaBlog($dati)
     {
-       //da rivedere, come si possono gestire i blog??
-        //unica tabella blog. righe sono i post identificate da nome e cognome.
-        //accedendo a blog si selezionano solo post di quell'utente
+       $this->getResource('Blog')->creaBlog($dati);
+       $this->getResource('Utenti')->setBlogtrue(); 
     }
 }

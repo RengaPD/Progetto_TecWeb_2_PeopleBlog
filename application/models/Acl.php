@@ -13,7 +13,8 @@ class Application_Model_Acl extends Zend_Acl
 
         $this->addRole(new Zend_Acl_Role('utente'))
             ->addResource(new Zend_Acl_Resource('user'))
-            ->allow('utente',array('user','public','error','index'));
+            ->addResource(new Zend_Acl_Resource('blog'))
+            ->allow('utente',array('user','public','error','index','blog'));
 
 
         $this->addRole(new Zend_Acl_Role('staff'), 'utente')

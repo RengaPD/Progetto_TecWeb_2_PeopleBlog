@@ -1,0 +1,16 @@
+<?php foreach($this->posts as $posts) :?>
+<div class="panel">
+    <div class="title">
+        <h1><?php echo $posts['titolo'] ?></h1>
+        <h2>Lorem ipsum dolor sit amet consectetur adipiscing elit </h2>
+    </div>
+    <div class="content padBottom"> <img src="images/executive.gif" />
+        <p><?php echo $posts['post'] ?></p>
+    </div>
+    <div class="clearing"></div>
+    <div class="title padTop">
+        <h1 class="padTop">Inviato da <?php echo $posts['Nome'].' '.$posts['Cognome'].' il '.$posts['data e ora'].' '?></h1>
+    </div>
+    <div class="button-link"><a href="#">| - Commenta - |</a> </div>
+</div>
+<?php endforeach ?>

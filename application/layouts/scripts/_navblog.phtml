@@ -1,0 +1,25 @@
+<ul>
+    <li><a href="<?= $this->url(array(
+            'controller'=>'public',
+            'action'=>'index',),
+            'default',true);
+        ?>"
+           title="Home">Home</a>
+    </li>
+    <li><a href="<?= $this->url(array(
+            'controller'=>'blog',
+            'action'=>'creapost',),
+            'default',true);
+        ?>"
+           title="Invia!">Crea post</a>
+    </li>
+    <?php $user=Zend_Auth::getInstance(); ?>
+    <?php if($user->hasIdentity()) :?>
+    <li><a href="<?= $this->url(array(
+            'controller'=>'user',
+            'action'=>'logout'),
+            'default',true);
+        ?>"
+           title="Disconnettiti"><i class="icon-user"></i>Logout</a></li>
+<?php endif ?>
+</ul>
