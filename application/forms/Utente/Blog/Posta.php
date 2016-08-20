@@ -16,7 +16,7 @@ class Application_Form_Utente_Blog_Posta extends Zend_Form
             'label' => 'Titolo del tuo post',
             'filters' => array('StringTrim'),
             'required' => true,
-            'validators' => array(array('StringLength',true, array(1,25))),
+            'validators' => array(array('StringLength',true, array(1,200))),
         ));
 
         $this->addElement('textarea', 'post', array(

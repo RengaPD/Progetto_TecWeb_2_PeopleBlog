@@ -21,7 +21,7 @@ class Application_Resource_Blog extends Zend_Db_Table_Abstract
         $this->insert(array('titoloblog' => $info['nomeblog'],
                             'Nome'=>$_auth->getIdentity()->Nome,
                             'Cognome'=>$_auth->getIdentity()->Cognome,
-                            'data e ora'=>$datetime,
+                            'datetime'=>$datetime,
                             'titolo'=>$info['titolo'],
                             'post'=>$info['post']));
         
@@ -31,7 +31,7 @@ class Application_Resource_Blog extends Zend_Db_Table_Abstract
     {
         $select=$this->select()
             ->where('Nome=?',$nome)
-            ->where('Cognome=?',$cognome)->order('data e ora');
+            ->where('Cognome=?',$cognome)->order('datetime');
         $res=$this->fetchAll($select);
         return $res;
     }
@@ -45,9 +45,39 @@ class Application_Resource_Blog extends Zend_Db_Table_Abstract
             //il primissimo post con index 0 dove è specificato
             'Nome'=>$_auth->getIdentity()->Nome,
             'Cognome'=>$_auth->getIdentity()->Cognome,
-            'data e ora'=>$datetime,
+            'datetime'=>$datetime,
             'titolo'=>$dati['titolo'],
             'post'=>$dati['post']));
 
+    }
+    
+    public function editpost($dati,$a)
+    {
+        $_auth=Zend_Auth::getInstance();
+        $where=array('Nome=?'=>$_auth->getIdentity()->Nome,
+                     'Cognome=?'=>$_auth->getIdentity()->Cognome,
+                      'datetime=?'=>$a);
+        $this->update(array('titolo'=>$dati['titolo'],
+            'post'=>$dati['post']), $where);
+    }
+
+    public function getbydatetime($datetime)
+    {
+        $_auth=Zend_Auth::getInstance();
+        $select=$this->select()
+            ->where('Nome=?',$_auth->getIdentity()->Nome)
+            ->where('Cognome=?',$_auth->getIdentity()->Cognome)
+            ->where('datetime=?',$datetime);
+        $res=$this->fetchAll($select);
+        return $res;
+    }
+
+    public function deletepost($a)
+    {
+        $_auth=Zend_Auth::getInstance();
+        $where=array('Nome=?'=>$_auth->getIdentity()->Nome,
+            'Cognome=?'=>$_auth->getIdentity()->Cognome,
+            'datetime=?'=>$a);
+        $this->delete($where);
     }
 }

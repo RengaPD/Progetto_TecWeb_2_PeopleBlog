@@ -22,6 +22,12 @@ class BlogController extends Zend_Controller_Action
         $nome=$info->getIdentity()->Nome;
         $cognome=$info->getIdentity()->Cognome;
         $this->prendipostAction($nome,$cognome);
+        $bottone=new Zend_Form_Element_Submit('modifica');
+        $bottone->setLabel('Modifica');
+        $this->view->assign('bottonemod',$bottone);
+        $bottone=new Zend_Form_Element_Submit('cancella');
+        $bottone->setLabel('Cancella');
+        $this->view->assign('bottonedel',$bottone);
     }
     
     public function prendipostAction($nome,$cognome) //li ordina per data, l'elemento all'indice 0 sarà per forza
@@ -52,4 +58,33 @@ class BlogController extends Zend_Controller_Action
         $this->view->assign('form', $form);
         
     }
+
+    public function modificapostAction()
+    {
+        $a=$this->_getParam('a');
+        $form=new Application_Form_Utente_Blog_Posta();
+        $gigi=$this->_blogModel->selezionapost($a)->toArray();
+        $form->populate($gigi[0]);
+        if($this->getRequest()->isPost())
+        {
+            if($form->isValid($_POST))
+            {
+                $dati= $form->getValues();
+                $this->_blogModel->modpost($dati,$a); 
+                echo 'Dati inseriti con successo';
+            }
+            else
+            {
+                echo 'Inserimento fallito';
+            }
+        }
+        $this->view->assign('form', $form);
+    }
+    
+    public function cancellapostAction()
+    {
+        $a=$this->getParam('a');
+        $this->_blogModel->cancellapost($a);
+    }
 }
+

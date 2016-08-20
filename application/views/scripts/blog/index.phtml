@@ -1,16 +1,33 @@
 <?php foreach($this->posts as $posts) :?>
+    <?php $a=$posts['datetime']; ?>
 <div class="panel">
     <div class="title">
         <h1><?php echo $posts['titolo'] ?></h1>
-        <h2>Lorem ipsum dolor sit amet consectetur adipiscing elit </h2>
+        <?php $_auth=Zend_Auth::getInstance();
+        $cognome=$_auth->getIdentity()->Cognome;
+        $nome=$_auth->getIdentity()->Nome; ?>
+        <?php if(($nome==$posts['Nome'])&&($cognome==$posts['Cognome'])) :?>
+        <table><tr><th><a href="<?= $this->url(array(
+                        'controller'=>'blog',
+                        'action'=>'modificapost',
+                        'a'=>"$a"),
+                        'default',true);
+                    ?>"><?php echo $this->bottonemod ?></a></th><th><a href="<?= $this->url(array(
+                        'controller'=>'blog',
+                        'action'=>'cancellapost',
+                        'a'=>"$a"),
+                        'default',true);
+                    ?>"><?php echo $this->bottonedel ?></a></th></tr></table>
+        <?php endif; ?>
     </div>
     <div class="content padBottom"> <img src="images/executive.gif" />
         <p><?php echo $posts['post'] ?></p>
     </div>
     <div class="clearing"></div>
     <div class="title padTop">
-        <h1 class="padTop">Inviato da <?php echo $posts['Nome'].' '.$posts['Cognome'].' il '.$posts['data e ora'].' '?></h1>
+        <h1 class="padTop">Inviato da <?php echo $posts['Nome'].' '.$posts['Cognome'].' il '.$posts['datetime'].' '?></h1>
     </div>
+    <div class="button-link"></div>
     <div class="button-link"><a href="#">| - Commenta - |</a> </div>
 </div>
 <?php endforeach ?>
