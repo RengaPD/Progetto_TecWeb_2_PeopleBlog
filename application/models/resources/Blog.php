@@ -80,4 +80,12 @@ class Application_Resource_Blog extends Zend_Db_Table_Abstract
             'datetime=?'=>$a);
         $this->delete($where);
     }
+
+    public function selblogs()
+    {
+        $select=$this->select()
+            ->where('titoloblog IS NOT NULL');
+        $res=$this->fetchAll($select);
+        return $res;
+    }
 }

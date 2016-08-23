@@ -21,7 +21,7 @@ class UserController extends Zend_Controller_Action
         $this->_authService->clear();
         return $this->_helper->redirector('index','public');
     }
-    public function modificaprofiloAction()
+    public function modificaprofiloAction() //non funziona?
     {
         $a=$this->_authService->getIdentity()->id;
         $form = new Application_Form_Utente_Profilo_Aggiorna();
@@ -32,8 +32,8 @@ class UserController extends Zend_Controller_Action
             if($form->isValid($_POST))
             {
                 $dati= $form->getValues();
-                echo 'Dati inseriti con successo';
                 $this->_userModel->modificaProfilo($dati,$a);
+                echo 'Dati inseriti con successo';
             }
             else
             {

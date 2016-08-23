@@ -20,22 +20,24 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
 
     public function insertUtenti($info)
     {
-        $this->insert(array('nome'=>$info['nome'],
-            'cognome'=>$info['cognome'],
+        $this->insert(array('Nome'=>$info['nome'],
+            'Cognome'=>$info['cognome'],
             'email'=>$info['email'],
             'password'=>$info['password'],
             'ruolo'=>$info['ruolo']));
     }
 
-    public function editUtenti(array $info,$id)
+    public function editUtenti($info,$id)
     {
 
         $where = $this->getAdapter()->quoteInto('id = ?', $id);
-        $this->update(array('nome'=>$info['nome'],
-            'cognome'=>$info['cognome'],
+        $this->update(array('Nome'=>$info['Nome'],
+            'Cognome'=>$info['Cognome'],
+            'eta'=>$info['eta'],
             'email'=>$info['email'],
             'password'=>$info['password'],
-            'ruolo'=>$info['ruolo']), $where);
+            'ruolo'=>$info['ruolo'],
+            'interessi'=>$info['interessi']), $where);
     }
 
     public function showUtenti()
@@ -46,17 +48,17 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
 
     }
 
-    public function showUtentedaID($info)
+    public function showUtentedaID($id)
     {
         $select=$this->select()
-            ->where('id =?', (int)$info);
+            ->where('id =?', (int)$id);
         $res=$this->fetchAll($select);
         return $res;
     }
     
-    public function deleteUtenti($mail)
+    public function deleteUtenti($id)
     {
-        $where = $this->getAdapter()->quoteInto('email = ?', $mail);
+        $where = $this->getAdapter()->quoteInto('id = ?', $id);
         $this->delete($where);
     }
 

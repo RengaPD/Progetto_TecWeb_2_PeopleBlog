@@ -3,18 +3,19 @@
 class AdminController extends Zend_Controller_Action
 {
     protected $_adminModel;
-    protected $_form;
-    public $param;
+    protected $_blogModel;
 
 
     public function init()
     {
         $this->_helper->layout->setLayout('layoutadmin');
         $this->_adminModel = new Application_Model_Admin();
+        $this->_blogModel=new Application_Model_Blog();
     }
 
     public function indexAction()
     {
+        $this->contablog();
 
     }
 
@@ -51,7 +52,7 @@ class AdminController extends Zend_Controller_Action
 
 
     }
-    public function modificautenteAction()
+    public function modificautenteAction() //non popola tutta la form?
     {
 
         $a=$this->_getParam('id');
@@ -76,10 +77,16 @@ class AdminController extends Zend_Controller_Action
 
 
 
-    public function cancellautenteAction()
+    public function cancellautenteAction() //funziona
     {
         $a=$this->getParam('id');
         $this->_adminModel->eliminaUtente($a);
 
+    }
+    
+    public function contablog()
+    {
+        $num=$this->_blogModel->contablog();
+        $this->view->assign('numeroblog',$num);
     }
 }

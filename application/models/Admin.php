@@ -33,8 +33,8 @@ class Application_Model_Admin extends App_Model_Abstract
         return $this->getResource('Utenti')->findUserEmail($info);
     }
 
-    public function visualizzaUtentedaID($info)
+    public function visualizzaUtentedaID($id)
     {
-        return $this->getResource('Utenti')->showUtentedaID($info);
+        return $this->getResource('Utenti')->showUtentedaID($id);
     }
 }

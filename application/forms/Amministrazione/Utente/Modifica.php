@@ -13,14 +13,21 @@ class Application_Form_Amministrazione_Utente_Modifica extends Zend_Form
 
         $this->addElement('hidden', 'id');
 
-        $this->addElement('text', 'nome', array(
+        $this->addElement('text', 'Nome', array(
             'label' => 'Nome',
             'filters' => array('StringTrim'),
             'required' => false,
             'validators' => array(array('StringLength',true, array(1,25))),
         ));
-        $this->addElement('text', 'cognome', array(
+        $this->addElement('text', 'Cognome', array(
             'label' => 'Cognome',
+            'filters' => array('StringTrim'),
+            'required' => false,
+            'validators' => array(array('StringLength',true, array(1,25))),
+        ));
+
+        $this->addElement('text', 'eta', array(
+            'label' => 'Età',
             'filters' => array('StringTrim'),
             'required' => false,
             'validators' => array(array('StringLength',true, array(1,25))),
@@ -49,6 +56,12 @@ class Application_Form_Amministrazione_Utente_Modifica extends Zend_Form
             'validators' => array(array('StringLength',true, array(1,25))),
         ));
 
+        $this->addElement('textarea', 'interessi', array(
+            'label' => 'Interessi',
+            'filters' => array('StringTrim'),
+            'required' => false,
+            'validators' => array(array('StringLength',true, array(1,10000))),
+        ));
 
         $this->addElement('submit', 'add', array(
             'label' => 'Modifica',

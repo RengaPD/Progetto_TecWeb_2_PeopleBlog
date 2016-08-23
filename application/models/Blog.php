@@ -33,4 +33,10 @@ class Application_Model_Blog extends App_Model_Abstract
     {
         return $this->getResource('Blog')->deletepost($a);
     }
+    
+   public function contablog()
+   {
+        $res=$this->getResource('Blog')->selblogs();
+        return $conta=count($res);
+   }
 }

@@ -13,13 +13,13 @@ class Application_Form_Utente_Profilo_Aggiorna extends Zend_Form
 
         $this->addElement('hidden','id');
 
-        $this->addElement('text', 'nome', array(
+        $this->addElement('text', 'Nome', array(
             'label' => 'Nome',
             'filters' => array('StringTrim'),
             'required' => true,
             'validators' => array(array('StringLength',true, array(1,25))),
         ));
-        $this->addElement('text', 'cognome', array(
+        $this->addElement('text', 'Cognome', array(
             'label' => 'Cognome',
             'filters' => array('StringTrim'),
             'required' => true,
@@ -48,7 +48,6 @@ class Application_Form_Utente_Profilo_Aggiorna extends Zend_Form
         ));
 
         $this->addElement('hidden','ruolo');
-        $this->ruolo->setValue('utente');
 
         $this->addElement('textarea', 'interessi', array(
             'label' => 'Interessi',
