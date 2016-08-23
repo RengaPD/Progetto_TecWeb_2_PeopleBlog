@@ -38,7 +38,11 @@ echo $this->doctype(); ?>
             <div class="search-input">
                 <input type="text" class="search-text-field" value="Search Here ..." />
             </div>
-            <div class="search-button"><a href="#"><img src="<?=$this->baseUrl('images/search.gif')?>" alt="Cerca" /></a></div>
+            <div class="search-button"><a href="<?= $this->url(array(
+                    'controller'=>'public',
+                    'action'=>'cercautente',),
+                    'default',true);
+                ?>"><img src="<?=$this->baseUrl('images/search.gif')?>" alt="Cerca" /></a></div>
         </div>
     </div>
 </div>

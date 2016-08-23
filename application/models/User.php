@@ -19,4 +19,9 @@ class Application_Model_User extends App_Model_Abstract
        $this->getResource('Blog')->creaBlog($dati);
        $this->getResource('Utenti')->setBlogtrue(); 
     }
+    
+    public function cercaUtente($info)
+    {
+        return $this->getResource('Utenti')->search($info);
+    }
 }

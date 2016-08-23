@@ -24,7 +24,9 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
             'Cognome'=>$info['cognome'],
             'email'=>$info['email'],
             'password'=>$info['password'],
-            'ruolo'=>$info['ruolo']));
+            'ruolo'=>$info['ruolo'],
+            'interessi'=>$info['interessi'],
+            'amici'=>$info['amici']));
     }
 
     public function editUtenti($info,$id)
@@ -37,7 +39,8 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
             'email'=>$info['email'],
             'password'=>$info['password'],
             'ruolo'=>$info['ruolo'],
-            'interessi'=>$info['interessi']), $where);
+            'interessi'=>$info['interessi'],
+            'amici'=>$info['amici']), $where);
     }
 
     public function showUtenti()
@@ -75,5 +78,14 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
             'ruolo'=>$auth->getIdentity()->ruolo,
             'interessi'=>$auth->getIdentity()->interessi,
             'blog'=>$true),$where);
+    }
+    
+    public function search($info)
+    {
+        $select=$this->select()
+            ->where('Nome =?',$info['Nome'])
+            ->where('Cognome=?',$info['Cognome']);
+        $res=$this->fetchAll($select);
+        return $res; 
     }
 }

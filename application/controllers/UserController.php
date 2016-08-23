@@ -14,7 +14,9 @@ class UserController extends Zend_Controller_Action
     }
 
     public function indexAction()
-    {}
+    {
+
+    }
 
     public function logoutAction()
     {
@@ -61,5 +63,4 @@ class UserController extends Zend_Controller_Action
         }
         $this->view->assign('form', $form);
     }
-    
 }

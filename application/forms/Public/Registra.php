@@ -58,6 +58,8 @@ class Application_Form_Public_Registra extends Zend_Form
         ));
 
         $this->addElement('hidden','blog');
+        
+        $this->addElement('hidden','amici');
 
         $this->addElement('submit', 'add', array(
             'label' => 'Registrati',
