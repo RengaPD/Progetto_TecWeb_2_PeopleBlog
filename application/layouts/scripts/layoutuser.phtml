@@ -32,11 +32,11 @@ echo $this->doctype(); ?>
 <div class="logo-sarch-wrap">
     <div class="logo-search-container">
         <div class="logo">
-            <h1>Business Template</h1>
+            <h1>PeopleBlog</h1>
         </div>
         <div class="search">
             <div class="search-input">
-                <input type="text" class="search-text-field" value="Search Here ..." />
+                <input type="text" class="search-text-field" value="Cerca Utenti..." />
             </div>
             <div class="search-button"><a href="#"><img src="<?=$this->baseUrl('images/search.gif')?>" alt="Cerca" /></a></div>
         </div>
@@ -64,44 +64,8 @@ echo $this->doctype(); ?>
 <!-- end of header wrapper -->
 <!-- end of panel wrapper -->
 <div class="page-wrapper">
-    <div class="primary-content">
-        <p><?php echo $this->layout()->content; ?></p>
-    </div>
-    <!-- end of Primary content -->
-    <div class="sidebar marLeft30">
-        <div class="panel">
-            <div class="title">
-                <h1>Suspendise diegnis</h1>
-            </div>
-            <div class="content">
-                <ul>
-                    <li><a href="#">Duis id arcu in odio cursus egest</a></li>
-                    <li><a href="#">Fusce vel ipsum magnigni sompi</a></li>
-                    <li><a href="#">Vestibulum non porta seminaro sin</a></li>
-                    <li><a href="#">Aenean eu dolor quis sapien</a></li>
-                    <li><a href="#">Mauris id ante eget eros integer</a></li>
-                    <li class="borderNone"><a href="#"> Cras ut commodo urna simoure </a></li>
-                </ul>
-            </div>
-            <div class="button-link"></div>
-        </div>
-        <div class="panel marginTop">
-            <div class="title">
-                <h1>Registrati</h1>
-            </div>
-            <div class="content">
-                <div class="subscribe">
-                    <input type="text" class="sidebar-text-field" value="Nome e Cognome" />
-                    <input type="text" class="sidebar-text-field" value="Email" />
-                    <input type="text" class="sidebar-text-field" value="Password" />
-                    <div class="button-link"><a href="#">Registrati!</a></div>
-                </div>
-            </div>
-        </div>
-        <div class="call marginTop">
-            <h1>call us<span>888 888 8888</span></h1>
-        </div>
-    </div>
+    <?php echo $this->layout()->content; ?>
+    
     <!-- end of Sidebar -->
 </div>
 <!-- end of page wrapper -->

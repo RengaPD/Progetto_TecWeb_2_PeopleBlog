@@ -27,11 +27,18 @@ class Application_Resource_Blog extends Zend_Db_Table_Abstract
         
     }
 
-    public function getposts($nome,$cognome)
+    public function getposts_byuser($id_user)
     {
         $select=$this->select()
             ->where('Nome=?',$nome)
             ->where('Cognome=?',$cognome)->order('datetime');
+        $res=$this->fetchAll($select);
+        return $res;
+    }
+    public function getposts_byid($id_post)
+    {
+        $select=$this->select()
+            ->where('id=?',$id_post)
         $res=$this->fetchAll($select);
         return $res;
     }
@@ -43,8 +50,7 @@ class Application_Resource_Blog extends Zend_Db_Table_Abstract
         $datetime=date_format($datetime, 'Y-m-d H:i:s');
         $this->insert(array('titoloblog' => null, //non importa se è null, per visualizzarlo viene usato
             //il primissimo post con index 0 dove è specificato
-            'Nome'=>$_auth->getIdentity()->Nome,
-            'Cognome'=>$_auth->getIdentity()->Cognome,
+            'id'=>$_auth->getIdentity()->id,
             'datetime'=>$datetime,
             'titolo'=>$dati['titolo'],
             'post'=>$dati['post']));
@@ -54,8 +60,7 @@ class Application_Resource_Blog extends Zend_Db_Table_Abstract
     public function editpost($dati,$a)
     {
         $_auth=Zend_Auth::getInstance();
-        $where=array('Nome=?'=>$_auth->getIdentity()->Nome,
-                     'Cognome=?'=>$_auth->getIdentity()->Cognome,
+        $where=array('id=?'=>$_auth->getIdentity()->id,
                       'datetime=?'=>$a);
         $this->update(array('titolo'=>$dati['titolo'],
             'post'=>$dati['post']), $where);

@@ -58,7 +58,7 @@ class PublicController extends Zend_Controller_Action
         {
             $credenziali=$form->getValues();
             $this->_auth->autenticazione($credenziali);
-            $this->redirect('index');
+            $this->redirect('user');
         }
         $this->view->assign('form',$form);
     }
