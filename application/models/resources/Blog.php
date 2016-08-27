@@ -60,7 +60,7 @@ class Application_Resource_Blog extends Zend_Db_Table_Abstract
     public function editpost($dati,$a)
     {
         $_auth=Zend_Auth::getInstance();
-        $where=array('id=?'=>$_auth->getIdentity()->id,
+        $where=array('id_user=?'=>$_auth->getIdentity()->id,
                       'datetime=?'=>$a);
         $this->update(array('titolo'=>$dati['titolo'],
             'post'=>$dati['post']), $where);

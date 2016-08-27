@@ -93,7 +93,7 @@ BANNER CLASSES
 LAYOUT CLASSS
 -------------------------------------------------*/
 .page-wrapper { width:960px; margin:0 auto; overflow:hidden;}
-.primary-content { float:left; width:628px; overflow:hidden;}
+.primary-content { float:left; width:628px; overflow:visible;}
 .sidebar { float:left; width:298px; overflow:hidden;}
 
 /*-------------------------------------------------
