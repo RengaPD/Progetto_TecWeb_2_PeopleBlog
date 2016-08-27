@@ -70,8 +70,7 @@ class Application_Resource_Blog extends Zend_Db_Table_Abstract
     {
         $_auth=Zend_Auth::getInstance();
         $select=$this->select()
-            ->where('Nome=?',$_auth->getIdentity()->Nome)
-            ->where('Cognome=?',$_auth->getIdentity()->Cognome)
+            ->where('id_user=?',$_auth->getIdentity()->id)
             ->where('datetime=?',$datetime);
         $res=$this->fetchAll($select);
         return $res;
