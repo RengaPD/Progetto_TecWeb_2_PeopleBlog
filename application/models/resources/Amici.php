@@ -1,7 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: renga
- * Date: 28/08/16
- * Time: 1.46
- */
+class Application_Resource_Utenti extends Zend_Db_Table_Abstract
+{
+    protected $_name    = 'amici';
+    protected $_primary  = 'id_friendship';
+    protected $_rowClass = 'Application_Resource_Amici_Item';
+
+    public function init()
+    {
+
+    }
+
+ 
