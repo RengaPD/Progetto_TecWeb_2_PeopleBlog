@@ -30,15 +30,15 @@ class Application_Resource_Blog extends Zend_Db_Table_Abstract
     public function getposts_byuser($id_user)
     {
         $select=$this->select()
-            ->where('Nome=?',$nome)
-            ->where('Cognome=?',$cognome)->order('datetime');
+            ->where('id_user=?',$id_user)
+            ->order('datetime');
         $res=$this->fetchAll($select);
         return $res;
     }
     public function getposts_byid($id_post)
     {
         $select=$this->select()
-            ->where('id=?',$id_post)
+            ->where('id=?',$id_post);
         $res=$this->fetchAll($select);
         return $res;
     }
@@ -79,8 +79,7 @@ class Application_Resource_Blog extends Zend_Db_Table_Abstract
     public function deletepost($a)
     {
         $_auth=Zend_Auth::getInstance();
-        $where=array('Nome=?'=>$_auth->getIdentity()->Nome,
-            'Cognome=?'=>$_auth->getIdentity()->Cognome,
+        $where=array('id_user=?'=>$_auth->getIdentity()->id,
             'datetime=?'=>$a);
         $this->delete($where);
     }
