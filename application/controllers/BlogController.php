@@ -86,5 +86,7 @@ class BlogController extends Zend_Controller_Action
         $a=$this->getParam('a');
         $this->_blogModel->cancellapost($a);
     }
+
+    
 }
 
