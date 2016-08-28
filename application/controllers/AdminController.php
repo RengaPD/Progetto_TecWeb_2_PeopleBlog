@@ -15,7 +15,7 @@ class AdminController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        $this->contablog();
+        $this->contablogAction();
 
     }
 
@@ -84,7 +84,7 @@ class AdminController extends Zend_Controller_Action
 
     }
     
-    public function contablog()
+    public function contablogAction()
     {
         $num=$this->_blogModel->contablog();
         $this->view->assign('numeroblog',$num);

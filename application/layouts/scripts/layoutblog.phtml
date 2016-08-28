@@ -8,6 +8,8 @@ echo $this->doctype(); ?>
     <?php echo $this->headMeta(); ?>
     <?php echo $this->headTitle(); ?>
     <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/style.css'); ?>
+    <?php echo $this->headScript()->appendFile($this->baseUrl().'/js/jquery-3.1.0.js'); ?>
+    <?php echo $this->headScript()->appendFile($this->baseUrl().'/js/inserisci_commento.js'); ?>
     <?php echo $this->headLink()->prependStylesheet('http://fonts.googleapis.com/css?family=Droid+Sans:400,700'); ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -110,5 +112,7 @@ echo $this->doctype(); ?>
 <div class="footer-wrapper marginTop">
     <div class="footer"> Copyright (c) websitename. All rights reserved. Designed by: <a href="http://alltemplateneeds.com">www.alltemplateneeds.com</a> Images From: www.photorack.net </div>
 </div>
+<input type="hidden" id="user-id" value="<?php $auth=Zend_Auth::getInstance(); echo $auth->getIdentity()->id; ?>" />
+<input type="hidden" id="username" value="<?php echo $auth->getIdentity()->Nome." ".$auth->getIdentity()->Cognome; ?>" />
 </body>
 </html>

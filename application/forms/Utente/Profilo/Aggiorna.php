@@ -57,6 +57,8 @@ class Application_Form_Utente_Profilo_Aggiorna extends Zend_Form
         ));
 
         $this->addElement('hidden','blog');
+        
+        $this->addElement('hidden','amici');
 
         $this->addElement('submit', 'add', array(
             'label' => 'Aggiorna profilo',

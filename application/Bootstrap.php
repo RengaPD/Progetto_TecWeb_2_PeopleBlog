@@ -37,6 +37,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         ));
         Zend_Db_Table_Abstract::setDefaultAdapter($db);
     }
+    
 
 }
 

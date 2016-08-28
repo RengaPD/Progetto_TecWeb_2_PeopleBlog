@@ -63,6 +63,13 @@ class Application_Form_Amministrazione_Utente_Modifica extends Zend_Form
             'validators' => array(array('StringLength',true, array(1,10000))),
         ));
 
+        $this->addElement('textarea', 'amici', array(
+            'label' => 'Amici',
+            'filters' => array('StringTrim'),
+            'required' => false,
+            'validators' => array(array('StringLength',true, array(1,10000))),
+        ));
+
         $this->addElement('submit', 'add', array(
             'label' => 'Modifica',
         ));

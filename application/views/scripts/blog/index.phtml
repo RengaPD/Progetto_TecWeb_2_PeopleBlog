@@ -20,7 +20,7 @@
                     ?>"><?php echo $this->bottonedel ?></a></th></tr></table>
         <?php endif; ?>
     </div>
-    <div class="content padBottom"> <img src="images/executive.gif" />
+    <div class="content padBottom"> <!--<img src="images/executive.gif" /> -->
         <p><?php echo $posts['post'] ?></p>
     </div>
     <div class="clearing"></div>
@@ -28,6 +28,62 @@
         <h1 class="padTop">Inviato da <?php echo $posts['Nome'].' '.$posts['Cognome'].' il '.$posts['datetime'].' '?></h1>
     </div>
     <div class="button-link"></div>
-    <div class="button-link"><a href="#">| - Commenta - |</a> </div>
+    <div class="button-link"><a href="#">| - Commenta - |</a> </div><br><br>
+    <div class="comment-wrapper">
+        <h3 class="comment-title">Commenti lasciati:</h3>
+        <div class="comment-insert">
+            <h3 class="chi">Tizio</h3>
+            <div class="comment-insert-container">
+                <textarea id="comment-post-text" class="comment-insert-text"></textarea>
+            </div>
+            <div class="post-button-wrapper" id="invia-btn">
+                Invia
+            </div>
+
+        </div>
+        <div class="comments-list">
+            <ul class="comments-holder">
+                <li class="comment-holder" id="_1">
+                    <div class="user-img"><img src="images/img2.jpg" class="user-imgpic"/></div>
+                    <div class="comment-body">
+                        <h3 class="username-field">
+                            Bla
+                        </h3>
+                        <div class="comment-text">
+                            Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui
+                            Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui
+                            Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui
+                            Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui
+                        </div>
+                    </div>
+                    <div class="comment-buttons-holder">
+                        <ul>
+                            <li class="delete-button">
+                                X
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="comment-holder" id="_1">
+                    <div class="user-img"><img src="images/img2.jpg" class="user-imgpic"/></div>
+                    <div class="comment-body">
+                        <h3 class="username-field">
+                            Bla
+                        </h3>
+                        <div class="comment-text">
+                            Il testo qui
+                        </div>
+                    </div>
+                    <div class="comment-buttons-holder">
+                        <ul>
+                            <li class="delete-button">
+                                X
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
 <?php endforeach ?>

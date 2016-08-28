@@ -41,5 +41,14 @@
            title="Gestisci">Gestisci blog</a>
     </li>
     <?php endif; ?>
+    <li><a href="<?= $this->url(array(
+            'controller'=>'user',
+            'action'=>'show',
+            'a'=>$user->getIdentity()->Nome,
+            'b'=>$user->getIdentity()->Cognome),
+            'default',true);
+        ?>"
+           title="Profilo">Profilo pubb</a>
+    </li>
 
 </ul>
