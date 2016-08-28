@@ -19,6 +19,12 @@ class Application_Model_User extends App_Model_Abstract
        $this->getResource('Blog')->creaBlog($dati);
        $this->getResource('Utenti')->setBlogtrue(); 
     }
+
+    public function mostraamici($id_user)
+    {
+        return $this->getResource('Amici')->showmyfriends($id_user);
+    }
+    
     public function aggiungiamico($id_user)
     {
         return $this->getResource('Amici')->addfriend($id_user);
