@@ -113,6 +113,6 @@ echo $this->doctype(); ?>
     <div class="footer"> Copyright (c) websitename. All rights reserved. Designed by: <a href="http://alltemplateneeds.com">www.alltemplateneeds.com</a> Images From: www.photorack.net </div>
 </div>
 <input type="hidden" id="user-id" value="<?php $auth=Zend_Auth::getInstance(); echo $auth->getIdentity()->id; ?>" />
-<input type="hidden" id="username" value="<?php echo $auth->getIdentity()->Nome." ".$auth->getIdentity()->Cognome; ?>" />
+<input type="hidden" id="username" value="<?php echo $auth->getIdentity()->Nome." ".$auth->getIdentity()->Cognome; ?>" /> 
 </body>
 </html>
