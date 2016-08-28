@@ -24,3 +24,17 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
         $res=$this->fetchAll($select);
         return $res;
     }
+
+
+
+    public function sendrequest($id_requester, $id)
+    {
+
+        $this->insert(array('idamico_a'=>$id_requester,
+            'idamico_b'=>$id,
+            'requestedby'=>$id_requester,
+            'state'=>'requested',
+            ));
+    }
+
+    
