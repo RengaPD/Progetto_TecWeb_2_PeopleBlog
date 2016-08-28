@@ -27,11 +27,18 @@ class Application_Resource_Blog extends Zend_Db_Table_Abstract
         
     }
 
-    public function getposts($nome,$cognome)
+    public function getposts_byuser($id_user)
     {
         $select=$this->select()
-            ->where('Nome=?',$nome)
-            ->where('Cognome=?',$cognome)->order('datetime');
+            ->where('id_user=?',$id_user)
+            ->order('datetime');
+        $res=$this->fetchAll($select);
+        return $res;
+    }
+    public function getposts_byid($id_post)
+    {
+        $select=$this->select()
+            ->where('id=?',$id_post);
         $res=$this->fetchAll($select);
         return $res;
     }
@@ -43,8 +50,7 @@ class Application_Resource_Blog extends Zend_Db_Table_Abstract
         $datetime=date_format($datetime, 'Y-m-d H:i:s');
         $this->insert(array('titoloblog' => null, //non importa se è null, per visualizzarlo viene usato
             //il primissimo post con index 0 dove è specificato
-            'Nome'=>$_auth->getIdentity()->Nome,
-            'Cognome'=>$_auth->getIdentity()->Cognome,
+            'id'=>$_auth->getIdentity()->id,
             'datetime'=>$datetime,
             'titolo'=>$dati['titolo'],
             'post'=>$dati['post']));
@@ -54,8 +60,7 @@ class Application_Resource_Blog extends Zend_Db_Table_Abstract
     public function editpost($dati,$a)
     {
         $_auth=Zend_Auth::getInstance();
-        $where=array('Nome=?'=>$_auth->getIdentity()->Nome,
-                     'Cognome=?'=>$_auth->getIdentity()->Cognome,
+        $where=array('id_user=?'=>$_auth->getIdentity()->id,
                       'datetime=?'=>$a);
         $this->update(array('titolo'=>$dati['titolo'],
             'post'=>$dati['post']), $where);
@@ -65,8 +70,7 @@ class Application_Resource_Blog extends Zend_Db_Table_Abstract
     {
         $_auth=Zend_Auth::getInstance();
         $select=$this->select()
-            ->where('Nome=?',$_auth->getIdentity()->Nome)
-            ->where('Cognome=?',$_auth->getIdentity()->Cognome)
+            ->where('id_user=?',$_auth->getIdentity()->id)
             ->where('datetime=?',$datetime);
         $res=$this->fetchAll($select);
         return $res;
@@ -75,8 +79,7 @@ class Application_Resource_Blog extends Zend_Db_Table_Abstract
     public function deletepost($a)
     {
         $_auth=Zend_Auth::getInstance();
-        $where=array('Nome=?'=>$_auth->getIdentity()->Nome,
-            'Cognome=?'=>$_auth->getIdentity()->Cognome,
+        $where=array('id_user=?'=>$_auth->getIdentity()->id,
             'datetime=?'=>$a);
         $this->delete($where);
     }

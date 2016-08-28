@@ -1,6 +1,33 @@
-<br><br><br>
-<?php $nome=Zend_Auth::getInstance()->getIdentity()->Nome;
-$cognome=Zend_Auth::getInstance()->getIdentity()->Cognome;
-echo 'Benvenuto/a '.$nome.' '.$cognome.'! '; ?>
-<br>
-Questo è il pannello utente. Seleziona l'azione da eseguire
+
+    <div class="primary-content">
+        <p>
+            <br><br><br>
+
+            <br>
+            Questo è il pannello utente. Seleziona l'azione da eseguire
+
+
+        </p>
+    </div>
+    <!-- end of Primary content -->
+    <div class="sidebar marLeft30">
+        <div class="panel">
+            <div class="title">
+                <h1><?php $nome=Zend_Auth::getInstance()->getIdentity()->Nome;
+                    $cognome=Zend_Auth::getInstance()->getIdentity()->Cognome;
+                    echo $nome.' '.$cognome.' '; ?></h1>
+            </div>
+            <div class="content">
+                <ul>
+                    <li><a href="#">Duis id arcu in odio cursus egest</a></li>
+                    <li><a href="#">Fusce vel ipsum magnigni sompi</a></li>
+                    <li><a href="#">Vestibulum non porta seminaro sin</a></li>
+                    <li><a href="#">Aenean eu dolor quis sapien</a></li>
+                    <li><a href="#">Mauris id ante eget eros integer</a></li>
+                    <li class="borderNone"><a href="#"> Cras ut commodo urna simoure </a></li>
+                </ul>
+            </div>
+            <div class="button-link"></div>
+        </div>
+        
+    </div>

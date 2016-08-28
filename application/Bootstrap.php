@@ -31,8 +31,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
         $db = new Zend_Db_Adapter_Pdo_Mysql(array(
             'host'     => 'localhost',
-            'username' => 'admin',
-            'password' => 'password',
+            'username' => 'root',
+            'password' => '',
             'dbname'   => 'tweb'
         ));
         Zend_Db_Table_Abstract::setDefaultAdapter($db);
