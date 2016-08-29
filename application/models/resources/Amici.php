@@ -25,16 +25,48 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
         return $res;
     }
 
+    public function show_outgoing_requests($id_user)
+    {
+        $select->where
+            ->equalTo('requestedby', $id_user);
+
+        $res=$this->fetchAll($select);
+        return $res;
+    }
 
 
     public function sendrequest($id_requester, $id)
     {
+        //controllo pre-richiesta
 
-        $this->insert(array('idamico_a'=>$id_requester,
-            'idamico_b'=>$id,
-            'requestedby'=>$id_requester,
-            'state'=>'requested',
+        $select->where
+            //il richiedente ha gia richiesto ?
+            ->nest()
+            ->equalTo('requestedby', $id_requester)
+            ->and
+            ->equalTo('idamico_b', $id)
+            ->unnest()
+            ->or
+            //oppure il richiesto ha gia mandato una richiesta?
+            ->nest()
+            ->equalTo('requestedby', $id)
+            ->and
+            ->equalTo('idamico_b', $id_requester)
+            ->unnest()
+            //il codice così scritto sottintende anche un controllo sul fatto che non ci sia gia un amicizia
+
+        $res=$this->fetchAll($select);
+
+        if(!empty($res))
+        {
+
+            //se non ci sono richieste da parte di b nei confronti di a e non sono gia state fatte altre richiesta da parte di a crea la richiesta
+            $this->insert(array('idamico_a' => $id_requester,
+                'idamico_b' => $id,
+                'requestedby' => $id_requester,
+                'state' => 'requested',
             ));
+            return true
+        }else return false
     }
 
-    
