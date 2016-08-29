@@ -65,8 +65,8 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
                 'requestedby' => $id_requester,
                 'state' => 'requested',
             ));
-            return true
-        } else return false
+            return true;
+        } else return false;
     }
 
     public function removefriend($id_remover, $id_removed)
@@ -90,6 +90,15 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
 
         $this->delete($selection);
 
+    }
+    public function acceptrequest($id_user, $id_requester)
+    {
+        $selection->where
+            ->equalTo('requestedby', $id_requester)
+            ->and
+            ->equalTo('idamico_b', $id_user);
+
+        $this->update(array('state'=>'accepted'), $selection);
     }
 
 }
