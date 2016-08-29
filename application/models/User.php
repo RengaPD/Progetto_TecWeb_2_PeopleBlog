@@ -27,7 +27,7 @@ class Application_Model_User extends App_Model_Abstract
     
     public function aggiungiamico($id_user)
     {
-        return $this->getResource('Amici')->addfriend($id_user);
+        return $this->getResource('Amici')->sendrequest($id_user);
     }
     public function rimuoviamco($id_user)
     {
