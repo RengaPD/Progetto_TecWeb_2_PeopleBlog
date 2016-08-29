@@ -52,7 +52,7 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
             ->equalTo('requestedby', $id)
             ->and
             ->equalTo('idamico_b', $id_requester)
-            ->unnest()
+            ->unnest();
             //il codice così scritto sottintende anche un controllo sul fatto che non ci sia gia un amicizia
 
         $res=$this->fetchAll($select);
@@ -70,3 +70,26 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
         }else return false
     }
 
+    public function removefriend($id_remover,$id_removed)
+    {
+        $selection->where
+
+            ->nest()
+            ->nest()
+            ->equalTo('requestedby', $id_requester)
+            ->and
+            ->equalTo('idamico_b', $id_removed)
+            ->unnest()
+            ->or
+            ->nest()
+            ->equalTo('requestedby', $id_removed)
+            ->and
+            ->equalTo('idamico_b', $id_requester)
+            ->unnest()
+            ->unnest()
+            ->and
+            ->equalTo('state', 'accepted');
+
+        $this->delete($selection);
+
+    }
