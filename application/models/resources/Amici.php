@@ -1,8 +1,8 @@
 <?php
 class Application_Resource_Utenti extends Zend_Db_Table_Abstract
 {
-    protected $_name    = 'amici';
-    protected $_primary  = 'id_friendship';
+    protected $_name = 'amici';
+    protected $_primary = 'id_friendship';
     protected $_rowClass = 'Application_Resource_Amici_Item';
 
     public function init()
@@ -21,7 +21,7 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
             ->and
             ->equalTo('state', 'accepted');
 
-        $res=$this->fetchAll($select);
+        $res = $this->fetchAll($select);
         return $res;
     }
 
@@ -30,7 +30,7 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
         $select->where
             ->equalTo('requestedby', $id_user);
 
-        $res=$this->fetchAll($select);
+        $res = $this->fetchAll($select);
         return $res;
     }
 
@@ -53,12 +53,11 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
             ->and
             ->equalTo('idamico_b', $id_requester)
             ->unnest();
-            //il codice così scritto sottintende anche un controllo sul fatto che non ci sia gia un amicizia
+        //il codice così scritto sottintende anche un controllo sul fatto che non ci sia gia un amicizia
 
-        $res=$this->fetchAll($select);
+        $res = $this->fetchAll($select);
 
-        if(!empty($res))
-        {
+        if (!empty($res)) {
 
             //se non ci sono richieste da parte di b nei confronti di a e non sono gia state fatte altre richiesta da parte di a crea la richiesta
             $this->insert(array('idamico_a' => $id_requester,
@@ -67,16 +66,15 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
                 'state' => 'requested',
             ));
             return true
-        }else return false
+        } else return false
     }
 
-    public function removefriend($id_remover,$id_removed)
+    public function removefriend($id_remover, $id_removed)
     {
         $selection->where
-
             ->nest()
             ->nest()
-            ->equalTo('requestedby', $id_requester)
+            ->equalTo('requestedby', $id_remover)
             ->and
             ->equalTo('idamico_b', $id_removed)
             ->unnest()
@@ -84,7 +82,7 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
             ->nest()
             ->equalTo('requestedby', $id_removed)
             ->and
-            ->equalTo('idamico_b', $id_requester)
+            ->equalTo('idamico_b', $id_remover)
             ->unnest()
             ->unnest()
             ->and
@@ -93,3 +91,5 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
         $this->delete($selection);
 
     }
+
+}
