@@ -9,6 +9,12 @@ echo $this->doctype(); ?>
     <?php echo $this->headTitle(); ?>
     <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/style.css'); ?>
     <?php echo $this->headLink()->prependStylesheet('http://fonts.googleapis.com/css?family=Droid+Sans:400,700'); ?>
+    <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/js/jquery-ui.min.css'); ?>
+    <script src="<?php echo $this->baseUrl("js/jquery.js")?>"></script>
+    <script src="<?php echo $this->baseUrl("js/jquery-ui.min.js")?>"></script>
+    <script src="<?php echo $this->baseUrl("js/jquery-1.10.1.min.js")?>"></script>
+    <script src="<?php echo $this->baseUrl("js/searchbox.js")?>"></script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
@@ -34,11 +40,11 @@ echo $this->doctype(); ?>
         <div class="logo">
             <h1>PeopleBlog</h1>
         </div>
-        <div class="search">
+
             <div class="search-input">
-                <input type="text" class="search-text-field" value="Cerca Utenti..." />
+                <input id="searchbox" type="text" value="Cerca Utenti..." />
             </div>
-            <div class="search-button"><a href="#"><img src="<?=$this->baseUrl('images/search.gif')?>" alt="Cerca" /></a></div>
+
         </div>
     </div>
 </div>

@@ -31,14 +31,14 @@ class Application_Model_User extends App_Model_Abstract
     }
     public function rimuoviamco($id_user)
     {
-        return $this->getResource('Amici')->remfriend($id_user);
+        $this->getResource('Amici')->removefriend($id_user);
     }
-    public function accettarichiesta($id_request)
+    public function accettarichiesta($id_requester)
     {
-        return $this->getResource('Amici')->acceptfriend($id_request);
+        $this->getResource('Amici')->acceptrequest($id_requester);
     }
-    public function rifiutarichiesta($id_request)
+    public function rifiutarichiesta($id_requester)
     {
-        return $this->getResource('Amici')->refusefriend($id_request);
+        return $this->getResource('Amici')->refuserequest($id_requester);
     }
 }
