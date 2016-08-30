@@ -41,4 +41,8 @@ class Application_Model_User extends App_Model_Abstract
     {
         return $this->getResource('Amici')->refuserequest($id_requester);
     }
+    public function sonoamici($ida,$idb)
+    {        
+        return $this->getResource('Amici')->arefriends($ida,$idb);
+    }
 }

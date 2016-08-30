@@ -68,4 +68,41 @@ class UserController extends Zend_Controller_Action
     {
         $this->_userModel->controllaamici();
     }
+    public function showuserprofileAction()
+    {
+        $auth=Zend_Auth::getInstance();
+        $myid=$auth->getIdentity()->id;
+        
+        $id=$this->getParam('id');
+        $userinfo=$this->_userModel->getuserinfo($id)->toArray();
+        var_dump($userinfo);
+        
+        if ($this->_userModel->arefriends($id,$myid))
+        {
+            //mostra i blog e i post
+            
+        }else
+        {
+            $this->view->assign('amici',false);
+        }
+            
+        /*
+        $eta=$this->getParam('c');
+        $interessi=$this->getParam('d');
+        $this->view->assign('nome',$nome);
+        $this->view->assign('cognome',$cognome);
+        $this->view->assign('eta',$eta);
+        $this->view->assign('interessi',$interessi);
+        */
+    }
+    public function updateajaxAction()
+    {
+        $this->_helper->getHelper('layout')->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+        $user = $this->_userModel->usersearch($_POST['q']);
+        
+        if ($response != null) {
+            $this->getResponse()->setHeader('Content-type', 'application/json')->setBody($response);
+        }
+    }
 }
