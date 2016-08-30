@@ -1,6 +1,65 @@
-/*-------------------------------------------------
+/*----------------------------------------
+search style
+
+----------------------------------------------------------*/
+
+#searchbox {
+    background:#d02aa3; color:#ffffff;
+    border: 1px solid #fff;
+    margin-top: 50px;
+    height: 30px;
+    width: 600px;
+    padding: 10px;
+    float: right;
+    font-size: 26px;
+}
+
+    #searchbox:hover {
+        border: 1px solid #000;
+    }
+
+    #searchbox:focus {
+        border: 1px solid #000;
+        outline: 0;
+    }
+
+.searchItem {
+    height: 50px;
+    padding: 10px;
+    background-color: #fff;
+    text-align: left;
+}
+
+.ui-menu-item {
+    background: inherit !important;
+}
+
+.ui-state-focus {
+    background-color: rgba(0, 140, 186, 0.3) !important;
+    border: 0 !important;
+    color: #000 !important;
+    margin: 0px !important;
+}
+
+.contactImage {
+    height: 50px;
+}
+
+.contactImageDiv {
+    height: 50px;
+    width: 50px;
+    overflow: hidden;
+    float: left;
+}
+
+.nameDiv {
+    display: inline-block;
+    padding-left: 5px;
+}
+/*----------------------------------------
 GLOBALS CLASSES
--------------------------------------------------*/
+----------------------------------------------------------*/
+
 *{ margin:0; padding:0; font-family: 'Pontano Sans', sans-serif;}
 body { background:#f1f1f1;}
 
@@ -58,7 +117,7 @@ HEADER CLASSES
 .logo h1 { color:#ffffff; font-size:36px; text-transform:uppercase; font-weight:normal;}
 
 .search { float:right; width:280px; margin-top:50px;}
-.search-input { float:left; width:220px;}
+.search-input { float:right; width:220px;}
 .search-button { float:left;}
 .search-text-field { width:220px; border:0px solid ; background:#d02aa3; color:#ffffff; height:40px; line-height:40px; padding-left:10px;}
 

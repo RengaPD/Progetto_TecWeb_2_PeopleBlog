@@ -4,12 +4,8 @@
             <br><br><br>
 
             <br>
-            Questo è il pannello utente. Seleziona l'azione da eseguire<br><br>
-            <?php if(!$this->messaggio=='') :?> 
-            <?php foreach ($this->messaggio as $mex) :?>
-            <?php echo $mex ?>
-            <?php endforeach; ?>
-            <?php endif ?>
+            Questo è il pannello utente. Seleziona l'azione da eseguire
+
 
         </p>
     </div>
@@ -23,8 +19,9 @@
             </div>
             <div class="content">
                 <ul>
-                    <li>Bla</li>
-                    <li>Bla</li>
+                    <li><a href="#"><?php $interessi=Zend_Auth::getInstance()->getIdentity()->interessi;
+                            echo $interessi; ?></a></li>
+
                 </ul>
             </div>
             <div class="button-link"></div>
