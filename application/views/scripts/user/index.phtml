@@ -4,8 +4,12 @@
             <br><br><br>
 
             <br>
-            Questo è il pannello utente. Seleziona l'azione da eseguire
-
+            Questo è il pannello utente. Seleziona l'azione da eseguire<br><br>
+            <?php if(!$this->messaggio=='') :?> 
+            <?php foreach ($this->messaggio as $mex) :?>
+            <?php echo $mex ?>
+            <?php endforeach; ?>
+            <?php endif ?>
 
         </p>
     </div>
@@ -19,12 +23,8 @@
             </div>
             <div class="content">
                 <ul>
-                    <li><a href="#">Duis id arcu in odio cursus egest</a></li>
-                    <li><a href="#">Fusce vel ipsum magnigni sompi</a></li>
-                    <li><a href="#">Vestibulum non porta seminaro sin</a></li>
-                    <li><a href="#">Aenean eu dolor quis sapien</a></li>
-                    <li><a href="#">Mauris id ante eget eros integer</a></li>
-                    <li class="borderNone"><a href="#"> Cras ut commodo urna simoure </a></li>
+                    <li>Bla</li>
+                    <li>Bla</li>
                 </ul>
             </div>
             <div class="button-link"></div>

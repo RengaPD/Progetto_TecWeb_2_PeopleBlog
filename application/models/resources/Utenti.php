@@ -11,14 +11,14 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
 
     }
 
-    public function findUserEmail($info)
+    public function findUserEmail($info)  //funziona
     {
         $select=$this->select()->where('email=?',$info);
         $res=$this->fetchRow($select);
         return $res;
     }
 
-    public function insertUtenti($info)
+    public function insertUtenti($info) //funziona
     {
         $this->insert(array('Nome'=>$info['nome'],
             'Cognome'=>$info['cognome'],
@@ -29,10 +29,10 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
             'amici'=>$info['amici']));
     }
 
-    public function editUtenti($info,$id)
+    public function editUtenti($info,$id)  //funziona,rim amici
     {
 
-        $where = $this->getAdapter()->quoteInto('id = ?', $id);
+        $where = $this->getAdapter()->quoteInto('id= ?', $id);
         $this->update(array('Nome'=>$info['Nome'],
             'Cognome'=>$info['Cognome'],
             'eta'=>$info['eta'],
@@ -40,10 +40,11 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
             'password'=>$info['password'],
             'ruolo'=>$info['ruolo'],
             'interessi'=>$info['interessi'],
+            'blog'=>$info['blog'],
             'amici'=>$info['amici']), $where);
     }
 
-    public function showUtenti()
+    public function showUtenti() //funziona
     {
         $select=$this->select()->order('id');
         $res=$this->fetchAll($select);
@@ -51,21 +52,20 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
 
     }
 
-    public function showUtentedaID($id)
+    public function showUtentedaID($id) //funziona
     {
-        $select=$this->select()
-            ->where('id =?', (int)$id);
+        $select=$this->select()->where('id=?',$id);
         $res=$this->fetchAll($select);
         return $res;
     }
     
-    public function deleteUtenti($id)
+    public function deleteUtenti($id) //funziona
     {
         $where = $this->getAdapter()->quoteInto('id = ?', $id);
         $this->delete($where);
     }
 
-    public function setBlogtrue()
+    public function setBlogtrue()  //funziona
     {
         $auth=Zend_Auth::getInstance();
         $id=$auth->getIdentity()->id;
@@ -80,7 +80,7 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
             'blog'=>$true),$where);
     }
     
-    public function search($info)
+    public function search($info) //funziona
     {
         $select=$this->select()
             ->where('Nome =?',$info['Nome'])

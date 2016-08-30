@@ -41,4 +41,12 @@ class Application_Model_User extends App_Model_Abstract
     {
         return $this->getResource('Amici')->refusefriend($id_request);
     }
+    
+    public function controllaNotifiche($id){
+        return $this->getResource('Notifiche')->controlnotification($id);
+    }
+    
+    public function inviaNotifica($id,$tipo){
+        return $this->getResource('Notifiche')->sendNotification($id,$tipo);
+    }
 }

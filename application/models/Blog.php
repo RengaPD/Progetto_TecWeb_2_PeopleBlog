@@ -9,9 +9,9 @@ class Application_Model_Blog extends App_Model_Abstract
 
     }
 
-    public function prendipost($nome,$cognome)
+    public function prendipost($id_user)
     {
-        return $this->getResource('Blog')->getposts($nome,$cognome);
+        return $this->getResource('Blog')->getposts_byuser($id_user);
     }
     
     public function postasuBlog($dati)

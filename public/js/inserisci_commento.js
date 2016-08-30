@@ -49,14 +49,14 @@ function comment_post_click(){
     $('#comment-post-text').val(""); //risvuota dopo aver cliccato!
 }
 
-function inserisci_commento(data)
+function inserisci_commento(_username,_testo)
 {
     var t='';
     t+='<li class="comment-holder" id="1">';
     t+='<div class="user-img"><img src="images/img2.jpg" class="user-imgpic"/></div>';
     t+='<div class="comment-body">';
-    t+='<h3 class="username-field">'+data.username+'</h3>';
-    t+='<div class="comment-text">'+data.comment+'</div>';
+    t+='<h3 class="username-field">'+_username+'</h3>';
+    t+='<div class="comment-text">'+_testo+'</div>';
     t+='</div>';
     t+='<div class="comment-buttons-holder">';
     t+='<ul>';

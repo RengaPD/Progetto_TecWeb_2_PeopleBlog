@@ -46,8 +46,8 @@ HEADER CLASSES
 .menu { float:left; width:505px;}
 .menu ul li { float:left; width:100px; margin-right:1px;}
 .menu ul li a { display:block; width:100px; height:80px; line-height:80px; text-align:center; color:#ffffff; background:#1ac6ff;}
-.menu ul li a:hover { background:#33cdff;} 
-.menu ul li a.active { background:#33cdff;} 
+.menu ul li a:hover { background:#33cdff;}
+.menu ul li a.active { background:#33cdff;}
 
 .social-media { float:right; height:80px;}
 .social-media ul li { float:left; margin-right:10px; padding-top:25px;}
@@ -137,7 +137,7 @@ SIDEBAR CLASSS
 
 .subscribe {}
 .subscribe .button-link a { display:block; width:90px; height:36px; line-height:36px; text-align:center; background:#00c0ff; color:#ffffff; font-size:12px; margin-left:30px; margin-top:20px;}
-.subscribe .button-link a:hover { background:#dd31ae;} 
+.subscribe .button-link a:hover { background:#dd31ae;}
 .sidebar-text-field { width:230px; height:40px; line-height:40px; border:0px solid; background:#e6e6e6; padding-left:10px; color:#9b9b9b; margin-left:30px; margin-top:30px;}
 
 .sidebar .call { background:#dd31ae; padding:30px;}

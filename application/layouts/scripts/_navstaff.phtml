@@ -6,6 +6,13 @@
         ?>"
            title="Home">Home</a>
     </li>
+    <li><a href="<?= $this->url(array(
+            'controller'=>'staff',
+            'action'=>'visualizzablog',),
+            'default',true);
+        ?>"
+           title="Gestisci Blog">Gestisci Blog</a>
+    </li>
     <?php $user=Zend_Auth::getInstance(); ?>
     <?php if($user->hasIdentity()) :?>
         <li><a href="<?= $this->url(array(

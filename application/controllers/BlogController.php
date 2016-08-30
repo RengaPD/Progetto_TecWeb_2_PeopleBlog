@@ -2,6 +2,7 @@
 class BlogController extends Zend_Controller_Action
 {
     protected $_blogModel;
+    protected $_adminModel;
     protected $_authService;
     protected $nome;
     protected $cognome;
@@ -9,6 +10,7 @@ class BlogController extends Zend_Controller_Action
     public function init()
     {
         $this->_blogModel=new Application_Model_Blog();
+        $this->_adminModel=new Application_Model_Admin();
         $this->_helper->layout->setLayout('layoutblog');
         $this->_authService = new Application_Service_Auth();
         $info=Zend_Auth::getInstance();
@@ -19,9 +21,11 @@ class BlogController extends Zend_Controller_Action
     public function indexAction()
     {
         $info=Zend_Auth::getInstance();
-        $nome=$info->getIdentity()->Nome;
-        $cognome=$info->getIdentity()->Cognome;
-        $this->prendipostAction($nome,$cognome);
+        $id_user=$info->getIdentity()->id;
+        $this->prendipostAction($id_user);
+        $infouser=$this->_adminModel->visualizzaUtentedaID($id_user);
+        $this->view->assign('nomeuser',$infouser[0]['Nome']);
+        $this->view->assign('cognomeuser',$infouser[0]['Cognome']);
         $bottone=new Zend_Form_Element_Submit('modifica');
         $bottone->setLabel('Modifica');
         $this->view->assign('bottonemod',$bottone);
@@ -30,10 +34,10 @@ class BlogController extends Zend_Controller_Action
         $this->view->assign('bottonedel',$bottone);
     }
     
-    public function prendipostAction($nome,$cognome) //li ordina per data, l'elemento all'indice 0 sarà per forza
+    public function prendipostAction($id_user) //li ordina per data, l'elemento all'indice 0 sarà per forza
         //il primo post inviato sul blog con il titolo giusto.
     {
-        $posts=$this->_blogModel->prendipost($nome,$cognome)->toArray();
+        $posts=$this->_blogModel->prendipost($id_user)->toArray();
         $this->view->assign('posts',$posts);
         Zend_Layout::getMvcInstance()->assign('titoloblog',$posts[0]['titoloblog']);
     }
@@ -83,10 +87,12 @@ class BlogController extends Zend_Controller_Action
     
     public function cancellapostAction()
     {
-        $a=$this->getParam('a');
+        $a=$this->getParam('id');
         $this->_blogModel->cancellapost($a);
     }
 
-    
+    public function inviacommentoAction(){
+        
+    }
 }
 

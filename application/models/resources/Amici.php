@@ -1,8 +1,8 @@
 <?php
-class Application_Resource_Utenti extends Zend_Db_Table_Abstract
+class Application_Resource_Amici extends Zend_Db_Table_Abstract
 {
-    protected $_name    = 'amici';
-    protected $_primary  = 'id_friendship';
+    protected $_name = 'amici';
+    protected $_primary = 'id_friendship';
     protected $_rowClass = 'Application_Resource_Amici_Item';
 
     public function init()
@@ -12,7 +12,7 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
 
     public function showmyfriends($id_user)
     {
-        $select->where
+        /*$select=$this->select()->where
             ->nest()
             ->equalTo('idamico_a', $id_user)
             ->or
@@ -22,19 +22,19 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
             ->equalTo('state', 'accepted');
 
         $res=$this->fetchAll($select);
-        return $res;
+        return $res;*/
     }
-
 
 
     public function sendrequest($id_requester, $id)
     {
 
-        $this->insert(array('idamico_a'=>$id_requester,
-            'idamico_b'=>$id,
-            'requestedby'=>$id_requester,
-            'state'=>'requested',
-            ));
+        $this->insert(array('idamico_a' => $id_requester,
+            'idamico_b' => $id,
+            'requestedby' => $id_requester,
+            'state' => 'requested',
+        ));
     }
+}
 
     

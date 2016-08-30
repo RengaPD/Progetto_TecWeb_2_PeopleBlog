@@ -48,6 +48,12 @@ class Application_Form_Amministrazione_Utente_Aggiungi extends Zend_Form
             'validators' => array(array('StringLength',true, array(1,25))),
         ));
 
+        $this->addElement('hidden','interessi');
+
+        $this->addElement('hidden','blog');
+        $this->blog->setValue(0);
+
+        $this->addElement('hidden','amici');
 
         $this->addElement('submit', 'add', array(
             'label' => 'Aggiungi Utente',
