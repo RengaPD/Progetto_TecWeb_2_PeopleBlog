@@ -74,10 +74,10 @@ class UserController extends Zend_Controller_Action
         $myid=$auth->getIdentity()->id;
         
         $id=$this->getParam('id');
-        $userinfo=$this->_userModel->getuserinfo($id)->toArray();
+        $userinfo=$this->_userModel->mostrautente($id)->toArray();
         var_dump($userinfo);
         
-        if ($this->_userModel->arefriends($id,$myid))
+        if ($this->_userModel->sonoamici($id,$myid))
         {
             //mostra i blog e i post
             
@@ -99,10 +99,9 @@ class UserController extends Zend_Controller_Action
     {
         $this->_helper->getHelper('layout')->disableLayout();
         $this->_helper->viewRenderer->setNoRender();
-        $user = $this->_userModel->usersearch($_POST['q']);
-        
-        if ($response != null) {
-            $this->getResponse()->setHeader('Content-type', 'application/json')->setBody($response);
+        $user = $this->_userModel->cercautente($_POST['q']);
+        if ($user != null) {
+            $this->getResponse()->setHeader('Content-type', 'application/json')->setBody(json_encode($user));
         }
     }
 }

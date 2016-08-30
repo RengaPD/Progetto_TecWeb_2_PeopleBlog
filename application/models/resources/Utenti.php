@@ -51,7 +51,7 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
 
     }
 
-    public function showUtentedaID($id)
+    public function showUserbyID($id)
     {
         $select=$this->select()
             ->where('id =?', (int)$id);
@@ -80,12 +80,12 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
             'blog'=>$true),$where);
     }
     
-    public function search($info)
+    public function searchutenti($info)
     {
-        $select=$this->select()
-            ->where('Nome =?',$info['Nome'])
-            ->where('Cognome=?',$info['Cognome']);
-        $res=$this->fetchAll($select);
+        $query = 'SELECT * FROM utenti  WHERE Nome LIKE "'.$info.'%" OR  Cognome LIKE "'.$info.'%"';
+        $db = Zend_Db_Table_Abstract::getDefaultAdapter()->query($query);
+        $res=$db->fetchAll();
         return $res; 
     }
+
 }

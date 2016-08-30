@@ -43,7 +43,7 @@ echo $this->doctype(); ?>
         </div>
 
             <div class="search-input">
-                <input id="searchbox" type="text" value="Cerca Utenti..." />
+                <input id="searchbox" type="text" placeholder="Cerca Utenti..." />
             </div>
 
         </div>
@@ -97,7 +97,8 @@ data: {
 q: request.term
 },
 success: function( data ) {
-
+console.log(typeof data);
+    console.log(data);
 // Handle 'no match' indicated by [ "" ] response
 response( data.length === 1 && data[ 0 ].length === 0 ? [] : data );
 }
@@ -105,12 +106,12 @@ response( data.length === 1 && data[ 0 ].length === 0 ? [] : data );
 },
 minLength: 2,
 focus: function (event, ui) {
-$("#searchbox").val(ui.item.firstName + " " + ui.item.lastName)
+$("#searchbox").val(ui.item.Nome + " " + ui.item.Cognome)
 return false;
 },
 select: function (event, ui) {
 
-var url = "<?php echo $this->url(array('controller' => 'user','action' => 'showprofile'));?>"+"/id/"+ui.item.id ;
+var url = "<?php echo $this->url(array('controller' => 'user','action' => 'showuserprofile'));?>"+"/id/"+ui.item.id ;
 location.href = url;
 return false;
 },
@@ -132,7 +133,7 @@ var $li = $("<li>");
 
             $name = $("<div>");
                 $name.addClass("nameDiv");
-                $name.append(item.firstName + " " + item.lastName + "<br/><span style='font-style:italic'>"+"</span>");
+                $name.append(item.Nome + " " + item.Cognome + "<br/><span style='font-style:italic'>"+"</span>");
                 $name.appendTo($outerDiv);
 
                 $li.appendTo(ul);

@@ -13,6 +13,14 @@ class Application_Model_User extends App_Model_Abstract
     {
         return $this->getResource('Utenti')->editUtenti($info,$id);
     }
+    public function cercautente($info)
+    {
+        return $this->getResource('Utenti')->searchUtenti($info);
+    }
+    public function mostrautente($id)
+    {
+        return $this->getResource('Utenti')->showUserbyID($id);
+    }
     
     public function creaBlog($dati)
     {

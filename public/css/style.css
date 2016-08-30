@@ -13,6 +13,16 @@ search style
     float: right;
     font-size: 26px;
 }
+.ui-autocomplete {
+    max-height: 200px;
+    overflow-y: auto;
+
+    overflow-x: hidden;
+}
+
+* html .ui-autocomplete {
+    height: 200px;
+}
 
     #searchbox:hover {
         border: 1px solid #000;
