@@ -13,6 +13,13 @@
         ?>"
            title="Modifica profilo">Modifica Profilo</a>
     </li>
+    <li><a href="<?= $this->url(array(
+            'controller'=>'user',
+            'action'=>'cambiaimmagine',),
+            'default',true);
+        ?>"
+           title="Cambia immagine">Cambia Immagine</a>
+    </li>
     <?php $user=Zend_Auth::getInstance(); ?>
     <?php if($user->hasIdentity()) :?>
         <li><a href="<?= $this->url(array(

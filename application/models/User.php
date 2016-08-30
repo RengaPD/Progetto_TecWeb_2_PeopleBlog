@@ -49,4 +49,8 @@ class Application_Model_User extends App_Model_Abstract
     public function inviaNotifica($id,$tipo){
         return $this->getResource('Notifiche')->sendNotification($id,$tipo);
     }
+    
+    public function cambiaImmagine($dati,$id){
+        return $this->getResource('Utenti')->changeprofilepic($dati,$id);
+    }
 }

@@ -69,6 +69,25 @@ class UserController extends Zend_Controller_Action
         }
         $this->view->assign('form', $form);
     }
+    
+    public function cambiaimmagineAction(){
+        $a=$this->_authService->getIdentity()->id;
+        $form = new Application_Form_Utente_Profilo_CambiaImg();
+        if($this->getRequest()->isPost())
+        {
+            if($form->isValid($_POST))
+            {
+                $dati= $form->getValues();
+                $this->_userModel->cambiaImmagine($dati,$a);
+                echo 'Immagine cambiata con successo';
+            }
+            else
+            {
+                echo 'Inserimento fallito';
+            }
+        }
+        $this->view->assign('form', $form);
+    }
 
     public function creablogAction() //ok funziona!
     {

@@ -26,6 +26,9 @@ class Application_Form_Public_Registra extends Zend_Form
             'validators' => array(array('StringLength',true, array(1,25))),
         ));
 
+        $this->addElement('hidden','immagine');
+        $this->immagine->setValue('nobody.jpg');
+
         $this->addElement('text', 'eta', array(
             'label' => 'Età',
             'filters' => array('StringTrim'),
@@ -58,8 +61,7 @@ class Application_Form_Public_Registra extends Zend_Form
         ));
 
         $this->addElement('hidden','blog');
-        
-        $this->addElement('hidden','amici');
+
 
         $this->addElement('submit', 'add', array(
             'label' => 'Registrati',

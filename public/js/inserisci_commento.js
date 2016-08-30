@@ -16,6 +16,7 @@ function comment_post_click(){
     var getUrl = window.location;
     var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
     var url=baseUrl + "/public/ajax/inserisci.php";
+    var url2=baseUrl+"/public/blog/inviacommento";
     if(_testo.length>0&&!_userId==0) //solo utenti loggati, quindi che hanno un userid!
     {
         //invia effettivamente, altrimenti non c'è bisogno
@@ -23,7 +24,8 @@ function comment_post_click(){
 
         $.ajax({
             type: "POST",
-            url: url,
+            url: url2,
+            dataType: "json",
             data: {
                 task : "inserisci",
                 userId : _userId,
@@ -32,7 +34,7 @@ function comment_post_click(){
             },
             success: function(data)
             {
-                inserisci_commento(data);
+                inserisci_commento(_username,_testo);
                 console.log("Risposta da file php: "+data+"");
             },
             error: function()

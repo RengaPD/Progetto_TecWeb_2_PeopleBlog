@@ -1,5 +1,4 @@
 <?php foreach($this->posts as $posts) :?>
-
     <?php $id=$posts['id']; ?>
 <div class="panel">
     <div class="title">
@@ -29,10 +28,15 @@
         <h1 class="padTop">Inviato da <?php echo $this->nomeuser.' '.$this->cognomeuser.' il '.$posts['datetime'].' '?></h1>
     </div>
     <div class="button-link"></div>
-    <div class="button-link"><a href="#">| - Commenta - |</a> </div><br><br>
+    <div class="button-link"><a href="<?= $this->url(array(
+            'controller'=>'blog',
+            'action'=>'commenta',
+            'idpost'=>"$id"),
+            'default',true);
+        ?>">| - Commenta - |</a> </div><br><br>
     <div class="comment-wrapper">
         <h3 class="comment-title">Commenti lasciati:</h3>
-        <div class="comment-insert">
+        <!--<div class="comment-insert">
             <h3 class="chi">Di qualcosa...</h3>
             <div class="comment-insert-container">
                 <textarea id="comment-post-text" class="comment-insert-text"></textarea>
@@ -41,40 +45,29 @@
                 Invia
             </div>
 
-        </div>
+        </div>-->
         <div class="comments-list">
             <ul class="comments-holder">
                 <li class="comment-holder" id="1">
-                    <div class="user-img"><img src="images/img2.jpg" class="user-imgpic"/></div>
-                    <div class="comment-body">
-                        <h3 class="username-field">
-                            Bla
-                        </h3>
-                        <div class="comment-text">
-                            Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui
-                            Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui
-                            Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui
-                            Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui Il testo qui
-                        </div>
-                    </div>
-                    <div class="comment-buttons-holder">
+                    <!--<div class="user-img"><img src="images/img2.jpg" class="user-imgpic"/></div>-->
+                            <?php foreach ($this->commenti as $commenti) :?>
+                                <?php $idcommento=$commenti['comment_id']; ?>
+                            <?php if($commenti['post_id']==$posts['id']) :?>
+                            <?php echo '<li class="comment-holder"><div class="comment-body"><h3 class="username-field">'.$commenti['autore_commento'].' </h3>'; ?>
+                                    <?php echo '<div class="comment-text">'.$commenti['comment'].'</div><div class="comment-buttons-holder">
                         <ul>
-                            <li class="delete-button">
-                                X
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="comment-holder" id="1">
-                    <div class="user-img"><img src="images/img2.jpg" class="user-imgpic"/></div>
-                    <div class="comment-body">
-                        <h3 class="username-field">
-                            Bla
-                        </h3>
-                        <div class="comment-text">
-                            Il testo qui
-                        </div>
-                    </div>
+                            <li class="delete-button">'; ?>
+                                    <?php if ($_auth->getIdentity()->id==$commenti['user_id']) :?>
+                                    <a href="<?= $this->url(array(
+                                        'controller'=>'blog',
+                                        'action'=>'cancellacommento',
+                                        'idcommento'=>"$idcommento"),
+                                        'default',true);
+                                    ?>">X</a>
+                                    <?php endif ?>
+                                    <?php echo '</ul></div></li>'; ?>
+                            <?php endif ?>
+                            <?php endforeach ?>
                     <div class="comment-buttons-holder">
                         <ul>
                             <li class="delete-button">

@@ -22,14 +22,14 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
     {
         $this->insert(array('Nome'=>$info['nome'],
             'Cognome'=>$info['cognome'],
+            'immagine'=>$info['immagine'],
             'email'=>$info['email'],
             'password'=>$info['password'],
             'ruolo'=>$info['ruolo'],
-            'interessi'=>$info['interessi'],
-            'amici'=>$info['amici']));
+            'interessi'=>$info['interessi']));
     }
 
-    public function editUtenti($info,$id)  //funziona,rim amici
+    public function editUtenti($info,$id)  //funziona
     {
 
         $where = $this->getAdapter()->quoteInto('id= ?', $id);
@@ -40,8 +40,7 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
             'password'=>$info['password'],
             'ruolo'=>$info['ruolo'],
             'interessi'=>$info['interessi'],
-            'blog'=>$info['blog'],
-            'amici'=>$info['amici']), $where);
+            'blog'=>$info['blog']), $where);
     }
 
     public function showUtenti() //funziona
@@ -73,6 +72,7 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
         $true=true;
         $this->update(array('nome'=>$auth->getIdentity()->Nome,
             'cognome'=>$auth->getIdentity()->Cognome,
+            'immagine'=>$auth->getIdentity()->immagine,
             'email'=>$auth->getIdentity()->email,
             'password'=>$auth->getIdentity()->password,
             'ruolo'=>$auth->getIdentity()->ruolo,
@@ -87,5 +87,11 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
             ->where('Cognome=?',$info['Cognome']);
         $res=$this->fetchAll($select);
         return $res; 
+    }
+
+    public function changeprofilepic($dati,$id){
+        $auth=Zend_Auth::getInstance();
+        $where=$this->getAdapter()->quoteInto('id=?',$id);
+        $this->update(array('immagine'=>$dati['immagine']), $where);
     }
 }
