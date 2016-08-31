@@ -1,0 +1,28 @@
+<div class="primary-content">
+    <p>
+        <br><br><br>
+
+        <br>
+        Questo è il profilo pubblico
+
+
+    </p>
+</div>
+<div class="sidebar marLeft30">
+    <div class="panel">
+        <div class="title">
+            <h1><?php echo $this->nome; ?> <?php echo $this->cognome; ?></h1>
+        </div>
+        <div class="profilepic">
+            <img src="<?php echo $this->baseUrl() . '/images/profiles/'.$this->immagine; ?>" />
+        </div>
+        <div class="content">
+
+            <?php echo $this->interessi; ?>
+
+
+        </div>
+        <div class="button-link"></div>
+    </div>
+
+</div>

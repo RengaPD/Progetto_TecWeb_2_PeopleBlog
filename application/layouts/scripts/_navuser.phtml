@@ -49,10 +49,13 @@
     </li>
     <?php endif; ?>
     <li><a href="<?= $this->url(array(
-            'controller'=>'public',
+            'controller'=>'user',
             'action'=>'show',
             'a'=>$user->getIdentity()->Nome,
-            'b'=>$user->getIdentity()->Cognome),
+            'b'=>$user->getIdentity()->Cognome,
+            'c'=>$user->getIdentity()->eta,
+            'd'=>$user->getIdentity()->interessi,
+            'e'=>$user->getIdentity()->immagine),
             'default',true);
         ?>"
            title="Profilo">Profilo pubb</a>

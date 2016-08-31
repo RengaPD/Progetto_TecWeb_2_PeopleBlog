@@ -1,5 +1,6 @@
 <?php foreach($this->posts as $posts) :?>
     <?php $id=$posts['id']; ?>
+    <?php $id_autore=$posts['id_user']; ?>
 <div class="panel">
     <div class="title">
         <h1><?php echo $posts['titolo'] ?></h1>
@@ -31,7 +32,8 @@
     <div class="button-link"><a href="<?= $this->url(array(
             'controller'=>'blog',
             'action'=>'commenta',
-            'idpost'=>"$id"),
+            'idpost'=>"$id",
+            'idautore'=>"$id_autore"),
             'default',true);
         ?>">| - Commenta - |</a> </div><br><br>
     <div class="comment-wrapper">

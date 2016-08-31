@@ -70,7 +70,7 @@ class UserController extends Zend_Controller_Action
         $this->view->assign('form', $form);
     }
     
-    public function cambiaimmagineAction(){
+    public function cambiaimmagineAction(){ //funziona
         $a=$this->_authService->getIdentity()->id;
         $form = new Application_Form_Utente_Profilo_CambiaImg();
         if($this->getRequest()->isPost())
@@ -120,7 +120,21 @@ class UserController extends Zend_Controller_Action
         return $notifiche;
     }
     
-    public function inviaNotificaAction($id_destinatario,$tipologia){ 
+    public function inviaNotificaAction($id_destinatario,$tipologia){  //funziona
         $this->_userModel->inviaNotifica($id_destinatario,$tipologia);
+    }
+
+    public function showAction()
+    {
+        $nome=$this->getParam('a');
+        $cognome=$this->getParam('b');
+        $eta=$this->getParam('c');
+        $interessi=$this->getParam('d');
+        $immagine=$this->getParam('e');
+        $this->view->assign('nome',$nome);
+        $this->view->assign('cognome',$cognome);
+        $this->view->assign('eta',$eta);
+        $this->view->assign('interessi',$interessi);
+        $this->view->assign('immagine',$immagine);
     }
 }
