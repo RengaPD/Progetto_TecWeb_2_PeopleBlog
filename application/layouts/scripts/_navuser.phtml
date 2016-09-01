@@ -1,10 +1,20 @@
 <ul>
     <li><a href="<?= $this->url(array(
-            'controller'=>'public',
+            'controller'=>'user',
             'action'=>'index',),
             'default',true);
         ?>"
            title="Home">Home</a>
+    </li>
+    <li><a href="<?= $this->url(array(
+            'controller'=>'user',
+            'action'=>'showuserprofile',
+            'id'=>'my'),
+            'default',true);
+        ?>"
+           title="Profilo"><?php $nome=Zend_Auth::getInstance()->getIdentity()->Nome;
+            $cognome=Zend_Auth::getInstance()->getIdentity()->Cognome;
+            echo $nome.' '.$cognome.' '; ?></a>
     </li>
     <li><a href="<?= $this->url(array(
             'controller'=>'user',
@@ -41,14 +51,6 @@
            title="Gestisci">Gestisci blog</a>
     </li>
     <?php endif; ?>
-    <li><a href="<?= $this->url(array(
-            'controller'=>'user',
-            'action'=>'show',
-            'a'=>$user->getIdentity()->Nome,
-            'b'=>$user->getIdentity()->Cognome),
-            'default',true);
-        ?>"
-           title="Profilo">Profilo pubb</a>
-    </li>
+
 
 </ul>

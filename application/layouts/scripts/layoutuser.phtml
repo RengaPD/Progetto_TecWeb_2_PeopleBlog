@@ -110,8 +110,14 @@ $("#searchbox").val(ui.item.Nome + " " + ui.item.Cognome)
 return false;
 },
 select: function (event, ui) {
+    //il mio problema è qui, la prima ricerca funziona la seconda ricerca no, cioè quendo esegui la ricerca per la seconda volta nell'url del browser il parametro
+    // id si duplica
+    // visto che da quello che mi dici e comunque dalla teoria il php viene caricato subito
+    //c'è un metodo specifico per generare quell'url nel modo in cui serve a me o devo
+    //creare io una funzione che mi modifichi la stringa che genera il php per renderla come voglio?ricer
 
-var url = "<?php echo $this->url(array('controller' => 'user','action' => 'showuserprofile'));?>"+"/id/"+ui.item.id ;
+
+var url = "<?php echo $this->url(array('controller' => 'user','action' =>'showuserprofile','id'=>'<script>ui.item.id</script>'));?>"+"/id/"+ui.item.id ;
 location.href = url;
 return false;
 },

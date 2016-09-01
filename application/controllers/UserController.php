@@ -70,30 +70,35 @@ class UserController extends Zend_Controller_Action
     }
     public function showuserprofileAction()
     {
+    
         $auth=Zend_Auth::getInstance();
         $myid=$auth->getIdentity()->id;
         
         $id=$this->getParam('id');
-        $userinfo=$this->_userModel->mostrautente($id)->toArray();
-        var_dump($userinfo);
-        
-        if ($this->_userModel->sonoamici($id,$myid))
-        {
-            //mostra i blog e i post
-            
-        }else
-        {
-            $this->view->assign('amici',false);
+
+        if(('my'==$id)) {
+
+            $this->view->interessi = $auth->getIdentity()->interessi;
+            $this->view->assign('nome',$auth->getIdentity()->Nome);
+            $this->view->assign('cognome',$auth->getIdentity()->Cognome);
+            $this->view->assign('eta',$auth->getIdentity()->eta);
+        }else{
+            $userinfo = $this->_userModel->mostrautente($id)->toArray();
+            var_dump($userinfo);
+            $this->view->interessi = $userinfo[0]["interessi"];
+            $this->view->assign('nome',$userinfo[0]["Nome"]);
+            $this->view->assign('cognome',$userinfo[0]["Cognome"]);
+            $this->view->assign('eta',$userinfo[0]["eta"]);
+
+            //if($this->_userModel->sonoamici($id,$myid))
+            //{
+                //mostra blog dell'amico
+ //           }
+
         }
-            
-        /*
-        $eta=$this->getParam('c');
-        $interessi=$this->getParam('d');
-        $this->view->assign('nome',$nome);
-        $this->view->assign('cognome',$cognome);
-        $this->view->assign('eta',$eta);
-        $this->view->assign('interessi',$interessi);
-        */
+
+        
+
     }
     public function updateajaxAction()
     {

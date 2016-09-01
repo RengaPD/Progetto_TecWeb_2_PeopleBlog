@@ -60,31 +60,12 @@ class PublicController extends Zend_Controller_Action
         {
             $credenziali=$form->getValues();
             $this->_auth->autenticazione($credenziali);
-            $this->redirect('user');
+            $this->redirect('user/showuserprofile/id/my');
         }
         $this->view->assign('form',$form);
     }
 
-    public function cercautenteAction(){
-        $form=new Application_Form_Public_Cerca();
-        if($form->isValid($_POST))
-        {
-            $info=$form->getValues();
-            $res=$this->_userModel->cercaUtente($info)->toArray();
-            if($res) //trovato, da espandere con amicizie ecc
-            {
-                $nome=$res[0]['Nome'];
-                $cognome=$res[0]['Cognome'];
-                $eta=$res[0]['eta'];
-                $interessi=$res[0]['interessi'];
-                $this->redirect('public/show/a/'.$nome.'/b/'.$cognome.'/c/'.$eta.'/d/'.$interessi);
-            }
-            else{
-                echo 'Errore!';
-            }
-        }
-        $this->view->assign('form',$form);
-    }
+    
 
     public function controllaemailAction($info){
         $a=new Application_Model_Admin();
