@@ -117,7 +117,7 @@ select: function (event, ui) {
     //creare io una funzione che mi modifichi la stringa che genera il php per renderla come voglio?ricer
 
 
-var url = "<?php echo $this->url(array('controller' => 'user','action' =>'showuserprofile','id'=>'<script>ui.item.id</script>'));?>"+"/id/"+ui.item.id ;
+var url = "<?php echo $this->url(array('controller' => 'user','action' =>'showuserprofile'));?>"+"/id/"+ui.item.id ;
 location.href = url;
 return false;
 },
