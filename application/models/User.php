@@ -13,6 +13,14 @@ class Application_Model_User extends App_Model_Abstract
     {
         return $this->getResource('Utenti')->editUtenti($info,$id);
     }
+    public function cercautente($info)
+    {
+        return $this->getResource('Utenti')->searchUtenti($info);
+    }
+    public function mostrautente($id)
+    {
+        return $this->getResource('Utenti')->showUserbyID($id);
+    }
     
     public function creaBlog($dati)
     {
@@ -41,16 +49,8 @@ class Application_Model_User extends App_Model_Abstract
     {
         return $this->getResource('Amici')->refuserequest($id_requester);
     }
-    
-    public function controllaNotifiche($id){
-        return $this->getResource('Notifiche')->controlnotification($id);
-    }
-    
-    public function inviaNotifica($id,$tipo){
-        return $this->getResource('Notifiche')->sendNotification($id,$tipo);
-    }
-    
-    public function cambiaImmagine($dati,$id){
-        return $this->getResource('Utenti')->changeprofilepic($dati,$id);
+    public function sonoamici($ida,$idb)
+    {        
+        return $this->getResource('Amici')->arefriends($ida,$idb);
     }
 }

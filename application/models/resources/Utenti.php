@@ -11,28 +11,28 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
 
     }
 
-    public function findUserEmail($info)  //funziona
+    public function findUserEmail($info)
     {
         $select=$this->select()->where('email=?',$info);
         $res=$this->fetchRow($select);
         return $res;
     }
 
-    public function insertUtenti($info) //funziona
+    public function insertUtenti($info)
     {
         $this->insert(array('Nome'=>$info['nome'],
             'Cognome'=>$info['cognome'],
-            'immagine'=>$info['immagine'],
             'email'=>$info['email'],
             'password'=>$info['password'],
             'ruolo'=>$info['ruolo'],
-            'interessi'=>$info['interessi']));
+            'interessi'=>$info['interessi'],
+            'amici'=>$info['amici']));
     }
 
-    public function editUtenti($info,$id)  //funziona
+    public function editUtenti($info,$id)
     {
 
-        $where = $this->getAdapter()->quoteInto('id= ?', $id);
+        $where = $this->getAdapter()->quoteInto('id = ?', $id);
         $this->update(array('Nome'=>$info['Nome'],
             'Cognome'=>$info['Cognome'],
             'eta'=>$info['eta'],
@@ -40,10 +40,10 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
             'password'=>$info['password'],
             'ruolo'=>$info['ruolo'],
             'interessi'=>$info['interessi'],
-            'blog'=>$info['blog']), $where);
+            'amici'=>$info['amici']), $where);
     }
 
-    public function showUtenti() //funziona
+    public function showUtenti()
     {
         $select=$this->select()->order('id');
         $res=$this->fetchAll($select);
@@ -51,20 +51,21 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
 
     }
 
-    public function showUtentedaID($id) //funziona
+    public function showUserbyID($id)
     {
-        $select=$this->select()->where('id=?',$id);
+        $select=$this->select()
+            ->where('id =?', (int)$id);
         $res=$this->fetchAll($select);
         return $res;
     }
     
-    public function deleteUtenti($id) //funziona
+    public function deleteUtenti($id)
     {
         $where = $this->getAdapter()->quoteInto('id = ?', $id);
         $this->delete($where);
     }
 
-    public function setBlogtrue()  //funziona
+    public function setBlogtrue()
     {
         $auth=Zend_Auth::getInstance();
         $id=$auth->getIdentity()->id;
@@ -72,7 +73,6 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
         $true=true;
         $this->update(array('nome'=>$auth->getIdentity()->Nome,
             'cognome'=>$auth->getIdentity()->Cognome,
-            'immagine'=>$auth->getIdentity()->immagine,
             'email'=>$auth->getIdentity()->email,
             'password'=>$auth->getIdentity()->password,
             'ruolo'=>$auth->getIdentity()->ruolo,
@@ -80,18 +80,12 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
             'blog'=>$true),$where);
     }
     
-    public function search($info) //funziona
+    public function searchutenti($info)
     {
-        $select=$this->select()
-            ->where('Nome =?',$info['Nome'])
-            ->where('Cognome=?',$info['Cognome']);
-        $res=$this->fetchAll($select);
+        $query = 'SELECT * FROM utenti  WHERE Nome LIKE "'.$info.'%" OR  Cognome LIKE "'.$info.'%"';
+        $db = Zend_Db_Table_Abstract::getDefaultAdapter()->query($query);
+        $res=$db->fetchAll();
         return $res; 
     }
 
-    public function changeprofilepic($dati,$id){
-        $auth=Zend_Auth::getInstance();
-        $where=$this->getAdapter()->quoteInto('id=?',$id);
-        $this->update(array('immagine'=>$dati['immagine']), $where);
-    }
 }

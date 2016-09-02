@@ -13,42 +13,17 @@ class UserController extends Zend_Controller_Action
         $this->_authService = new Application_Service_Auth();
     }
 
-    public function indexAction() //funziona
+    public function indexAction()
     {
-        $notifiche=$this->controllaNotificheAction();
-        $this->view->assign('notifiche',$notifiche);
-        $messaggio='';
-        for($i=0;$i<sizeof($notifiche);$i++){
-            $id_mittente=$notifiche[$i]['id_mittente'];
-            $res=$this->_adminModel->visualizzaUtentedaID($id_mittente)->toArray();
-            $nome_mittente=$res[0]['Nome'].' '.$res[0]['Cognome'];
-            switch ($notifiche[$i]['tipologia']){
-                case 1:{
-                    $messaggio[$i]='<li>Hai ricevuto una richiesta di amicizia da '.$nome_mittente.'</li>';
-                    break;
-                }
-                case 2:{
-                    $messaggio[$i]='<li>'.$nome_mittente.' ha commentato un tuo post!</li>';
-                    break;
-                }
-                case 3:{
-                    $messaggio[$i]='<li>Hai ricevuto una notifica dallo staff</li>';
-                    break;
-                }
-            }
-        }
-        $bottone=new Zend_Form_Element_Submit('gestisci');
-        $bottone->setLabel('Gestisci');
-        $this->view->assign('bottone',$bottone);
-        $this->view->assign('messaggio',$messaggio);
+
     }
 
-    public function logoutAction() //funziona
+    public function logoutAction()
     {
         $this->_authService->clear();
         return $this->_helper->redirector('index','public');
     }
-    public function modificaprofiloAction() //
+    public function modificaprofiloAction() //non funziona?
     {
         $a=$this->_authService->getIdentity()->id;
         $form = new Application_Form_Utente_Profilo_Aggiorna();
@@ -61,25 +36,6 @@ class UserController extends Zend_Controller_Action
                 $dati= $form->getValues();
                 $this->_userModel->modificaProfilo($dati,$a);
                 echo 'Dati inseriti con successo';
-            }
-            else
-            {
-                echo 'Inserimento fallito';
-            }
-        }
-        $this->view->assign('form', $form);
-    }
-    
-    public function cambiaimmagineAction(){ //funziona
-        $a=$this->_authService->getIdentity()->id;
-        $form = new Application_Form_Utente_Profilo_CambiaImg();
-        if($this->getRequest()->isPost())
-        {
-            if($form->isValid($_POST))
-            {
-                $dati= $form->getValues();
-                $this->_userModel->cambiaImmagine($dati,$a);
-                echo 'Immagine cambiata con successo';
             }
             else
             {
@@ -112,29 +68,40 @@ class UserController extends Zend_Controller_Action
     {
         $this->_userModel->controllaamici();
     }
-    
-    public function controllaNotificheAction(){ //funziona
-        $info=Zend_Auth::getInstance();
-        $id_user=$info->getIdentity()->id;
-        $notifiche=$this->_userModel->controllaNotifiche($id_user);
-        return $notifiche;
-    }
-    
-    public function inviaNotificaAction($id_destinatario,$tipologia){  //funziona
-        $this->_userModel->inviaNotifica($id_destinatario,$tipologia);
-    }
-
-    public function showAction()
+    public function showuserprofileAction()
     {
-        $nome=$this->getParam('a');
-        $cognome=$this->getParam('b');
+        $auth=Zend_Auth::getInstance();
+        $myid=$auth->getIdentity()->id;
+        
+        $id=$this->getParam('id');
+        $userinfo=$this->_userModel->mostrautente($id)->toArray();
+        var_dump($userinfo);
+        
+        if ($this->_userModel->sonoamici($id,$myid))
+        {
+            //mostra i blog e i post
+            
+        }else
+        {
+            $this->view->assign('amici',false);
+        }
+            
+        /*
         $eta=$this->getParam('c');
         $interessi=$this->getParam('d');
-        $immagine=$this->getParam('e');
         $this->view->assign('nome',$nome);
         $this->view->assign('cognome',$cognome);
         $this->view->assign('eta',$eta);
         $this->view->assign('interessi',$interessi);
-        $this->view->assign('immagine',$immagine);
+        */
+    }
+    public function updateajaxAction()
+    {
+        $this->_helper->getHelper('layout')->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+        $user = $this->_userModel->cercautente($_POST['q']);
+        if ($user != null) {
+            $this->getResponse()->setHeader('Content-type', 'application/json')->setBody(json_encode($user));
+        }
     }
 }

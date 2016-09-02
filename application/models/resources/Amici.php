@@ -1,5 +1,5 @@
 <?php
-class Application_Resource_Utenti extends Zend_Db_Table_Abstract
+class Application_Resource_Amici extends Zend_Db_Table_Abstract
 {
     protected $_name = 'amici';
     protected $_primary = 'id_friendship';
@@ -125,6 +125,32 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
             ->equalTo('idamico_b', $id_user);
 
         $this->update(array('state'=>'refused'), $selection);
+    }
+    public function arefriends($ida,$idb)
+    {
+        $select->where
+            ->nest()
+            ->nest()
+            ->equalTo('requestedby', $ida)
+            ->and
+            ->equalTo('idamico_b', $idb)
+            ->unnest()
+            ->or
+            //oppure il richiesto ha gia mandato una richiesta?
+            ->nest()
+            ->equalTo('requestedby', $idb)
+            ->and
+            ->equalTo('idamico_b', $ida)
+            ->unnest()
+            ->unnest()
+            ->and
+            ->equalTo('state', 'accepted');
+
+        $res = $this->fetchAll($select);
+
+        if (!empty($res)) {
+            return false;
+        } else return true;
     }
 
 

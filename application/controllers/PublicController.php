@@ -92,17 +92,7 @@ class PublicController extends Zend_Controller_Action
         return $email;
     }
 
-    public function showAction()
-    {
-        $nome=$this->getParam('a');
-        $cognome=$this->getParam('b');
-        $eta=$this->getParam('c');
-        $interessi=$this->getParam('d');
-        $this->view->assign('nome',$nome);
-        $this->view->assign('cognome',$cognome);
-        $this->view->assign('eta',$eta);
-        $this->view->assign('interessi',$interessi);
-    }
+    
 
 
 }

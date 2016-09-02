@@ -5,15 +5,16 @@ $this->headTitle('ProgTweb');
 echo $this->doctype(); ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
+    //mettere sul bootstrap e togliere dai singoli layout e mettere this->headscript
     <?php echo $this->headMeta(); ?>
     <?php echo $this->headTitle(); ?>
     <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/style.css'); ?>
     <?php echo $this->headLink()->prependStylesheet('http://fonts.googleapis.com/css?family=Droid+Sans:400,700'); ?>
     <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/js/jquery-ui.min.css'); ?>
-    <!--<script src="<?php echo $this->baseUrl("js/jquery.js")?>"></script>
+    <script src="<?php echo $this->baseUrl("js/jquery.js")?>"></script>
     <script src="<?php echo $this->baseUrl("js/jquery-ui.min.js")?>"></script>
-    <script src="<?php echo $this->baseUrl("js/jquery-1.10.1.min.js")?>"></script>
-    <script src="<?php echo $this->baseUrl("js/searchbox.js")?>"></script>-->
+    <!--<script src="<?php echo $this->baseUrl("js/searchbox.js")?>"></script> -->
+
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -42,7 +43,7 @@ echo $this->doctype(); ?>
         </div>
 
             <div class="search-input">
-                <input id="searchbox" type="text" value="Cerca Utenti..." />
+                <input id="searchbox" type="text" placeholder="Cerca Utenti..." />
             </div>
 
         </div>
@@ -79,5 +80,162 @@ echo $this->doctype(); ?>
 <div class="footer-wrapper marginTop">
     <div class="footer"> Copyright (c) websitename. All rights reserved. Designed by: <a href="http://alltemplateneeds.com">www.alltemplateneeds.com</a> Images From: www.photorack.net </div>
 </div>
+
+<script>
+$(document).ready(function () {
+
+
+
+
+$("#searchbox").autocomplete({
+source: function( request, response ) {
+$.ajax( {
+    type: 'POST',
+url: '<?php echo $this->url(array('controller' => 'user','action' => 'updateajax'));?>',
+dataType: "json",
+data: {
+q: request.term
+},
+success: function( data ) {
+console.log(typeof data);
+    console.log(data);
+// Handle 'no match' indicated by [ "" ] response
+response( data.length === 1 && data[ 0 ].length === 0 ? [] : data );
+}
+} );
+},
+minLength: 2,
+focus: function (event, ui) {
+$("#searchbox").val(ui.item.Nome + " " + ui.item.Cognome)
+return false;
+},
+select: function (event, ui) {
+
+var url = "<?php echo $this->url(array('controller' => 'user','action' => 'showuserprofile'));?>"+"/id/"+ui.item.id ;
+location.href = url;
+return false;
+},
+}).autocomplete("instance")._renderItem = function (ul, item) {
+var $li = $("<li>");
+    $li.addClass("searchItem");
+
+    $outerDiv = $("<div>");
+        $outerDiv.appendTo($li);
+
+        $imageDiv = $("<div>");
+            $imageDiv.addClass("contactImageDiv");
+            $imageDiv.appendTo($outerDiv);
+
+            $img = $("<img>");
+            $img.addClass("contactImage");
+            $img.attr("src", item.imgUrl);
+            $img.appendTo($imageDiv);
+
+            $name = $("<div>");
+                $name.addClass("nameDiv");
+                $name.append(item.Nome + " " + item.Cognome + "<br/><span style='font-style:italic'>"+"</span>");
+                $name.appendTo($outerDiv);
+
+                $li.appendTo(ul);
+
+                return $li;
+                };
+
+                })
+
+
+</script>
+
 </body>
 </html>
+
+<!--*
+var contacts = [
+{
+"firstName": "Petrer",
+"lastName": "Parkscsdcer",
+"heroName": "Spidermansd",
+"imgUrl": "img/spiderman.png"
+},
+{
+"firstName": "Brurce",
+"lastName": "Bannecasdcr",
+"heroName": "Hucwrcwlk",
+"imgUrl": "img/hulk.png"
+}, {
+"firstName": "Torny",
+"lastName": "Starsdccsdk",
+"heroName": "Ironmsdcdcsaan",
+"imgUrl": "img/ironman.png"
+}, {
+"firstName": "Bscsacrucre",
+"lastName": "Wayrrevne",
+"heroName": "Batmvrwvean",
+"imgUrl": "img/batman.png"
+},
+{
+"firstName": "Peterevrr",
+"lastName": "Parkvreer",
+"heroName": "Spidervereavman",
+"imgUrl": "img/spiderman.png"
+},
+{
+"firstName": "Brucrrvrevrre",
+"lastName": "Banvearvervner",
+"heroName": "Hubrrblk",
+"imgUrl": "img/hulk.png"
+}, {
+"firstName": "To34fefnyr",
+"lastName": "Staverk",
+"heroName": "Ironmververan",
+"imgUrl": "img/ironman.png"
+}, {
+"firstName": "Brverucerrrrr",
+"lastName": "Wayvervreververne",
+"heroName": "Batmrrrrvevan",
+"imgUrl": "img/batman.png"
+},{
+"firstName": "Perrter",
+"lastName": "Parkvervreveber",
+"heroName": "Spiderbrbytrbebrman",
+"imgUrl": "img/spiderman.png"
+},
+{
+"firstName": "Brrrrrrruce",
+"lastName": "Bannrberbernjer",
+"heroName": "Hubrbrynjrylk",
+"imgUrl": "img/hulk.png"
+}, {
+"firstName": "Tronry",
+"lastName": "Staryyhrnrk",
+"heroName": "Ironmhrran",
+"imgUrl": "img/ironman.png"
+}, {
+"firstName": "Brruhrthrce",
+"lastName": "Waynhre",
+"heroName": "Batmhran",
+"imgUrl": "img/batman.png"
+},{
+"firstName": "Pertrer",
+"lastName": "Parker","http://gd.geobytes.com/AutoCompleteCity"
+"heroName": "Spiderman",
+"imgUrl": "img/spiderman.png"
+},
+{
+"firstName": "Brurrrrcre",
+"lastName": "Banner",
+"heroName": "Hulk",
+"imgUrl": "img/hulk.png"
+}, {
+"firstName": "Tornryr",
+"lastName": "Stark",
+"heroName": "Ironman",
+"imgUrl": "img/ironman.png"
+}, {
+"firstName": "Brrurcrer",
+"lastName": "Wayne",
+"heroName": "Batman",
+"imgUrl": "img/batman.png"
+}
+];
+-->
