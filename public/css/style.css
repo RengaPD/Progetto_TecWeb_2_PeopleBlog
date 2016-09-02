@@ -112,14 +112,14 @@ HEADER CLASSES
 .header-wrap { width:100%; overflow:hidden; background:#00c0ff;}
 .header { width:960px; overflow:hidden; margin:0 auto;}
 
-.menu { float:left; width:975px;}
-.menu ul li { float:left; width:140px; margin-right:1px;}
-.menu ul li a { display:block; width:150px; height:80px; line-height:80px; text-align:center; color:#ffffff; background:#1ac6ff;}
-.menu ul li a:hover { background:#33cdff;}
-.menu ul li a.active { background:#33cdff;}
+.menu { float:left; width:505px;}
+.menu ul li { float:left; width:100px; margin-right:1px;}
+.menu ul li a { display:block; width:100px; height:80px; line-height:80px; text-align:center; color:#ffffff; background:#1ac6ff;}
+.menu ul li a:hover { background:#33cdff;} 
+.menu ul li a.active { background:#33cdff;} 
 
 .social-media { float:right; height:80px;}
-.social-media ul li { float:left; margin-right:10px; padding-top:15px;}
+.social-media ul li { float:left; margin-right:10px; padding-top:25px;}
 
 .logo-sarch-wrap { width:100%; overflow:hidden; background:#dd31ae;}
 .logo-search-container { width:960px; margin:0 auto; height:140px;}
@@ -196,18 +196,21 @@ PRIMARY CONTENT CLASSS
 SIDEBAR CLASSS
 -------------------------------------------------*/
 
-.sidebar .panel { width:298px; padding-bottom:30px; min-height: 600px;}
+.sidebar .panel { width:298px; padding-bottom:30px;}
 .sidebar .title h1 { padding:30px; border-bottom:1px solid #ececec; }
-.sidebar .content ul li { display:block; border-bottom:1px solid #ececec; height:40px; line-height:40px; background:url(../images/round-arrow.gif) no-repeat 260px 10px; margin-top: 180px;}
+.sidebar .content ul li { display:block; border-bottom:1px solid #ececec;padding-top: 20px;padding-bottom: 20px;}
+.sidebar .content ul li p { padding-left:30px; color:#939191; font-size:14px;}
+.sidebar .content ul li p:hover {color:#dd31ae;}
+.sidebar .content ul li p.active {color:#dd31ae;}
 .sidebar .content ul li a { padding-left:30px; color:#939191; font-size:14px;}
 .sidebar .content ul li a:hover {color:#dd31ae;}
 .sidebar .content ul li a.active {color:#dd31ae;}
+
 .sidebar .content ul li.borderNone { border-bottom:none;}
-.sidebar .content{ display:block; height:auto; line-height:40px; background:url(../images/round-arrow.gif) no-repeat 260px 10px; margin: 80px 25px 0 25px;}
 
 .subscribe {}
 .subscribe .button-link a { display:block; width:90px; height:36px; line-height:36px; text-align:center; background:#00c0ff; color:#ffffff; font-size:12px; margin-left:30px; margin-top:20px;}
-.subscribe .button-link a:hover { background:#dd31ae;}
+.subscribe .button-link a:hover { background:#dd31ae;} 
 .sidebar-text-field { width:230px; height:40px; line-height:40px; border:0px solid; background:#e6e6e6; padding-left:10px; color:#9b9b9b; margin-left:30px; margin-top:30px;}
 
 .sidebar .call { background:#dd31ae; padding:30px;}
@@ -412,10 +415,4 @@ ul.comments-holder li.comment-holder:hover .comment-buttons-holder{
 .post-button-wrapper:hover{
     background: #2e5cc2;
     color:#fff;
-}
-
-.sidebar .panel .profilepic{
-    max-height:200px;
-    max-width:200px;
-    margin: 30px 5px 5px 45px;
 }

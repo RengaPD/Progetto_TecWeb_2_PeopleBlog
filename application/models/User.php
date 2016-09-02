@@ -53,4 +53,16 @@ class Application_Model_User extends App_Model_Abstract
     {        
         return $this->getResource('Amici')->arefriends($ida,$idb);
     }
+    
+    public function controllaNotifiche($id){
+        return $this->getResource('Notifiche')->controlnotification($id);
+    }
+    
+    public function inviaNotifica($id,$tipo){
+        return $this->getResource('Notifiche')->sendNotification($id,$tipo);
+    }
+    
+    public function cambiaImmagine($dati,$id){
+        return $this->getResource('Utenti')->changeprofilepic($dati,$id);
+    }
 }

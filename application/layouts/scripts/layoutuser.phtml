@@ -88,21 +88,28 @@ $(document).ready(function () {
 
 
 $("#searchbox").autocomplete({
-source: function( request, response ) {
-$.ajax( {
-    type: 'POST',
-url: '<?php echo $this->url(array('controller' => 'user','action' => 'updateajax'));?>',
-dataType: "json",
-data: {
-q: request.term
-},
-success: function( data ) {
-console.log(typeof data);
-    console.log(data);
+source: function( request, response ){
+    if(request.term.endsWith("*")){
+    request.substring(0, str.length - 1);}
+    
+        $.ajax({
+            type: 'POST',
+            url: '<?php echo $this->url(array('controller' => 'user', 'action' => 'updateajax'));?>',
+            dataType: "json",
+            data: {
+
+                q: request.term
+            },
+            success: function (data) {
+                console.log(typeof data);
+                console.log(data);
 // Handle 'no match' indicated by [ "" ] response
-response( data.length === 1 && data[ 0 ].length === 0 ? [] : data );
-}
-} );
+                response(data.length === 1 && data[0].length === 0 ? [] : data);
+            }
+        });
+
+
+
 },
 minLength: 2,
 focus: function (event, ui) {
@@ -111,7 +118,7 @@ return false;
 },
 select: function (event, ui) {
 
-var url = "<?php echo $this->url(array('controller' => 'user','action' => 'showuserprofile'));?>"+"/id/"+ui.item.id ;
+var url = "<?php echo $this->url(array('controller' => 'user','action' =>'showuserprofile','id'=>''));?>"+ui.item.id ;
 location.href = url;
 return false;
 },
@@ -148,94 +155,3 @@ var $li = $("<li>");
 
 </body>
 </html>
-
-<!--*
-var contacts = [
-{
-"firstName": "Petrer",
-"lastName": "Parkscsdcer",
-"heroName": "Spidermansd",
-"imgUrl": "img/spiderman.png"
-},
-{
-"firstName": "Brurce",
-"lastName": "Bannecasdcr",
-"heroName": "Hucwrcwlk",
-"imgUrl": "img/hulk.png"
-}, {
-"firstName": "Torny",
-"lastName": "Starsdccsdk",
-"heroName": "Ironmsdcdcsaan",
-"imgUrl": "img/ironman.png"
-}, {
-"firstName": "Bscsacrucre",
-"lastName": "Wayrrevne",
-"heroName": "Batmvrwvean",
-"imgUrl": "img/batman.png"
-},
-{
-"firstName": "Peterevrr",
-"lastName": "Parkvreer",
-"heroName": "Spidervereavman",
-"imgUrl": "img/spiderman.png"
-},
-{
-"firstName": "Brucrrvrevrre",
-"lastName": "Banvearvervner",
-"heroName": "Hubrrblk",
-"imgUrl": "img/hulk.png"
-}, {
-"firstName": "To34fefnyr",
-"lastName": "Staverk",
-"heroName": "Ironmververan",
-"imgUrl": "img/ironman.png"
-}, {
-"firstName": "Brverucerrrrr",
-"lastName": "Wayvervreververne",
-"heroName": "Batmrrrrvevan",
-"imgUrl": "img/batman.png"
-},{
-"firstName": "Perrter",
-"lastName": "Parkvervreveber",
-"heroName": "Spiderbrbytrbebrman",
-"imgUrl": "img/spiderman.png"
-},
-{
-"firstName": "Brrrrrrruce",
-"lastName": "Bannrberbernjer",
-"heroName": "Hubrbrynjrylk",
-"imgUrl": "img/hulk.png"
-}, {
-"firstName": "Tronry",
-"lastName": "Staryyhrnrk",
-"heroName": "Ironmhrran",
-"imgUrl": "img/ironman.png"
-}, {
-"firstName": "Brruhrthrce",
-"lastName": "Waynhre",
-"heroName": "Batmhran",
-"imgUrl": "img/batman.png"
-},{
-"firstName": "Pertrer",
-"lastName": "Parker","http://gd.geobytes.com/AutoCompleteCity"
-"heroName": "Spiderman",
-"imgUrl": "img/spiderman.png"
-},
-{
-"firstName": "Brurrrrcre",
-"lastName": "Banner",
-"heroName": "Hulk",
-"imgUrl": "img/hulk.png"
-}, {
-"firstName": "Tornryr",
-"lastName": "Stark",
-"heroName": "Ironman",
-"imgUrl": "img/ironman.png"
-}, {
-"firstName": "Brrurcrer",
-"lastName": "Wayne",
-"heroName": "Batman",
-"imgUrl": "img/batman.png"
-}
-];
--->

@@ -1,6 +1,6 @@
 <ul>
     <li><a href="<?= $this->url(array(
-            'controller'=>'public',
+            'controller'=>'user',
             'action'=>'index',),
             'default',true);
         ?>"
@@ -8,17 +8,20 @@
     </li>
     <li><a href="<?= $this->url(array(
             'controller'=>'user',
+            'action'=>'showuserprofile',
+            'id'=>'my'),
+            'default',true);
+        ?>"
+           title="Profilo"><?php $nome=Zend_Auth::getInstance()->getIdentity()->Nome;
+            $cognome=Zend_Auth::getInstance()->getIdentity()->Cognome;
+            echo $nome.' '.$cognome.' '; ?></a>
+    </li>
+    <li><a href="<?= $this->url(array(
+            'controller'=>'user',
             'action'=>'modificaprofilo',),
             'default',true);
         ?>"
            title="Modifica profilo">Modifica Profilo</a>
-    </li>
-    <li><a href="<?= $this->url(array(
-            'controller'=>'user',
-            'action'=>'cambiaimmagine',),
-            'default',true);
-        ?>"
-           title="Cambia immagine">Cambia Immagine</a>
     </li>
     <?php $user=Zend_Auth::getInstance(); ?>
     <?php if($user->hasIdentity()) :?>
@@ -48,17 +51,6 @@
            title="Gestisci">Gestisci blog</a>
     </li>
     <?php endif; ?>
-    <li><a href="<?= $this->url(array(
-            'controller'=>'user',
-            'action'=>'show',
-            'a'=>$user->getIdentity()->Nome,
-            'b'=>$user->getIdentity()->Cognome,
-            'c'=>$user->getIdentity()->eta,
-            'd'=>$user->getIdentity()->interessi,
-            'e'=>$user->getIdentity()->immagine),
-            'default',true);
-        ?>"
-           title="Profilo">Profilo pubb</a>
-    </li>
+
 
 </ul>
