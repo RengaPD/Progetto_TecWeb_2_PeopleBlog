@@ -202,6 +202,10 @@ SIDEBAR CLASSS
 .sidebar .content ul li p { padding-left:30px; color:#939191; font-size:14px;}
 .sidebar .content ul li p:hover {color:#dd31ae;}
 .sidebar .content ul li p.active {color:#dd31ae;}
+.sidebar .content ul li a { padding-left:30px; color:#939191; font-size:14px;}
+.sidebar .content ul li a:hover {color:#dd31ae;}
+.sidebar .content ul li a.active {color:#dd31ae;}
+
 .sidebar .content ul li.borderNone { border-bottom:none;}
 
 .subscribe {}

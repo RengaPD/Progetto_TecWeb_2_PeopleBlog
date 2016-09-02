@@ -50,7 +50,7 @@ class Application_Resource_Amici extends Zend_Db_Table_Abstract
 
 
 
-        if (!empty($res)) {
+        if (empty($res)) {
 
             //se non ci sono richieste da parte di b nei confronti di a e non sono gia state fatte altre richiesta da parte di a crea la richiesta
             $this->insert(array('idamico_a' => $id_requester,
@@ -98,7 +98,7 @@ class Application_Resource_Amici extends Zend_Db_Table_Abstract
         $res=$db->fetchAll();
 
 
-        if (!empty($res)) {
+        if (empty($res)) {
             return false;
         } else return true;
     }

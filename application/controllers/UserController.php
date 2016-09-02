@@ -23,6 +23,12 @@ class UserController extends Zend_Controller_Action
         $this->_authService->clear();
         return $this->_helper->redirector('index','public');
     }
+    public function aggiungiamicoAction()
+    {
+        $id = $this->getParam('id');
+        $this->_userModel->aggiungiamico($id);
+        return $this->_helper->redirector('showuserprofile', 'user', null, array('id' => $id));
+    }
     public function modificaprofiloAction() //non funziona?
     {
         $a=$this->_authService->getIdentity()->id;
@@ -77,23 +83,29 @@ class UserController extends Zend_Controller_Action
         $id=$this->getParam('id');
 
         if(('my'==$id)) {
-
+            $this->view->sonoio = true;
             $this->view->interessi = $auth->getIdentity()->interessi;
             $this->view->assign('nome',$auth->getIdentity()->Nome);
             $this->view->assign('cognome',$auth->getIdentity()->Cognome);
             $this->view->assign('eta',$auth->getIdentity()->eta);
         }else{
+            $this->view->sonoio = false;
+            $this->view->idprofile = $id;
             $userinfo = $this->_userModel->mostrautente($id)->toArray();
-            var_dump($userinfo);
             $this->view->interessi = $userinfo[0]["interessi"];
             $this->view->assign('nome',$userinfo[0]["Nome"]);
             $this->view->assign('cognome',$userinfo[0]["Cognome"]);
             $this->view->assign('eta',$userinfo[0]["eta"]);
 
-            //if($this->_userModel->sonoamici($id,$myid))
-            //{
-                //mostra blog dell'amico
- //           }
+            if($this->_userModel->sonoamici($id,$myid))
+            {
+                $this->view->assign('amici',true);
+
+            }else
+            {
+                $this->view->assign('amici',false);
+
+            }
 
         }
 

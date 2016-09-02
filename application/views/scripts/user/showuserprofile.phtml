@@ -10,7 +10,7 @@ Questo è il pannello utente gigi. Seleziona l'azione da eseguire
 
         </p>
     </div>
-    <!-- end of Primary content -->
+
     <div class="sidebar marLeft30">
         <div class="panel">
             <div class="title">
@@ -18,9 +18,32 @@ Questo è il pannello utente gigi. Seleziona l'azione da eseguire
             </div>
             <div class="content">
                 <ul>
+                    <?php
+                    echo $this->amici;
+                    if($this->sonoio == false)
+                    {
+                        if($this->amici)
+                        {
+                            echo '<li><a href="';
+                            echo $this->url(array('controller'=>'user',
+                                'action'=>'rimuoviamico',
+                                'id'=>$this->idprofile),
+                                'default',true);
+                            echo'"title="Rimuovi">-Rimuovi</a>
+    </li>';
 
+                        }else{
+                            echo '<li><a href="';
+                            echo $this->url(array('controller'=>'user',
+                                'action'=>'aggiungiamico',
+                                'id'=>$this->idprofile),
+                                'default',true);
+                            echo'"title="Aggiungi">+Aggiungi</a>
+    </li>';
+                           } } ?>
                     <li><p>età:<?php echo $this->eta;  ?> anni</p></li>
                     <li><p><?php echo $this->interessi;  ?></p></li>
+
 
 
                 </ul>
