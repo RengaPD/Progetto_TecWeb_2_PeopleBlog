@@ -13,29 +13,32 @@ class Application_Resource_Blog extends Zend_Db_Table_Abstract
 
     }
     
-    public function creaBlog($info)
+    public function creaBlog($info)  //funziona
     {
         $_auth=Zend_Auth::getInstance();
         $datetime=new DateTime();
         $datetime=date_format($datetime, 'Y-m-d H:i:s');
         $this->insert(array('titoloblog' => $info['nomeblog'],
-                            'Nome'=>$_auth->getIdentity()->Nome,
-                            'Cognome'=>$_auth->getIdentity()->Cognome,
                             'datetime'=>$datetime,
                             'titolo'=>$info['titolo'],
-                            'post'=>$info['post']));
+                            'post'=>$info['post'],
+                            'id_user'=>$_auth->getIdentity()->id));
         
     }
 
-    public function getposts_byuser($id_user)
-    {
-        $select=$this->select()
-            ->where('id_user=?',$id_user)
-            ->order('datetime');
+    public function showBlog(){  //funziona
+        $select=$this->select()->order('id_user');
         $res=$this->fetchAll($select);
         return $res;
     }
-    public function getposts_byid($id_post)
+
+    public function getposts_byuser($id_user)  //funziona
+    {
+        $select=$this->select()->where('id_user=?',$id_user)->order('datetime');
+        $res=$this->fetchAll($select);
+        return $res;
+    }
+    public function getposts_byid($id_post)  //funziona
     {
         $select=$this->select()
             ->where('id=?',$id_post);
@@ -50,14 +53,14 @@ class Application_Resource_Blog extends Zend_Db_Table_Abstract
         $datetime=date_format($datetime, 'Y-m-d H:i:s');
         $this->insert(array('titoloblog' => null, //non importa se è null, per visualizzarlo viene usato
             //il primissimo post con index 0 dove è specificato
-            'id'=>$_auth->getIdentity()->id,
             'datetime'=>$datetime,
             'titolo'=>$dati['titolo'],
-            'post'=>$dati['post']));
+            'post'=>$dati['post'],
+            'id_user'=>$_auth->getIdentity()->id,));
 
     }
     
-    public function editpost($dati,$a)
+    public function editpost($dati,$a) //versione utente, funziona
     {
         $_auth=Zend_Auth::getInstance();
         $where=array('id_user=?'=>$_auth->getIdentity()->id,
@@ -65,8 +68,14 @@ class Application_Resource_Blog extends Zend_Db_Table_Abstract
         $this->update(array('titolo'=>$dati['titolo'],
             'post'=>$dati['post']), $where);
     }
+    
+    public function editpostbystaff($dati,$a){  //funziona
+        $where=$this->getAdapter()->quoteInto('id=?',$a);
+        $this->update(array('titolo'=>$dati['titolo'],
+            'post'=>$dati['post']),$where);
+    }
 
-    public function getbydatetime($datetime)
+    public function getbydatetime($datetime) //funziona
     {
         $_auth=Zend_Auth::getInstance();
         $select=$this->select()
@@ -76,15 +85,13 @@ class Application_Resource_Blog extends Zend_Db_Table_Abstract
         return $res;
     }
 
-    public function deletepost($a)
+    public function deletepost($id) //funziona
     {
-        $_auth=Zend_Auth::getInstance();
-        $where=array('id_user=?'=>$_auth->getIdentity()->id,
-            'datetime=?'=>$a);
+        $where = $this->getAdapter()->quoteInto('id = ?', $id);
         $this->delete($where);
     }
-
-    public function selblogs()
+    
+    public function selblogs() //funziona
     {
         $select=$this->select()
             ->where('titoloblog IS NOT NULL');

@@ -11,6 +11,9 @@ defined('APPLICATION_ENV')
 defined('VIEW_PATH')
 || define('VIEW_PATH', realpath(dirname(__FILE__) . '/../application/views/scripts/public'));
 
+defined('PUBLIC_PATH')
+|| define('PUBLIC_PATH', realpath(dirname(__FILE__) . '/../public'));
+
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
     realpath(APPLICATION_PATH . '/../library'),

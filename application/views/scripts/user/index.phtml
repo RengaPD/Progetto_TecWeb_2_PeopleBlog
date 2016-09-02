@@ -5,7 +5,11 @@
 
             <br>
             Questo è il pannello utente. Seleziona l'azione da eseguire
-
+            <?php if(!$this->messaggio=='') :?>
+                <?php foreach ($this->messaggio as $mex) :?>
+                    <?php echo $mex ?>
+                <?php endforeach; ?>
+            <?php endif ?>
 
         </p>
     </div>
@@ -15,14 +19,14 @@
             <div class="title">
                 <h1><?php $nome=Zend_Auth::getInstance()->getIdentity()->Nome;
                     $cognome=Zend_Auth::getInstance()->getIdentity()->Cognome;
-                    echo $nome.' '.$cognome.' '; ?></h1>
+                    echo $nome.' '.$cognome.'<br><br>'.$eta=Zend_Auth::getInstance()->getIdentity()->eta.' anni'; ?></h1>
+            </div>
+            <div class="profilepic">
+                <img src="<?php echo $this->baseUrl() . '/images/profiles/'.$immagine=Zend_Auth::getInstance()->getIdentity()->immagine; ?>" alt='Img' height="200" width="200"/>
             </div>
             <div class="content">
-                <ul>
-                    <li><a href="#"><?php $interessi=Zend_Auth::getInstance()->getIdentity()->interessi;
-                            echo $interessi; ?></a></li>
-
-                </ul>
+                <?php $interessi=Zend_Auth::getInstance()->getIdentity()->interessi;
+                            echo $interessi; ?>
             </div>
             <div class="button-link"></div>
         </div>

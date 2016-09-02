@@ -11,28 +11,28 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
 
     }
 
-    public function findUserEmail($info)
+    public function findUserEmail($info)  //funziona
     {
         $select=$this->select()->where('email=?',$info);
         $res=$this->fetchRow($select);
         return $res;
     }
 
-    public function insertUtenti($info)
+    public function insertUtenti($info) //funziona
     {
         $this->insert(array('Nome'=>$info['nome'],
             'Cognome'=>$info['cognome'],
+            'immagine'=>$info['immagine'],
             'email'=>$info['email'],
             'password'=>$info['password'],
             'ruolo'=>$info['ruolo'],
-            'interessi'=>$info['interessi'],
-            'amici'=>$info['amici']));
+            'interessi'=>$info['interessi']));
     }
 
-    public function editUtenti($info,$id)
+    public function editUtenti($info,$id)  //funziona
     {
 
-        $where = $this->getAdapter()->quoteInto('id = ?', $id);
+        $where = $this->getAdapter()->quoteInto('id= ?', $id);
         $this->update(array('Nome'=>$info['Nome'],
             'Cognome'=>$info['Cognome'],
             'eta'=>$info['eta'],
@@ -40,7 +40,7 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
             'password'=>$info['password'],
             'ruolo'=>$info['ruolo'],
             'interessi'=>$info['interessi'],
-            'amici'=>$info['amici']), $where);
+            'blog'=>$info['blog']), $where);
     }
 
     public function showUtenti()
@@ -51,21 +51,20 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
 
     }
 
-    public function showUserbyID($id)
+    public function showUtentedaID($id) //funziona
     {
-        $select=$this->select()
-            ->where('id =?', (int)$id);
+        $select=$this->select()->where('id=?',$id);
         $res=$this->fetchAll($select);
         return $res;
     }
     
-    public function deleteUtenti($id)
+    public function deleteUtenti($id) //funziona
     {
         $where = $this->getAdapter()->quoteInto('id = ?', $id);
         $this->delete($where);
     }
 
-    public function setBlogtrue()
+    public function setBlogtrue()  //funziona
     {
         $auth=Zend_Auth::getInstance();
         $id=$auth->getIdentity()->id;
@@ -73,6 +72,7 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
         $true=true;
         $this->update(array('nome'=>$auth->getIdentity()->Nome,
             'cognome'=>$auth->getIdentity()->Cognome,
+            'immagine'=>$auth->getIdentity()->immagine,
             'email'=>$auth->getIdentity()->email,
             'password'=>$auth->getIdentity()->password,
             'ruolo'=>$auth->getIdentity()->ruolo,
@@ -88,4 +88,9 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
         return $res; 
     }
 
+    public function changeprofilepic($dati,$id){
+        $auth=Zend_Auth::getInstance();
+        $where=$this->getAdapter()->quoteInto('id=?',$id);
+        $this->update(array('immagine'=>$dati['immagine']), $where);
+    }
 }

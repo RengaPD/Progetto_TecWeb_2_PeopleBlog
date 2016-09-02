@@ -3,7 +3,7 @@ class Application_Form_Utente_Profilo_Aggiorna extends Zend_Form
 {
     protected $_publicModel;
 
-    public function init()
+    public function init() //funziona
     {
         $this->_publicModel=new Application_Model_Public();
         $this->setMethod('post');
@@ -58,7 +58,6 @@ class Application_Form_Utente_Profilo_Aggiorna extends Zend_Form
 
         $this->addElement('hidden','blog');
         
-        $this->addElement('hidden','amici');
 
         $this->addElement('submit', 'add', array(
             'label' => 'Aggiorna profilo',

@@ -25,6 +25,15 @@ class Application_Form_Amministrazione_Utente_Aggiungi extends Zend_Form
             'required' => true,
             'validators' => array(array('StringLength',true, array(1,25))),
         ));
+
+        $this->addElement('file', 'immagine', array(
+            'label' => 'Scegli immagine del profilo',
+            'filters' => array('StringTrim'),
+            'required' => true,
+            'validators' => array(array('StringLength',true, array(1,50))),
+        ));
+        $this->immagine->setDestination(PUBLIC_PATH.'/images/profiles/');
+        
         $this->addElement('text', 'email', array(
             'label' => 'email',
             'filters' => array('StringTrim'),
@@ -48,6 +57,11 @@ class Application_Form_Amministrazione_Utente_Aggiungi extends Zend_Form
             'validators' => array(array('StringLength',true, array(1,25))),
         ));
 
+        $this->addElement('hidden','interessi');
+
+        $this->addElement('hidden','blog');
+        $this->blog->setValue(0);
+        
 
         $this->addElement('submit', 'add', array(
             'label' => 'Aggiungi Utente',

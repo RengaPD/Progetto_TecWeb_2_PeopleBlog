@@ -9,9 +9,9 @@ class Application_Model_Blog extends App_Model_Abstract
 
     }
 
-    public function prendipost($nome,$cognome)
+    public function prendipost($id_user)
     {
-        return $this->getResource('Blog')->getposts($nome,$cognome);
+        return $this->getResource('Blog')->getposts_byuser($id_user);
     }
     
     public function postasuBlog($dati)
@@ -39,4 +39,16 @@ class Application_Model_Blog extends App_Model_Abstract
         $res=$this->getResource('Blog')->selblogs();
         return $conta=count($res);
    }
+    
+    public function commenta($dati,$id){
+        return $this->getResource('Commenti')->sendcomment($dati,$id);
+    }
+    
+    public function prendicommenti(){
+        return $this->getResource('Commenti')->getcomments();
+    }
+
+    public function cancellacommento($id){
+        return $this->getResource('Commenti')->deletecomment($id);
+    }
 }
