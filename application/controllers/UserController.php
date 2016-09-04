@@ -145,6 +145,8 @@ class UserController extends Zend_Controller_Action
             $this->view->assign('nome',$auth->getIdentity()->Nome);
             $this->view->assign('cognome',$auth->getIdentity()->Cognome);
             $this->view->assign('eta',$auth->getIdentity()->eta);
+            $this->view->assign('immagine',$auth->getIdentity()->immagine);
+
         }else{
             $this->view->sonoio = false;
             $this->view->idprofile = $id;
@@ -153,6 +155,8 @@ class UserController extends Zend_Controller_Action
             $this->view->assign('nome',$userinfo[0]["Nome"]);
             $this->view->assign('cognome',$userinfo[0]["Cognome"]);
             $this->view->assign('eta',$userinfo[0]["eta"]);
+            $this->view->assign('immagine',$userinfo[0]["immagine"]);
+
 
             if($this->_userModel->sonoamici($id,$myid))
             {
@@ -170,6 +174,36 @@ class UserController extends Zend_Controller_Action
 
     }
     public function updateajaxAction()
+    {
+        $this->_helper->getHelper('layout')->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+        $user = $this->_userModel->cercautente($_POST['q']);
+        if ($user != null) {
+            $this->getResponse()->setHeader('Content-type', 'application/json')->setBody(json_encode($user));
+        }
+    }
+    public function updateajaxblogAction()
+    {
+        $this->_helper->getHelper('layout')->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+        $data = $this->_userModel->selezionatuttiblog();
+
+        $adapter = new Zend_Paginator_Adapter_DbSelect($data);
+        $paginator = new Zend_Paginator($adapter);
+        $paginator->setItemCountPerPage(3);
+        $paginator->setCurrentPageNumber($_POST['page']);
+        //il massimo numero di pagine, devo trovare il modo di passarlo col json
+        $condition = (integer) ceil($paginator->getTotalItemCount() / $paginator->getItemCountPerPage());
+
+        if ($paginator != null && $condition >= $paginator->getCurrentPageNumber()) {
+            $json = json_decode($paginator->toJson(),true);
+            $json["maxpage"]=$condition;
+
+            $this->getResponse()->setHeader('Content-type', 'application/json')->setBody(json_encode($json));
+        }
+    }
+
+    public function updateajaxpostAction()
     {
         $this->_helper->getHelper('layout')->disableLayout();
         $this->_helper->viewRenderer->setNoRender();

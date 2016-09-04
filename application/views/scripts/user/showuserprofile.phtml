@@ -1,25 +1,37 @@
+<div class="page-wrapper">
 
 
 <div class="primary-content">
-        <p>
-            <br><br><br>
+    <div class="portfolio">
+        <div class="title" id="results">
 
-            <br>
-Questo è il pannello utente gigi. Seleziona l'azione da eseguire
+            <h1>BLOG DI <?php echo $this->nome.' '.$this->cognome;  ?> </h1> </h1>
+            <?php
+            if($this->sonoio == true)
+            { echo'<div class="button-link"><a href="#">+ CREA BLOG</a></div>
+        </div>'; }
+            ?>
 
 
-        </p>
+            
+
     </div>
+
+
+    </div>
+</div>
 
     <div class="sidebar marLeft30">
         <div class="panel">
+            <div class="profilepic">
+                <img src="<?php echo $this->baseUrl() . '/images/profiles/'.$this->immagine; ?>" alt='Img' height="200" width="200"/>
+            </div>
             <div class="title">
                 <h1><?php echo $this->nome.' '.$this->cognome;  ?> </h1>
             </div>
             <div class="content">
                 <ul>
                     <?php
-                    echo $this->amici;
                     if($this->sonoio == false)
                     {
                         if($this->amici)
@@ -43,7 +55,7 @@ Questo è il pannello utente gigi. Seleziona l'azione da eseguire
                            } } ?>
                     <li><p>età:<?php echo $this->eta;  ?> anni</p></li>
                     <li><p><?php echo $this->interessi;  ?></p></li>
-
+                    
 
 
                 </ul>
@@ -52,3 +64,11 @@ Questo è il pannello utente gigi. Seleziona l'azione da eseguire
         </div>
         
     </div>
+
+    <id="results"><!-- results appear here --></ul>
+
+    <div class="loading-info"><img src="ajax-loader.gif" /></div>
+<script>
+    var link = '<?php echo $this->url(array('controller' => 'user', 'action' => 'updateajaxblog', 'id' => $this->idprofile)); ?>';
+</script>
+    <script src="<?php echo $this->baseUrl("js/blogscript.js")?>"></script>

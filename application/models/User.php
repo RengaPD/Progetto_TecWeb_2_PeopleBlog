@@ -19,7 +19,7 @@ class Application_Model_User extends App_Model_Abstract
     }
     public function mostrautente($id)
     {
-        return $this->getResource('Utenti')->showUserbyID($id);
+        return $this->getResource('Utenti')->showUtentedaID($id);
     }
     
     public function creaBlog($dati)
@@ -64,5 +64,9 @@ class Application_Model_User extends App_Model_Abstract
     
     public function cambiaImmagine($dati,$id){
         return $this->getResource('Utenti')->changeprofilepic($dati,$id);
+    }
+    public function selezionatuttiblog()
+    {
+        return $this->getResource('Blog')->selectallblogs();
     }
 }

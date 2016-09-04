@@ -21,9 +21,7 @@
                     $cognome=Zend_Auth::getInstance()->getIdentity()->Cognome;
                     echo $nome.' '.$cognome.'<br><br>'.$eta=Zend_Auth::getInstance()->getIdentity()->eta.' anni'; ?></h1>
             </div>
-            <div class="profilepic">
-                <img src="<?php echo $this->baseUrl() . '/images/profiles/'.$immagine=Zend_Auth::getInstance()->getIdentity()->immagine; ?>" alt='Img' height="200" width="200"/>
-            </div>
+            
             <div class="content">
                 <?php $interessi=Zend_Auth::getInstance()->getIdentity()->interessi;
                             echo $interessi; ?>

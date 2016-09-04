@@ -93,4 +93,5 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
         $where=$this->getAdapter()->quoteInto('id=?',$id);
         $this->update(array('immagine'=>$dati['immagine']), $where);
     }
+    
 }

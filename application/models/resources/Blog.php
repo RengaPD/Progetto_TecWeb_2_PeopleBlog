@@ -98,4 +98,11 @@ class Application_Resource_Blog extends Zend_Db_Table_Abstract
         $res=$this->fetchAll($select);
         return $res;
     }
+
+    public function selectallblogs()
+    {
+        $select=$this->select()->from('blog');
+
+        return $select;
+    }
 }

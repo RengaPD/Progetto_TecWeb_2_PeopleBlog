@@ -9,11 +9,11 @@ echo $this->doctype(); ?>
     <?php echo $this->headMeta(); ?>
     <?php echo $this->headTitle(); ?>
     <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/style.css'); ?>
+    <link href='http://fonts.googleapis.com/css?family=Oswald|Pontano+Sans' rel='stylesheet' type='text/css'>
     <?php echo $this->headLink()->prependStylesheet('http://fonts.googleapis.com/css?family=Droid+Sans:400,700'); ?>
     <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/js/jquery-ui.min.css'); ?>
     <script src="<?php echo $this->baseUrl("js/jquery.js")?>"></script>
     <script src="<?php echo $this->baseUrl("js/jquery-ui.min.js")?>"></script>
-    <!--<script src="<?php echo $this->baseUrl("js/searchbox.js")?>"></script> -->
 
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,6 +44,7 @@ echo $this->doctype(); ?>
 
             <div class="search-input">
                 <input id="searchbox" type="text" placeholder="Cerca Utenti..." />
+
             </div>
 
         </div>
@@ -70,11 +71,9 @@ echo $this->doctype(); ?>
 </div>*/ ?>
 <!-- end of header wrapper -->
 <!-- end of panel wrapper -->
-<div class="page-wrapper">
     <?php echo $this->layout()->content; ?>
     
     <!-- end of Sidebar -->
-</div>
 <!-- end of page wrapper -->
 <div class="clearing"></div>
 <div class="footer-wrapper marginTop">
@@ -82,76 +81,11 @@ echo $this->doctype(); ?>
 </div>
 
 <script>
-$(document).ready(function () {
-
-
-
-
-$("#searchbox").autocomplete({
-source: function( request, response ){
-    if(request.term.endsWith("*")){
-    request.substring(0, str.length - 1);}
-    
-        $.ajax({
-            type: 'POST',
-            url: '<?php echo $this->url(array('controller' => 'user', 'action' => 'updateajax'));?>',
-            dataType: "json",
-            data: {
-
-                q: request.term
-            },
-            success: function (data) {
-                console.log(typeof data);
-                console.log(data);
-// Handle 'no match' indicated by [ "" ] response
-                response(data.length === 1 && data[0].length === 0 ? [] : data);
-            }
-        });
-
-
-
-},
-minLength: 2,
-focus: function (event, ui) {
-$("#searchbox").val(ui.item.Nome + " " + ui.item.Cognome)
-return false;
-},
-select: function (event, ui) {
-
-var url = "<?php echo $this->url(array('controller' => 'user','action' =>'showuserprofile','id'=>''));?>"+ui.item.id ;
-location.href = url;
-return false;
-},
-}).autocomplete("instance")._renderItem = function (ul, item) {
-var $li = $("<li>");
-    $li.addClass("searchItem");
-
-    $outerDiv = $("<div>");
-        $outerDiv.appendTo($li);
-
-        $imageDiv = $("<div>");
-            $imageDiv.addClass("contactImageDiv");
-            $imageDiv.appendTo($outerDiv);
-
-            $img = $("<img>");
-            $img.addClass("contactImage");
-            $img.attr("src", item.imgUrl);
-            $img.appendTo($imageDiv);
-
-            $name = $("<div>");
-                $name.addClass("nameDiv");
-                $name.append(item.Nome + " " + item.Cognome + "<br/><span style='font-style:italic'>"+"</span>");
-                $name.appendTo($outerDiv);
-
-                $li.appendTo(ul);
-
-                return $li;
-                };
-
-                })
-
-
+    var urlajax = '<?php echo $this->url(array('controller' => 'user', 'action' => 'updateajax'));?>';
+    var urlaction ='<?php echo $this->url(array('controller' => 'user','action' =>'showuserprofile','id'=>''));?>';
 </script>
+<script src="<?php echo $this->baseUrl("js/searchscript.js")?>"></script>
+
 
 </body>
 </html>
