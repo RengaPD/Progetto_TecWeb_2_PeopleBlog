@@ -17,11 +17,17 @@ class Application_Resource_Notifiche extends Zend_Db_Table_Abstract
         return $res;
     }
     
-    public function sendNotification($id,$tipo){
+    public function sendNotification($id,$tipo,$testo){
         $auth=Zend_Auth::getInstance();
         $this->insert(array('id_destinatario'=>$id,
                             'id_mittente'=>$auth->getIdentity()->id,
-                            'tipologia'=>$tipo));
+                            'tipologia'=>$tipo,
+                            'testo'=>$testo));
+    }
+
+    public function setread($id){
+        $where = $this->getAdapter()->quoteInto('id_destinatario= ?', $id);
+        $this->delete($where);
     }
     
     
