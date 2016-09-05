@@ -1,6 +1,8 @@
-<p>Utilizza questa form per modificare le informazioni utente nel database</p>
+<div class="primary-content">
+    <p>Utilizza questa tabella per modificare le informazioni utente nel database</p><br><br><br>
+    <div class="datagrid">
 
-<table >
+<table class="thead">
     <tr>
         <th>Id</th>
         <th>Nome</th>
@@ -10,6 +12,7 @@
         <th>Ruolo</th>
         <th>Modifica</th>
         <th>Cancella</th>
+        <th>Amici</th>
     </tr>
     <?php foreach($this->risultato as $utenti) :?>
 
@@ -35,7 +38,22 @@
             'default',true);
         ?>"><?php echo $this->bottonedel ?></a>
         <?php echo"</td>
+        <td>"; ?><a href="<?= $this->url(array(
+            'controller'=>'admin',
+            'action'=>'visualizzaamici',
+            'id'=>"$id"),
+            'default',true);
+        ?>"><?php echo $this->bottoneamici ?></a>
+        <?php echo"</td>
+        <td>"; ?><a href="<?= $this->url(array(
+            'controller'=>'admin',
+            'action'=>'visualizzarichieste',
+            'id'=>"$id"),
+            'default',true);
+        ?>"><?php echo $this->bottonerichieste ?></a>
+        <?php echo"</td>
         </tr>"; ?>
 
     <?php endforeach ?>
 </table>
+</div></div>

@@ -50,34 +50,35 @@
         </div>-->
         <div class="comments-list">
             <ul class="comments-holder">
-                <li class="comment-holder" id="1">
-                    <!--<div class="user-img"><img src="images/img2.jpg" class="user-imgpic"/></div>-->
                             <?php foreach ($this->commenti as $commenti) :?>
                                 <?php $idcommento=$commenti['comment_id']; ?>
                             <?php if($commenti['post_id']==$posts['id']) :?>
-                            <?php echo '<li class="comment-holder"><div class="comment-body"><h3 class="username-field">'.$commenti['autore_commento'].' </h3>'; ?>
-                                    <?php echo '<div class="comment-text">'.$commenti['comment'].'</div><div class="comment-buttons-holder">
+                                    <div class="user-img">
+                                        <li class="comment-holder">
+                                        <?php foreach ($this->img as $immagine) :?>
+                                        <?php if($commenti['user_id']==$immagine['id']) :?>
+                                                <div class="user-img">
+                                                    <img src="<?php echo $this->baseUrl().'/images/profiles/'.$immagine['immagine']; ?>" alt='Img' height="65" width="65"/>
+                                                </div>
+                                                <?php echo '<div class="comment-body"><h3 class="username-field">'.$commenti['autore_commento'].' </h3>'; ?>
+                                                <?php echo '<div class="comment-text">'.$commenti['comment'].'</div><div class="comment-buttons-holder">
                         <ul>
                             <li class="delete-button">'; ?>
-                                    <?php if ($_auth->getIdentity()->id==$commenti['user_id']) :?>
-                                    <a href="<?= $this->url(array(
-                                        'controller'=>'blog',
-                                        'action'=>'cancellacommento',
-                                        'idcommento'=>"$idcommento"),
-                                        'default',true);
-                                    ?>">X</a>
-                                    <?php endif ?>
-                                    <?php echo '</ul></div></li>'; ?>
+                                                <?php if ($_auth->getIdentity()->id==$commenti['user_id']) :?>
+                                                    <a href="<?= $this->url(array(
+                                                        'controller'=>'blog',
+                                                        'action'=>'cancellacommento',
+                                                        'idcommento'=>"$idcommento"),
+                                                        'default',true);
+                                                    ?>">X</a>
+                                                <?php endif ?>
+                                                <?php echo '</ul></div></li>'; ?>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    </div>
                             <?php endif ?>
                             <?php endforeach ?>
-                    <div class="comment-buttons-holder">
-                        <ul>
-                            <li class="delete-button">
-                                X
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                    </li>
             </ul>
         </div>
     </div>

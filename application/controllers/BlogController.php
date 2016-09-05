@@ -26,6 +26,7 @@ class BlogController extends Zend_Controller_Action
         $id_user = $info->getIdentity()->id;
         $this->prendipostAction($id_user);
         $this->prendicommentiAction();
+        $this->prendiuserpicAction();
         $infouser = $this->_adminModel->visualizzaUtentedaID($id_user);
         $this->view->assign('nomeuser', $infouser[0]['Nome']);
         $this->view->assign('cognomeuser', $infouser[0]['Cognome']);
@@ -43,6 +44,12 @@ class BlogController extends Zend_Controller_Action
         $posts = $this->_blogModel->prendipost($id_user)->toArray();
         $this->view->assign('posts', $posts);
         Zend_Layout::getMvcInstance()->assign('titoloblog', $posts[0]['titoloblog']);
+    }
+
+    public function cancellablogAction(){
+        $id=$this->getParam('id');
+        $this->_blogModel->cancellablog($id);
+        $this->_userModel->setblogfalse();
     }
 
     public function creapostAction() //deve riusare sempre stesso titolo specificato dal primo post
@@ -116,8 +123,13 @@ class BlogController extends Zend_Controller_Action
         $this->_helper->redirector('index','blog');
     }
 
-    public function inviaNotificaAction($id_destinatario,$tipologia){ //ok
-        $this->_userModel->inviaNotifica($id_destinatario,$tipologia);
+    public function inviaNotificaAction($id_destinatario,$tipologia,$testo){ //ok
+        $this->_userModel->inviaNotifica($id_destinatario,$tipologia,$testo);
+    }
+    
+    public function prendiuserpicAction(){
+        $immagini=$this->_adminModel->visualizzaUtente()->toArray();
+        $this->view->assign('img',$immagini);
     }
 }
 

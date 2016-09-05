@@ -90,6 +90,12 @@ class Application_Resource_Blog extends Zend_Db_Table_Abstract
         $where = $this->getAdapter()->quoteInto('id = ?', $id);
         $this->delete($where);
     }
+
+    public function deleteblog($id) //funziona
+    {
+        $where = $this->getAdapter()->quoteInto('id_user= ?', $id);
+        $this->delete($where);
+    }
     
     public function selblogs() //funziona
     {

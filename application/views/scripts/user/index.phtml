@@ -1,4 +1,4 @@
-
+<!-- notifiche -->
     <div class="primary-content">
         <p>
             <br><br><br>
@@ -8,12 +8,19 @@
             <?php if(!$this->messaggio=='') :?>
                 <?php foreach ($this->messaggio as $mex) :?>
                     <?php echo $mex ?>
+                    <?php $auth=Zend_Auth::getInstance()->getIdentity()->id; ?>
                 <?php endforeach; ?>
+                <a href="<?= $this->url(array(
+                    'controller'=>'user',
+                    'action'=>'gestisci',
+                    'id'=>"$auth"),
+                    'default',true);
+                ?>"><?php echo $this->bottone; ?></a>
             <?php endif ?>
 
         </p>
     </div>
-    <!-- end of Primary content -->
+    <!-- sidebar -->
     <div class="sidebar marLeft30">
         <div class="panel">
             <div class="title">

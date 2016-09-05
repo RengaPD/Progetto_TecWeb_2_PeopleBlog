@@ -52,5 +52,19 @@
     </li>
     <?php endif; ?>
 
+    <?php if($user->hasIdentity()) :?>
+        <?php $permesso=$user->getIdentity()->ruolo; ?>
+        <?php if((!$permesso==null)&&($permesso=='admin')) :?>
+
+            <li><a href="<?= $this->url(array(
+                    'controller'=>'admin',
+                    'action'=>'index'),
+                    'default',true);
+                ?>"
+                   title="Gestisci sito"><i class="icon-user"></i>Amministrazione</a></li>
+        <?php endif ?>
+
+    <?php endif ?>
+
 
 </ul>
