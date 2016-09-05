@@ -58,8 +58,8 @@ class Application_Model_User extends App_Model_Abstract
         return $this->getResource('Notifiche')->controlnotification($id);
     }
     
-    public function inviaNotifica($id,$tipo){
-        return $this->getResource('Notifiche')->sendNotification($id,$tipo);
+    public function inviaNotifica($id,$tipo,$testo){
+        return $this->getResource('Notifiche')->sendNotification($id,$tipo,$testo);
     }
     
     public function cambiaImmagine($dati,$id){
@@ -69,4 +69,10 @@ class Application_Model_User extends App_Model_Abstract
     {
         return $this->getResource('Blog')->selectallblogs();
     }
+    public function selezionatuttiblogvisibiliamediID($id)
+    {
+        return $this->getResource('Blog')->selectallblogsicanseeofID($id);
+    }
+
+
 }

@@ -105,4 +105,18 @@ class Application_Resource_Blog extends Zend_Db_Table_Abstract
 
         return $select;
     }
+    public function selectallblogsicanseeofID($id)
+    {
+
+        $select = $this->select()
+            ->from('blog',
+                array('titoloblog','titolo', 'datetime', 'descrizione'))
+            ->join(array('pryvacyrule'),
+                'pryvacyrule.id_blog = blog.id')
+            ->where('pryvacyrule.id_friend <> ?',$id)
+            ->setIntegrityCheck(false);
+
+        return $select;
+    }
+
 }

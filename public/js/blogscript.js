@@ -1,72 +1,74 @@
 
 
-var track_page = 1; //track user scroll as page number, right now page number is 1
-var loading  = false; //prevents multiple loads
-var informations;
-var stop_page = 1;
-var donefirst = false;
-load_contents(track_page); //initial content load
+var track_page = 1; //la track page è inizializzata a 1;
+var caricamento  = false; //previene caricamenti multipli
 
-$(window).scroll(function() { //detect page scroll
-    if($(window).scrollTop() + $(window).height() >= $('.primary-content').height() && donefirst) { //if user scrolled to bottom of the page
-        console.log("prima dell'increm"+track_page);
+load_contents(track_page); //primo caricamento
 
-        track_page++; //page number increment
-        console.log("dopo dell'increm"+track_page);
+$(window).scroll(function() { //in caso di scroll della pagina riaziona il caricamento
+    if($(window).scrollTop() + $(window).height() >= $('.primary-content').height() ) { //if user scrolled to bottom of the page
+        
 
-        load_contents(track_page); //load content
+        track_page++; //con un numero di pagina successivo
+        
+        load_contents(track_page);
     }
 });
-//Ajax load function
-function load_contents(track_page){
-    console.log("avviato loadcontents con trak="+track_page+" stop page="+stop_page);
-    var condition = (stop_page >= track_page);
-    if(loading == false && condition){
 
-        console.log("iterazione"+track_page+"stop page="+stop_page);
-        loading = true;  //set loading flag on
-        $('.loading-info').show(); //show loading animation
+//funzione di caricamento dati
+function load_contents(track_page)
+{
+    if(caricamento == false){
+
+        
+        caricamento = true;
+        $('.loading-info').show();
         $.ajax({
             type: 'POST',
             url: link,
+            async:false,
             dataType: "json",
-            data: { page: track_page },
+            data: { page: track_page,id: iduser},
 
-            success: function(data){
+            success: function(data)
+            {
 
-                donefirst = true;
-                stop_page = data["maxpage"];
-                console.log("ho settato stoppage "+stop_page);
-
-                loading = false; //set loading flag off once the content is loaded
+                caricamento = false;
                 if(data.length <= 2) {
-                    //notify user if nothing to load
-                    $('.loading-info').html("No more records!");
+                    //se non carica niente
+                    $('.loading-info').html("Nulla da caricare!");
                     return;
                 }
 
 
 
 
+                console.log(data);
 
 
-                $('.loading-info').hide();
+                $('.loading-info').hide();                    //nasconde l'animazione---da rimuovere se non lo finisco
+
                 console.log(Object.keys(data));
+                console.log(iduser);
 
-                for (i = 0; i <= [Object.keys(data).length - 2]; i++)
+                for (i = 0; i <= [Object.keys(data).length - 1]; i++)
                 {
-                    //hide loading animation once data is received
+                    //se sto vedendo il mio profilo aggiungo i bottoni di gestione
+                    var appendbuttons = '';
+                    if(iduser=='my'){appendbuttons =' <a href="#">Gestisci Privacy</a> <a href="#">Elimina</a> </div> </div>';}
+
+
                     $("#results").append('<div class="panel marRight30">    <div class="content"> <h3><span>' +
                         data[i].titolo + '</span></h3> <p><span>' +
                         data[i].datetime.substring(0, (data[i].datetime.length - 10)) + '</span></p>' +
                         '<p>' + data[i].descrizione + '</p> ' +
-                        '<a href="#">Visita blog</a><a href="#">Gestisci Privacy</a><a href="#">Elimina</a> </div> </div>'); //append data into #results element
+                        '<a href="#">Visita blog</a>'+ appendbuttons);
                 }
             },
             fail: function(xhr, ajaxOptions, thrownError)
-            { //any errors?
+            { 
                 console.log(thrownError);
-                alert(thrownError); //alert with HTTP error
+                alert(thrownError);
             }
 
         })

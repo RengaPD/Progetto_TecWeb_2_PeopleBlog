@@ -186,20 +186,18 @@ class UserController extends Zend_Controller_Action
     {
         $this->_helper->getHelper('layout')->disableLayout();
         $this->_helper->viewRenderer->setNoRender();
-        $data = $this->_userModel->selezionatuttiblog();
+
+        $data = $this->_userModel->selezionatuttiblogvisibiliamediID($_POST['id']);
 
         $adapter = new Zend_Paginator_Adapter_DbSelect($data);
         $paginator = new Zend_Paginator($adapter);
         $paginator->setItemCountPerPage(3);
         $paginator->setCurrentPageNumber($_POST['page']);
-        //il massimo numero di pagine, devo trovare il modo di passarlo col json
+        //il massimo numero di pagine
         $condition = (integer) ceil($paginator->getTotalItemCount() / $paginator->getItemCountPerPage());
 
-        if ($paginator != null && $condition >= $paginator->getCurrentPageNumber()) {
-            $json = json_decode($paginator->toJson(),true);
-            $json["maxpage"]=$condition;
-
-            $this->getResponse()->setHeader('Content-type', 'application/json')->setBody(json_encode($json));
+        if ($paginator != null && ($condition >= $_POST['page'])) {
+            $this->getResponse()->setHeader('Content-type', 'application/json')->setBody($paginator->toJson());
         }
     }
 

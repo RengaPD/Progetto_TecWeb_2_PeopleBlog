@@ -69,6 +69,8 @@
 
     <div class="loading-info"><img src="ajax-loader.gif" /></div>
 <script>
+    var iduser = '<?php echo $this->idprofile?>';
+
     var link = '<?php echo $this->url(array('controller' => 'user', 'action' => 'updateajaxblog', 'id' => $this->idprofile)); ?>';
 </script>
     <script src="<?php echo $this->baseUrl("js/blogscript.js")?>"></script>
