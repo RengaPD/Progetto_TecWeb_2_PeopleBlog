@@ -19,7 +19,7 @@ class Application_Model_User extends App_Model_Abstract
     }
     public function mostrautente($id)
     {
-        return $this->getResource('Utenti')->showUtentedaID($id);
+        return $this->getResource('Utenti')->showUserbyID($id);
     }
     
     public function creaBlog($dati)
@@ -75,4 +75,12 @@ class Application_Model_User extends App_Model_Abstract
     }
 
 
+    
+    public function gestisciNotifiche($id){
+        return $this->getResource('Notifiche')->setread($id);
+    }
+    
+    public function setblogfalse(){
+        return $this->getResource('Utenti')->setBlogfalse();
+    }
 }

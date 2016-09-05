@@ -37,4 +37,14 @@ class Application_Model_Admin extends App_Model_Abstract
     {
         return $this->getResource('Utenti')->showUtentedaID($id);
     }
+    
+    public function visualizzaAmici($id)
+    {
+        return $this->getResource('Amici')->showmyfriends($id);
+    }
+
+    public function visualizzaRichieste($id)
+    {
+        return $this->getResource('Amici')->show_all_request($id);
+    }
 }

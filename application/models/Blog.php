@@ -51,4 +51,8 @@ class Application_Model_Blog extends App_Model_Abstract
     public function cancellacommento($id){
         return $this->getResource('Commenti')->deletecomment($id);
     }
+    
+    public function cancellablog($id){
+        return $this->getResource('Blog')->deleteblog($id);
+    }
 }

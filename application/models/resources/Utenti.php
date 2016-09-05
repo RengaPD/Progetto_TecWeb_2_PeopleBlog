@@ -43,7 +43,7 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
             'blog'=>$info['blog']), $where);
     }
 
-    public function showUtenti()
+    public function showUtenti() //funziona
     {
         $select=$this->select()->order('id');
         $res=$this->fetchAll($select);
@@ -79,12 +79,29 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
             'interessi'=>$auth->getIdentity()->interessi,
             'blog'=>$true),$where);
     }
-    
-    public function searchutenti($info)
+
+    public function setBlogfalse()  //funziona
     {
-        $query = 'SELECT * FROM utenti  WHERE Nome LIKE "'.$info.'%" OR  Cognome LIKE "'.$info.'%"';
-        $db = Zend_Db_Table_Abstract::getDefaultAdapter()->query($query);
-        $res=$db->fetchAll();
+        $auth=Zend_Auth::getInstance();
+        $id=$auth->getIdentity()->id;
+        $where=$this->getAdapter()->quoteInto('id=?',$id);
+        $false=false;
+        $this->update(array('nome'=>$auth->getIdentity()->Nome,
+            'cognome'=>$auth->getIdentity()->Cognome,
+            'immagine'=>$auth->getIdentity()->immagine,
+            'email'=>$auth->getIdentity()->email,
+            'password'=>$auth->getIdentity()->password,
+            'ruolo'=>$auth->getIdentity()->ruolo,
+            'interessi'=>$auth->getIdentity()->interessi,
+            'blog'=>$false),$where);
+    }
+    
+    public function search($info) //funziona
+    {
+        $select=$this->select()
+            ->where('Nome =?',$info['Nome'])
+            ->where('Cognome=?',$info['Cognome']);
+        $res=$this->fetchAll($select);
         return $res; 
     }
 

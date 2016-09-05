@@ -23,15 +23,14 @@ class Application_Resource_Notifiche extends Zend_Db_Table_Abstract
         $datetime=date_format($datetime, 'Y-m-d H:i:s');
         $this->insert(array('id_destinatario'=>$id,
                             'id_mittente'=>$auth->getIdentity()->id,
-            'datetime'=>$datetime,
-            'tipologia'=>$tipo,
-            'testo'=>$testo
-        ));
+                            'tipologia'=>$tipo,
+                            'testo'=>$testo));
     }
+
     public function setread($id){
         $where = $this->getAdapter()->quoteInto('id_destinatario= ?', $id);
         $this->delete($where);
-    }   
+    }
     
     
 }
