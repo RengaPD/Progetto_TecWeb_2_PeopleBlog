@@ -18,11 +18,20 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
         return $res;
     }
 
+	public function findUserName($info)  //funziona
+    {
+        $select=$this->select()
+            ->where('username=?',$info['username'])
+            ->where('password=?',$info['password']);
+        $res=$this->fetchRow($select);
+		return $res;
+    }
+
     public function insertUtenti($info) //funziona
     {
         $this->insert(array('Nome'=>$info['nome'],
             'Cognome'=>$info['cognome'],
-            'immagine'=>$info['immagine'],
+            'immagine'=>'prova.jpg',
             'email'=>$info['email'],
             'password'=>$info['password'],
             'ruolo'=>$info['ruolo'],
@@ -39,19 +48,24 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
             'email'=>$info['email'],
             'password'=>$info['password'],
             'ruolo'=>$info['ruolo'],
-            'interessi'=>$info['interessi'],
-            'blog'=>$info['blog']), $where);
+            'interessi'=>$info['interessi']), $where);
     }
 
-    public function showUtenti() //funziona
-    {
-        $select=$this->select()->order('id');
+    public function showUtenti($pagina=null)
+	{
+		$select=$this->select()->order('id');
+		if (null !== $pagina) {
+			$adapter = new Zend_Paginator_Adapter_DbTableSelect($select);
+			$paginator = new Zend_Paginator($adapter);
+			$paginator->setItemCountPerPage(25)
+		          	  ->setCurrentPageNumber((int) $pagina);
+			return $paginator;
+		}
         $res=$this->fetchAll($select);
         return $res;
+	}
 
-    }
-
-    public function showUtentedaID($id) //funziona
+    public function showUserbyID($id) //funziona
     {
         $select=$this->select()->where('id=?',$id);
         $res=$this->fetchAll($select);
@@ -98,10 +112,12 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
     
     public function search($info) //funziona
     {
-        $select=$this->select()
-            ->where('Nome =?',$info['Nome'])
-            ->where('Cognome=?',$info['Cognome']);
-        $res=$this->fetchAll($select);
+        //var_dump($info);
+
+        $query = $this->select()
+            ->where('Nome LIKE ?',$info.'%')
+            ->orWhere('Cognome LIKE ?',$info.'%');
+        $res=$this->fetchAll($query);
         return $res; 
     }
 
@@ -110,5 +126,16 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
         $where=$this->getAdapter()->quoteInto('id=?',$id);
         $this->update(array('immagine'=>$dati['immagine']), $where);
     }
-    
+
+    public function findUsersNotMeNotStaff($info) //funziona
+    {
+
+        $query = $this->select()
+            ->where("ruolo = 'utente'")
+            ->where('Nome LIKE ?',$info.'%')
+            ->orWhere('Cognome LIKE ?',$info.'%');
+        $res=$this->fetchAll($query);
+        return $res;
+    }
+
 }

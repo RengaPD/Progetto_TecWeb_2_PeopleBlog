@@ -1,3 +1,4 @@
+
 <div class="page-wrapper">
 
 
@@ -5,20 +6,25 @@
     <div class="portfolio">
         <div class="title" id="results">
 
-            <h1>BLOG DI <?php echo $this->nome.' '.$this->cognome;  ?> </h1> </h1>
+            <h1>BLOG DI <?php echo $this->nome.' '.$this->cognome;  ?> </h1>
             <?php
             if($this->sonoio == true)
-            { echo'<div class="button-link"><a href="#">+ CREA BLOG</a></div>
-        </div>'; }
+            { echo '<div class="button-link"><a href="';
+                echo $this->url(array('controller'=>'user',
+                    'action'=>'creablog'),
+                    'default',true);
+                echo'" title="Crea">+CREA</a></div>'; }
             ?>
+</div>
 
 
-            
-
-    </div>
 
 
-    </div>
+        </div>
+
+
+
+
 </div>
 
     <div class="sidebar marLeft30">
@@ -52,9 +58,19 @@
                                 'default',true);
                             echo'"title="Aggiungi">+Aggiungi</a>
     </li>';
-                           } } ?>
+                           }
+                    }else
+                    {
+                    echo '<li><a href="';
+                    echo $this->url(array('controller'=>'user',
+                        'action'=>'cambiaimmagine'),
+                        'default',true);
+                    echo'"title="Rimuovi">Cambia immagine</a>';
+                    echo '</li>';
+                    }?>
                     <li><p>età:<?php echo $this->eta;  ?> anni</p></li>
                     <li><p><?php echo $this->interessi;  ?></p></li>
+
                     
 
 
@@ -64,13 +80,18 @@
         </div>
         
     </div>
+</div>
 
-    <id="results"><!-- results appear here --></ul>
 
-    <div class="loading-info"><img src="ajax-loader.gif" /></div>
 <script>
-    var iduser = '<?php echo $this->idprofile?>';
+    var iduser = '<?php echo $this->idprofile ?>';
+    var staff = '<?php echo $this->staff ?>';
+    var sonoio = '<?php echo $this->sonoio ?>';
+    var linkforupdateajax = '<?php echo $this->url(array('controller' => 'user', 'action' => 'updateajaxblog', 'id' => $this->idprofile)); ?>';
+    var linkshow = '<?php echo $this->url(array('controller' => 'user', 'action' => 'showblog', 'id_blog' => '')); ?>';
+    var linksetp = '<?php echo $this->url(array('controller' => 'user', 'action' => 'gestisciprivacyblog', 'id_blog' => '')); ?>';
+    var linkdel = '<?php echo $this->url(array('controller' => 'user', 'action' => 'cancellablog', 'id_blog' => '')); ?>';
 
-    var link = '<?php echo $this->url(array('controller' => 'user', 'action' => 'updateajaxblog', 'id' => $this->idprofile)); ?>';
+
 </script>
     <script src="<?php echo $this->baseUrl("js/blogscript.js")?>"></script>

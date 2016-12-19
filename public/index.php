@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 // Define path to application directory
 defined('APPLICATION_PATH')
@@ -6,7 +6,7 @@ defined('APPLICATION_PATH')
 
 // Define application environment
 defined('APPLICATION_ENV')
-    || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'development'));
+    || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 
 defined('VIEW_PATH')
 || define('VIEW_PATH', realpath(dirname(__FILE__) . '/../application/views/scripts/public'));

@@ -14,13 +14,13 @@ Setting Up Your VHOST
 The following is a sample VHOST you might want to consider for your project.
 
 <VirtualHost *:80>
-   DocumentRoot "/home/renga/Scrivania/zend/ZendFramework-1.12.18/bin/zf-prova/public"
-   ServerName zf-prova.local
+   DocumentRoot "/home/grp_62/www/ZendProject/public"
+   ServerName ZendProject.local
 
    # This should be omitted in the production environment
    SetEnv APPLICATION_ENV development
 
-   <Directory "/home/renga/Scrivania/zend/ZendFramework-1.12.18/bin/zf-prova/public">
+   <Directory "/home/grp_62/www/ZendProject/public">
        Options Indexes MultiViews FollowSymLinks
        AllowOverride All
        Order allow,deny

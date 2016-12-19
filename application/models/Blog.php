@@ -11,7 +11,7 @@ class Application_Model_Blog extends App_Model_Abstract
 
     public function prendipost($id_user)
     {
-        return $this->getResource('Blog')->getposts_byuser($id_user);
+        return $this->getResource('Blog')->getblog_byuser($id_user);
     }
     
     public function postasuBlog($dati)
@@ -21,23 +21,27 @@ class Application_Model_Blog extends App_Model_Abstract
     
     public function modpost($dati,$a)
     {
-        return $this->getResource('Blog')->editpost($dati,$a);
+        return $this->getResource('Post')->editpost($dati,$a);
     }
-    
-    public function selezionapost($datetime)
+    public function modblog($dati,$a)
     {
-        return $this->getResource('Blog')->getbydatetime($datetime);
+        return $this->getResource('Blog')->editblog($dati,$a);
+    }
+    public function selezionapost($post)
+    {
+        return $this->getResource('Post')->getpostbyid($post);
     }
     
     public function cancellapost($a)
     {
-        return $this->getResource('Blog')->deletepost($a);
+        return $this->getResource('Post')->deletepost($a);
     }
+    
+    
     
    public function contablog()
    {
-        $res=$this->getResource('Blog')->selblogs();
-        return $conta=count($res);
+        return $this->getResource('Blog')->selectallblogs();
    }
     
     public function commenta($dati,$id){
@@ -51,8 +55,25 @@ class Application_Model_Blog extends App_Model_Abstract
     public function cancellacommento($id){
         return $this->getResource('Commenti')->deletecomment($id);
     }
-    
+
     public function cancellablog($id){
         return $this->getResource('Blog')->deleteblog($id);
     }
+
+    //---------privacy
+    public function prendiTuttiGliUtentiPrivacy($id){
+        return $this->getResource('Privacy')->takeAllPrivacyUsers($id);
+    }
+    public function cancellaRegolaPrivacy($blog,$user){
+        $this->getResource('Privacy')->deletePrivacyRule($blog,$user);
+    }
+
+    public function aggiungiRegolaPrivacy($blog,$user){
+        $this->getResource('Privacy')->addPrivacyRule($blog,$user);
+    }
+
+
+
+
+
 }

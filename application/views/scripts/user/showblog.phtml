@@ -1,0 +1,95 @@
+
+<div class="page-wrapper">
+
+
+    <div class="primary-content">
+        <div class="portfolio">
+            <div class="title">
+
+                <h1><?php echo $this->blogtitle;  ?> </h1>
+                <h2><?php echo $this->blogdescr; ?></h2>
+
+            </div>
+            <?php
+                if($this->sonoio)
+                { echo'<div class="button-link"><a href="#">+ CREA POST</a></div>'; }
+                ?>
+            <div id="results">
+                <!--  CONTENUTO WRAPPATO -->
+
+
+
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="sidebar marLeft30">
+        <div class="panel">
+            <div class="profilepic">
+                <img src="<?php echo $this->baseUrl() . '/images/profiles/'.$this->immagine; ?>" alt='Img' height="200" width="200"/>
+            </div>
+            <div class="title">
+                <h1><?php echo $this->nome.' '.$this->cognome;  ?> </h1>
+            </div>
+            <div class="content">
+                <ul>
+                    <?php
+                    if($this->sonoio == false)
+                    {
+                        if($this->amici or $this->publicprofile )
+                        {
+                            echo '<li><a href="';
+                            echo $this->url(array('controller'=>'user',
+                                'action'=>'rimuoviamico',
+                                'id'=>$this->idprofile),
+                                'default',true);
+                            echo'"title="Rimuovi">-Rimuovi</a>  </li>';
+                            echo '<li><p>Età:'.$this->eta.'anni</p></li>';
+                            echo '<li><p>Interessi: '.$this->interessi.'</p></li>';
+
+                        }else{
+                            echo '<li><a href="';
+                            echo $this->url(array('controller'=>'user',
+                                'action'=>'aggiungiamico',
+                                'id'=>$this->idprofile),
+                                'default',true);
+                            echo'"title="Aggiungi">+Aggiungi</a></li>';
+                        }
+                    }else
+                    {
+                        echo '<li><p>Età:'.$this->eta.'anni</p></li>';
+                        echo '<li><p>Interessi:'.$this->interessi.'</p></li>';
+                    } ?>
+
+
+
+
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+    var iduser = '<?php echo $this->idprofile ?>';
+    var idblog = '<?php echo $this->idblog ?>';
+    var sonoio = '<?php echo $this->sonoio ?>';
+    var staff = '<?php echo $this->staff ?>';
+
+    var linkforupdateajax = '<?php echo $this->url(array('controller' => 'user', 'action' => 'updateajaxpost', 'idblog' => $this->idblog)); ?>';
+    var linkmodif = '<?php echo $this->url(array('controller' => 'user', 'action' => 'modificapost', 'idpost' => '')); ?>';
+    var linkdel = '<?php echo $this->url(array('controller' => 'user', 'action' => 'cancellapost', 'id_post' => '')); ?>';
+    var linkforupdateajaxcomments = '<?php echo $this->url(array('controller' => 'user', 'action' => 'updateajaxcomment')); ?>';
+    var linkimg = '<?php echo $this->baseUrl() . '/images/profiles/'?>';
+    var linkdeletecomment = '<?php echo $this->url(array('controller' => 'user', 'action' => 'cancellacommento')); ?>';
+    var linkcomment = '<?php echo $this->url(array('controller' => 'user', 'action' => 'commenta')); ?>';
+
+
+
+</script>
+<script src="<?php echo $this->baseUrl("js/postscript.js")?>"></script>

@@ -1,15 +1,11 @@
-<?php
-$this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
-$this->headTitle()->setSeparator(' - ');
-$this->headTitle('ProgTweb');
-echo $this->doctype(); ?>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<?php echo $this->doctype(); ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" lang="it">
 <head>
     <?php echo $this->headMeta(); ?>
+    <?php $this->headTitle()->append('Staffer'); ?>
     <?php echo $this->headTitle(); ?>
-    <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/style.css'); ?>
-    <?php echo $this->headLink()->prependStylesheet('http://fonts.googleapis.com/css?family=Droid+Sans:400,700'); ?>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php echo $this->headLink() ?>
+    <?php echo $this->headScript() ?>
 
 </head>
 <body>
@@ -86,7 +82,8 @@ echo $this->doctype(); ?>
 <!-- end of page wrapper -->
 <div class="clearing"></div>
 <div class="footer-wrapper marginTop">
-    <div class="footer"> Copyright (c) websitename. All rights reserved. Designed by: <a href="http://alltemplateneeds.com">www.alltemplateneeds.com</a> Images From: www.photorack.net </div>
+    <div class="footer"> Copyright (c) Fsociety with the collaboration of Mr. Robot </div>
 </div>
+
 </body>
 </html>

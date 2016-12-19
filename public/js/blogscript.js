@@ -5,6 +5,7 @@ var caricamento  = false; //previene caricamenti multipli
 
 load_contents(track_page); //primo caricamento
 
+
 $(window).scroll(function() { //in caso di scroll della pagina riaziona il caricamento
     if($(window).scrollTop() + $(window).height() >= $('.primary-content').height() ) { //if user scrolled to bottom of the page
         
@@ -22,13 +23,12 @@ function load_contents(track_page)
 
         
         caricamento = true;
-        $('.loading-info').show();
         $.ajax({
             type: 'POST',
-            url: link,
+            url: linkforupdateajax,
             async:false,
             dataType: "json",
-            data: { page: track_page,id: iduser},
+            data: { page: track_page, iduser: iduser},
 
             success: function(data)
             {
@@ -36,33 +36,32 @@ function load_contents(track_page)
                 caricamento = false;
                 if(data.length <= 2) {
                     //se non carica niente
-                    $('.loading-info').html("Nulla da caricare!");
                     return;
                 }
 
-
-
-
-                console.log(data);
-
-
-                $('.loading-info').hide();                    //nasconde l'animazione---da rimuovere se non lo finisco
-
-                console.log(Object.keys(data));
-                console.log(iduser);
-
+                
                 for (i = 0; i <= [Object.keys(data).length - 1]; i++)
                 {
+                    
                     //se sto vedendo il mio profilo aggiungo i bottoni di gestione
                     var appendbuttons = '';
-                    if(iduser=='my'){appendbuttons =' <a href="#">Gestisci Privacy</a> <a href="#">Elimina</a> </div> </div>';}
+                    if(staff)
+                    {
+                        
+                        appendbuttons =' <a href="'+ linkdel + data[i].idblog +'">Elimina</a> </div> </div>';
+                    }
+                    if(sonoio)
+                    {
+                        appendbuttons =' <a href="'+ linksetp + data[i].idblog +'">Gestisci Privacy</a> <a href="'+ linkdel + data[i].idblog +'">Elimina</a> </div> </div>';
+
+                    }
 
 
                     $("#results").append('<div class="panel marRight30">    <div class="content"> <h3><span>' +
                         data[i].titolo + '</span></h3> <p><span>' +
                         data[i].datetime.substring(0, (data[i].datetime.length - 10)) + '</span></p>' +
                         '<p>' + data[i].descrizione + '</p> ' +
-                        '<a href="#">Visita blog</a>'+ appendbuttons);
+                        '<a href="'+ linkshow + data[i].idblog +'">Visita blog</a>'+ appendbuttons);
                 }
             },
             fail: function(xhr, ajaxOptions, thrownError)

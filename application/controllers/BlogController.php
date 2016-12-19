@@ -71,15 +71,18 @@ class BlogController extends Zend_Controller_Action
 
     public function modificapostAction()
     {
-        $a = $this->_getParam('a');
+        $idblog = $this->_getParam('idblog');
+        $post = $this->_getParam('idpost');
         $form = new Application_Form_Utente_Blog_Posta();
-        $gigi = $this->_blogModel->selezionapost($a)->toArray();
+        $gigi = $this->_blogModel->selezionapost($post)->toArray();
         $form->populate($gigi[0]);
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($_POST)) {
                 $dati = $form->getValues();
-                $this->_blogModel->modpost($dati, $a);
+                $this->_blogModel->modpost($dati, $post);
                 echo 'Dati inseriti con successo';
+                $this->redirect('user/showblog/id_blog/'.$idblog);
+
             } else {
                 echo 'Inserimento fallito';
             }
@@ -87,41 +90,6 @@ class BlogController extends Zend_Controller_Action
         $this->view->assign('form', $form);
     }
 
-    public function cancellapostAction()
-    {
-        $a = $this->getParam('id');
-        $this->_blogModel->cancellapost($a);
-    }
-
-    
-    public function commentaAction(){ //ok
-        $id=$this->getParam('idpost');
-        $id_destinatario=$this->getParam('idautore');
-        $form=new Application_Form_Utente_Commenti_Invia();
-        if ($this->getRequest()->isPost()) {
-            if ($form->isValid($_POST)) {
-                $dati = $form->getValues();
-                $this->_blogModel->commenta($dati,$id);
-                $this->inviaNotificaAction($id_destinatario,2);
-                echo 'Fatto!';
-            } else {
-                echo 'Errore nel post, riprova';
-            }
-        }
-        $this->view->assign('form', $form);
-    }
-
-    public function prendicommentiAction(){ //ok
-        $comments = $this->_blogModel->prendicommenti()->toArray();
-        $this->view->assign('commenti', $comments);
-    }
-    
-    public function cancellacommentoAction(){ //ok
-        $this->_helper->viewRenderer->setNoRender(true);
-        $id=$this->getParam('idcommento');
-        $this->_blogModel->cancellacommento($id);
-        $this->_helper->redirector('index','blog');
-    }
 
     public function inviaNotificaAction($id_destinatario,$tipologia,$testo){ //ok
         $this->_userModel->inviaNotifica($id_destinatario,$tipologia,$testo);

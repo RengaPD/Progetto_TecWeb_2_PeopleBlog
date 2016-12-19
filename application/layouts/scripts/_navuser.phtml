@@ -9,7 +9,7 @@
     <li><a href="<?= $this->url(array(
             'controller'=>'user',
             'action'=>'showuserprofile',
-            'id'=>'my'),
+            'id'=>$nome=Zend_Auth::getInstance()->getIdentity()->id),
             'default',true);
         ?>"
            title="Profilo"><?php $nome=Zend_Auth::getInstance()->getIdentity()->Nome;
@@ -32,25 +32,6 @@
             ?>"
                title="Disconnettiti"><i class="icon-user"></i>Logout</a></li>
     <?php endif ?>
-    <?php $blog=$user->getIdentity()->blog; ?>
-    <?php if($blog==0) :?>
-    <li><a href="<?= $this->url(array(
-            'controller'=>'user',
-            'action'=>'creablog',),
-            'default',true);
-        ?>"
-           title="Crea blog">Crea blog</a>
-    </li>
-    <?php endif; ?>
-    <?php if($blog==1) :?>
-    <li><a href="<?= $this->url(array(
-            'controller'=>'blog',
-            'action'=>'index',),
-            'default',true);
-        ?>"
-           title="Gestisci">Gestisci blog</a>
-    </li>
-    <?php endif; ?>
 
     <?php if($user->hasIdentity()) :?>
         <?php $permesso=$user->getIdentity()->ruolo; ?>
@@ -65,6 +46,5 @@
         <?php endif ?>
 
     <?php endif ?>
-
 
 </ul>
