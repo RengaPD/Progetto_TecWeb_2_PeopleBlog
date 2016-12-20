@@ -23,6 +23,12 @@
         ?>"
            title="Modifica profilo">Modifica Profilo</a>
     </li>
+	<li><a href="<?= $this->url(array(
+            'controller'=>'user',
+            'action'=>'gestisciamici',),
+            'default',true);
+        ?>" title="Gestisci amici">Gestisci amici</a>
+    </li>
     <?php $user=Zend_Auth::getInstance(); ?>
     <?php if($user->hasIdentity()) :?>
         <li><a href="<?= $this->url(array(

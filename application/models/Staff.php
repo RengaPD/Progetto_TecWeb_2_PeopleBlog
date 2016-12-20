@@ -13,7 +13,7 @@ class Application_Model_Staff extends App_Model_Abstract
     }
 
     public function visualizzaBlogdaID($id){
-        return $this->getResource('Blog')->getblog_byid($id);
+        return $this->getResource('Blog')->getposts_byid($id);
     }
 
     public function modificapost($dati,$id){

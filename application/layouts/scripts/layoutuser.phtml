@@ -1,13 +1,24 @@
-<?php echo $this->doctype(); ?>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" lang="it">
+<?php
+$this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
+$this->headTitle()->setSeparator(' - ');
+$this->headTitle('ProgTweb');
+echo $this->doctype(); ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
+    <!--mettere sul bootstrap e togliere dai singoli layout e mettere this->headscript-->
     <?php echo $this->headMeta(); ?>
-    <?php $auth=Zend_Auth::getInstance(); $this->headTitle()->append('Utente: '.$auth->getIdentity()->Nome." ".$auth->getIdentity()->Cognome); ?>
     <?php echo $this->headTitle(); ?>
-    <?php echo $this->headLink() ?>
-    <?php echo $this->headScript() ?>
-</head>
+    <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/style.css'); ?>
+    <link href='http://fonts.googleapis.com/css?family=Oswald|Pontano+Sans' rel='stylesheet' type='text/css'>
+    <?php echo $this->headLink()->prependStylesheet('http://fonts.googleapis.com/css?family=Droid+Sans:400,700'); ?>
+    <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/js/jquery-ui.min.css'); ?>
+    <script src="<?php echo $this->baseUrl("js/jquery.js")?>"></script>
+    <script src="<?php echo $this->baseUrl("js/jquery-ui.min.js")?>"></script>
 
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
 <body>
 <div class="header-wrap">
     <div class="header">
@@ -66,15 +77,14 @@
 <!-- end of page wrapper -->
 <div class="clearing"></div>
 <div class="footer-wrapper marginTop">
-    <div class="footer"> Copyright (c) Fsociety with the collaboration of Mr. Robot </div>
+    <div class="footer"> Copyright (c) websitename. All rights reserved. Designed by: <a href="http://alltemplateneeds.com">www.alltemplateneeds.com</a> Images From: www.photorack.net </div>
 </div>
 
 <script>
-    var urlajax = '<?php echo $this->url(array('controller' => 'user', 'action' => 'updateajax',));?>';
-    var urlaction ='<?php echo $this->url(array('controller' => 'user','action' =>'showuserprofile'));?>';
-    var imagepath ='<?php echo $this->baseUrl("images/profiles/");?>';
-
+    var urlajax = '<?php echo $this->url(array('controller' => 'user', 'action' => 'updateajax'));?>';
+    var urlaction ='<?php echo $this->url(array('controller' => 'user','action' =>'showuserprofile','id'=>''));?>';
 </script>
+<script src="<?php echo $this->baseUrl("js/searchscript.js")?>"></script>
 
 
 </body>

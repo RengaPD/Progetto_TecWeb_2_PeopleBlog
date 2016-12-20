@@ -22,15 +22,20 @@ class Application_Model_Admin extends App_Model_Abstract
     {
         return $this->getResource('Utenti')->deleteUtenti($id);
     }
-
-    public function visualizzaUtente()
-    {
-        return $this->getResource('Utenti')->showUtenti();
-    }
+	
+	public function visualizzaUtente($pagina=null)
+	{
+		return $this->getResource('Utenti')->showUtenti($pagina);
+	}
 
     public function trovaEmailUtente($info)
     {
         return $this->getResource('Utenti')->findUserEmail($info);
+    }
+	
+	public function trovaUtente($info)
+    {
+        return $this->getResource('Utenti')->findUserName($info);
     }
 
     public function visualizzaUtentedaID($id)

@@ -12,14 +12,14 @@ class Application_Form_Utente_Blog_Posta extends Zend_Form
         $this->setAttrib('enctype', 'multipart/form-data');
 
 
-        $this->addElement('text', 'title', array(
+        $this->addElement('text', 'titolo', array(
             'label' => 'Titolo del tuo post',
             'filters' => array('StringTrim'),
             'required' => true,
             'validators' => array(array('StringLength',true, array(1,200))),
         ));
 
-        $this->addElement('textarea', 'content', array(
+        $this->addElement('textarea', 'post', array(
             'label' => 'Il tuo post',
             'filters' => array('StringTrim'),
             'required' => true,

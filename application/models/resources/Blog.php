@@ -92,9 +92,6 @@ class Application_Resource_Blog extends Zend_Db_Table_Abstract
         $total = count($res);
         return $total;
     }
-
-    //-----------privacy
-
     public function selectallblogsicanseeofID($id)
     {
         $_auth=Zend_Auth::getInstance();
@@ -110,10 +107,5 @@ class Application_Resource_Blog extends Zend_Db_Table_Abstract
         
         return $select;
     }
-
-
-
-
-
 
 }

@@ -55,11 +55,24 @@ class BlogController extends Zend_Controller_Action
     public function creapostAction() //deve riusare sempre stesso titolo specificato dal primo post
         //(vabbè che prende comunque il titolo specificato nel primo post fatto quindi...)
     {
+        $a=Zend_Auth::getInstance()->getIdentity()->id;
         $form = new Application_Form_Utente_Blog_Posta();
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($_POST)) {
                 $dati = $form->getValues();
                 $this->_blogModel->postasuBlog($dati);
+                $amici=$this->_userModel->mostraamici($a); //tutti gli amici di a a cui inviare la notifica
+                for ($i=0;$i<sizeof($amici);$i++)
+                {
+                    if($a==$amici[$i]['idamico_a'])
+                    {
+                        $this->inviaNotificaAction($amici[$i]['idamico_b'],5,"");
+                    }
+                    else{
+                        $this->inviaNotificaAction($amici[$i]['idamico_a'],5,"");
+                    }
+
+                }
                 echo 'Fatto!';
             } else {
                 echo 'Errore nel post, riprova';
@@ -71,18 +84,15 @@ class BlogController extends Zend_Controller_Action
 
     public function modificapostAction()
     {
-        $idblog = $this->_getParam('idblog');
-        $post = $this->_getParam('idpost');
+        $a = $this->_getParam('a');
         $form = new Application_Form_Utente_Blog_Posta();
-        $gigi = $this->_blogModel->selezionapost($post)->toArray();
+        $gigi = $this->_blogModel->selezionapost($a)->toArray();
         $form->populate($gigi[0]);
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($_POST)) {
                 $dati = $form->getValues();
-                $this->_blogModel->modpost($dati, $post);
+                $this->_blogModel->modpost($dati, $a);
                 echo 'Dati inseriti con successo';
-                $this->redirect('user/showblog/id_blog/'.$idblog);
-
             } else {
                 echo 'Inserimento fallito';
             }
@@ -90,6 +100,44 @@ class BlogController extends Zend_Controller_Action
         $this->view->assign('form', $form);
     }
 
+    public function cancellapostAction()
+    {
+        $a = $this->getParam('id');
+        $this->_blogModel->cancellapost($a);
+    }
+
+    
+    public function commentaAction(){ //ok
+        $auth=Zend_Auth::getInstance()->getIdentity()->id;
+        $id=$this->getParam('idpost');
+        $id_destinatario=$this->getParam('idautore');
+        $form=new Application_Form_Utente_Commenti_Invia();
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($_POST)) {
+                $dati = $form->getValues();
+                $this->_blogModel->commenta($dati,$id);
+                if(!$id_destinatario==$auth){
+                    $this->inviaNotificaAction($id_destinatario,2,"");
+                }
+                echo 'Fatto!';
+            } else {
+                echo 'Errore nel post, riprova';
+            }
+        }
+        $this->view->assign('form', $form);
+    }
+
+    public function prendicommentiAction(){ //ok
+        $comments = $this->_blogModel->prendicommenti()->toArray();
+        $this->view->assign('commenti', $comments);
+    }
+    
+    public function cancellacommentoAction(){ //ok
+        $this->_helper->viewRenderer->setNoRender(true);
+        $id=$this->getParam('idcommento');
+        $this->_blogModel->cancellacommento($id);
+        $this->_helper->redirector('index','blog');
+    }
 
     public function inviaNotificaAction($id_destinatario,$tipologia,$testo){ //ok
         $this->_userModel->inviaNotifica($id_destinatario,$tipologia,$testo);

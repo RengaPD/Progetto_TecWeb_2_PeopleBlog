@@ -19,7 +19,7 @@ class Application_Service_Auth
         if (!$result->isValid()) {
             return false;
         }
-        $user = $this->_adminModel->trovaEmailUtente($credenziali['email']);
+        $user = $this->_adminModel->trovaUtente($credenziali);
         $auth->getStorage()->write($user);
         return true;
     }
@@ -51,10 +51,10 @@ class Application_Service_Auth
         $adattore = new Zend_Auth_Adapter_DbTable(
             Zend_Db_Table_Abstract::getDefaultAdapter(),
             'utenti',
-            'email',
+            'username',
             'password'
         );
-        $adattore->setIdentity($valori['email']);
+        $adattore->setIdentity($valori['username']);
         $adattore->setCredential($valori['password']);
         return $adattore;
     }

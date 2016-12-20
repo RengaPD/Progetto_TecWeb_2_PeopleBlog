@@ -16,7 +16,9 @@
 
                 <?php if(!$this->messaggio=='') :?>
                     <?php foreach ($this->messaggio as $mex) :?>
-                        <?php echo $mex ?>
+						<?php echo $mex['data']; ?>
+						<?php echo '<br>'; ?>
+                        <?php echo $mex['mex']; ?>
                         <?php $auth=Zend_Auth::getInstance()->getIdentity()->id; ?>
                     <?php endforeach; ?>
                     <a href="<?= $this->url(array(

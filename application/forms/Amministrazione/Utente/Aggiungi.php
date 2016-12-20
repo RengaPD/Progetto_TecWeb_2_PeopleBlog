@@ -25,7 +25,6 @@ class Application_Form_Amministrazione_Utente_Aggiungi extends Zend_Form
             'required' => true,
             'validators' => array(array('StringLength',true, array(1,25))),
         ));
-
         
         $this->addElement('text', 'email', array(
             'label' => 'email',

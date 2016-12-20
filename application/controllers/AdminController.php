@@ -41,7 +41,9 @@ class AdminController extends Zend_Controller_Action
     public function selezionaAction()
     {
 
-        $result = $this->_adminModel->visualizzaUtente()->toArray();
+		$request=$this->getRequest();
+		$pagina=$request->getParam('page', 1);
+        $result = $this->_adminModel->visualizzaUtente($pagina);
         $this->view->assign('risultato', $result);
         $bottone=new Zend_Form_Element_Submit('modifica');
         $bottone->setLabel('Modifica');
