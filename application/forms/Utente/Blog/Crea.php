@@ -15,21 +15,27 @@ class Application_Form_Utente_Blog_Crea extends Zend_Form
             'label' => 'Nome blog',
             'filters' => array('StringTrim'),
             'required' => true,
-            'validators' => array(array('StringLength',true, array(1,25))),
+            'validators' => array(array('NotEmpty',true,array('messages'=>array(
+                'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
+            )))),
         ));
 
         $this->addElement('text', 'titolo', array(
             'label' => 'Titolo primo post',
             'filters' => array('StringTrim'),
             'required' => true,
-            'validators' => array(array('StringLength',true, array(1,25))),
+            'validators' => array(array('NotEmpty',true,array('messages'=>array(
+                'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
+            )))),
         ));
 
         $this->addElement('textarea', 'post', array(
             'label' => 'Primo post',
             'filters' => array('StringTrim'),
             'required' => true,
-            'validators' => array(array('StringLength',true, array(1,10000))),
+            'validators' => array(array('NotEmpty',true,array('messages'=>array(
+                'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
+            )))),
         ));
         
         $this->addElement('submit', 'add', array(

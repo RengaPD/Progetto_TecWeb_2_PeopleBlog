@@ -9,18 +9,22 @@ class Application_Form_Public_Auth_Login extends Zend_Form
         $this->setAction('');
 		$this->setAttrib('enctype', 'multipart/form-data');
 		
-		$this->addElement('text', 'Nome', array(
-            'label' => 'Nome',
+		$this->addElement('text', 'username', array(
+            'label' => 'Username',
             'filters' => array('StringTrim','StringToLower'),
             'required' => true,
-            'validators' => array(array('StringLength',true, array(1,25))),
+            'validators' => array(array('NotEmpty',true,array('messages'=>array(
+                'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
+            )))),
         ));
 		
 		$this->addElement('password', 'password', array(
             'label' => 'Password',
             'filters' => array('StringTrim'),
             'required' => true,
-            'validators' => array(array('StringLength',true, array(1,25))),
+            'validators' => array(array('NotEmpty',true,array('messages'=>array(
+                'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
+            )))),
         ));
 
         $this->addElement('submit', 'login', array(

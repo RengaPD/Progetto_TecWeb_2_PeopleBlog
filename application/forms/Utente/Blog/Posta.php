@@ -12,18 +12,22 @@ class Application_Form_Utente_Blog_Posta extends Zend_Form
         $this->setAttrib('enctype', 'multipart/form-data');
 
 
-        $this->addElement('text', 'titolo', array(
+        $this->addElement('text', 'title', array(
             'label' => 'Titolo del tuo post',
             'filters' => array('StringTrim'),
             'required' => true,
-            'validators' => array(array('StringLength',true, array(1,200))),
+            'validators' => array(array('NotEmpty',true,array('messages'=>array(
+                'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
+            )))),
         ));
 
-        $this->addElement('textarea', 'post', array(
+        $this->addElement('textarea', 'content', array(
             'label' => 'Il tuo post',
             'filters' => array('StringTrim'),
             'required' => true,
-            'validators' => array(array('StringLength',true, array(1,10000))),
+            'validators' => array(array('NotEmpty',true,array('messages'=>array(
+                'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
+            )))),
         ));
 
         $this->addElement('submit', 'add', array(

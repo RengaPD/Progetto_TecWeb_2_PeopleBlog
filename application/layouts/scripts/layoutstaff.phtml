@@ -1,15 +1,12 @@
-<?php
-$this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
-$this->headTitle()->setSeparator(' - ');
-$this->headTitle('ProgTweb');
-echo $this->doctype(); ?>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<?php echo $this->doctype(); ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" lang="it">
 <head>
     <?php echo $this->headMeta(); ?>
-    <?php echo $this->headTitle(); ?>
+    <?php $this->headTitle()->append('Staffer'); ?>
     <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/style.css'); ?>
-    <?php echo $this->headLink()->prependStylesheet('http://fonts.googleapis.com/css?family=Droid+Sans:400,700'); ?>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php echo $this->headTitle(); ?>
+    <?php echo $this->headLink() ?>
+    <?php echo $this->headScript() ?>
 
 </head>
 <body>
@@ -32,9 +29,13 @@ echo $this->doctype(); ?>
 <div class="logo-sarch-wrap">
     <div class="logo-search-container">
         <div class="logo">
-            <h1>PeopleBlog</h1>
+            <h1>Business Template</h1>
         </div>
-
+        <div class="search">
+            <div class="search-input">
+                <input type="text" class="search-text-field" value="Search Here ..." />
+            </div>
+            <div class="search-button"><a href="#"><img src="<?=$this->baseUrl('images/search.gif')?>" alt="Cerca" /></a></div>
         </div>
     </div>
 </div>
@@ -64,12 +65,26 @@ echo $this->doctype(); ?>
         <p><?php echo $this->layout()->content; ?></p>
     </div>
     <!-- end of Primary content -->
+    <div class="sidebar marLeft30">
+        <div class="panel">
+            <div class="title">
+                <h1>Suspendise diegnis</h1>
+            </div>
+            <div class="content">
+                <ul>
+
+                </ul>
+            </div>
+            <div class="button-link"></div>
+        </div>
+    </div>
     <!-- end of Sidebar -->
 </div>
 <!-- end of page wrapper -->
 <div class="clearing"></div>
 <div class="footer-wrapper marginTop">
-    <div class="footer"> Copyright (c) websitename. All rights reserved. Designed by: <a href="http://alltemplateneeds.com">www.alltemplateneeds.com</a> Images From: www.photorack.net </div>
+    <div class="footer"> Copyright (c) Fsociety with the collaboration of Mr. Robot </div>
 </div>
+
 </body>
 </html>

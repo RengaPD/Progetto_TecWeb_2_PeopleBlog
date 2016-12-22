@@ -16,7 +16,10 @@ class Application_Form_Utente_Commenti_Invia extends Zend_Form
             'label' => 'Il tuo commento:',
             'filters' => array('StringTrim'),
             'required' => true,
-            'validators' => array(array('StringLength',true, array(1,10000))),
+            'validators' => array(array('NotEmpty',true,array('messages'=>array(
+                'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
+            ))),
+                array('StringLength',true, array(1,20000))),
         ));
 
         $this->addElement('submit', 'add', array(

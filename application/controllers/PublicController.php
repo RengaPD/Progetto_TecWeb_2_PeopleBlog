@@ -38,8 +38,8 @@ class PublicController extends Zend_Controller_Action
                 $mailgiàpresente=$this->controllaemailAction($mail);
                 if(!$mail==$mailgiàpresente)
                 {
-                    $this->_publicModel->registrati($dati);
-                    echo 'Registrazione avvenuta!';
+                        $this->_publicModel->registrati($dati);
+                        $this->redirect('public/login');
                 }
                 else{
                     echo 'Mail già in uso, inserirne una diversa';
