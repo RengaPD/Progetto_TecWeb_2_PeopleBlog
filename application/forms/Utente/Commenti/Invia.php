@@ -1,5 +1,5 @@
 <?php
-class Application_Form_Utente_Commenti_Invia extends Zend_Form
+class Application_Form_Utente_Commenti_Invia extends App_Form_Abstract
 {
     protected $_blogModel;
 
@@ -20,10 +20,12 @@ class Application_Form_Utente_Commenti_Invia extends Zend_Form
                 'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
             ))),
                 array('StringLength',true, array(1,20000))),
+            'decorators'=>$this->elementDecorators,
         ));
 
         $this->addElement('submit', 'add', array(
             'label' => 'Invia!',
+            'decorators'=>$this->buttonDecorators,
         ));
     }
 }

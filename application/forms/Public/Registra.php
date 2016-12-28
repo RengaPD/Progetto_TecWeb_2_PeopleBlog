@@ -1,5 +1,5 @@
 <?php
-class Application_Form_Public_Registra extends Zend_Form
+class Application_Form_Public_Registra extends App_Form_Abstract
 {
     protected $_publicModel;
 
@@ -21,6 +21,7 @@ class Application_Form_Public_Registra extends Zend_Form
                     'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
                 ))),
                 array('StringLength',true, array(1,25))),
+            'decorators'=>$this->elementDecorators,
         ));
 
         $this->addElement('text', 'Cognome', array(
@@ -31,6 +32,7 @@ class Application_Form_Public_Registra extends Zend_Form
                 'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
             ))),
                 array('StringLength',true, array(1,25))),
+            'decorators'=>$this->elementDecorators,
         ));
 
         $this->addElement('text', 'username', array(
@@ -41,6 +43,7 @@ class Application_Form_Public_Registra extends Zend_Form
                 'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
             ))),
                 array('StringLength',true, array(1,25))),
+            'decorators'=>$this->elementDecorators,
         ));
 
         $this->addElement('hidden','immagine');
@@ -58,7 +61,9 @@ class Application_Form_Public_Registra extends Zend_Form
                 array('Between',true,array('min'=>18,
                     'max'=>120,
                     'messages'=>array('notBetween'=>"Hai inserito un'età non ammessa"))),
-        )));
+
+        ),
+            'decorators'=>$this->elementDecorators,));
 
         $this->addElement('text', 'email', array(
             'label' => 'email',
@@ -71,6 +76,7 @@ class Application_Form_Public_Registra extends Zend_Form
                     'emailAddressInvalid'=>'Il valore inserito non è una stringa',
                     'emailAddressInvalidFormat'=>"'%value%' non è un formato email accettabile"
                 )))),
+            'decorators'=>$this->elementDecorators,
         ));
 
         $this->addElement('password', 'password', array(
@@ -80,6 +86,7 @@ class Application_Form_Public_Registra extends Zend_Form
             'validators' => array(array('NotEmpty',true,array('messages'=>array(
                 'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
             )))),
+            'decorators'=>$this->elementDecorators,
         ));
 
         $this->addElement('password', 'passwordripeti', array(
@@ -93,6 +100,7 @@ class Application_Form_Public_Registra extends Zend_Form
                     'messages'=>array(
                     'notSame'=>'Le due password non coincidono'
                 )))),
+            'decorators'=>$this->elementDecorators,
         ));
 
 
@@ -107,6 +115,7 @@ class Application_Form_Public_Registra extends Zend_Form
             'validators' => array(array('NotEmpty',true,array('messages'=>array(
                 'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
             )))),
+            'decorators'=>$this->elementDecorators,
         ));
 
         $this->addElement('hidden','public');
@@ -115,6 +124,7 @@ class Application_Form_Public_Registra extends Zend_Form
 
         $this->addElement('submit', 'add', array(
             'label' => 'Registrati',
+            'decorators'=>$this->buttonDecorators,
         ));
     }
 }

@@ -1,5 +1,5 @@
 <?php
-class Application_Form_Amministrazione_Utente_Aggiungi extends Zend_Form
+class Application_Form_Amministrazione_Utente_Aggiungi extends App_Form_Abstract
 {
     protected $_adminModel;
 
@@ -21,6 +21,7 @@ class Application_Form_Amministrazione_Utente_Aggiungi extends Zend_Form
                 'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
             ))),
                 array('StringLength',true, array(1,25))),
+            'decorators'=>$this->elementDecorators,
         ));
 
         $this->addElement('text', 'cognome', array(
@@ -31,6 +32,7 @@ class Application_Form_Amministrazione_Utente_Aggiungi extends Zend_Form
                 'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
             ))),
                 array('StringLength',true, array(1,25))),
+            'decorators'=>$this->elementDecorators,
         ));
 
         $this->addElement('text', 'username', array(
@@ -41,6 +43,7 @@ class Application_Form_Amministrazione_Utente_Aggiungi extends Zend_Form
                 'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
             ))),
                 array('StringLength',true, array(1,25))),
+            'decorators'=>$this->elementDecorators,
         ));
 
         $this->addElement('text', 'eta', array(
@@ -55,7 +58,9 @@ class Application_Form_Amministrazione_Utente_Aggiungi extends Zend_Form
                 array('Between',true,array('min'=>18,
                     'max'=>120,
                     'messages'=>array('notBetween'=>"Hai inserito un'età non ammessa"))),
-            )));
+
+            ),
+            'decorators'=>$this->elementDecorators,));
 
         $this->addElement('text', 'email', array(
             'label' => 'email',
@@ -68,6 +73,7 @@ class Application_Form_Amministrazione_Utente_Aggiungi extends Zend_Form
                     'emailAddressInvalid'=>'Il valore inserito non è una stringa',
                     'emailAddressInvalidFormat'=>"'%value%' non è un formato email accettabile"
                 )))),
+            'decorators'=>$this->elementDecorators,
         ));
 
         $this->addElement('text', 'password', array(
@@ -77,6 +83,7 @@ class Application_Form_Amministrazione_Utente_Aggiungi extends Zend_Form
             'validators' => array(array('NotEmpty',true,array('messages'=>array(
                 'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
             )))),
+            'decorators'=>$this->elementDecorators,
         ));
 
         $this->addElement('select', 'ruolo', array(
@@ -87,6 +94,7 @@ class Application_Form_Amministrazione_Utente_Aggiungi extends Zend_Form
             'filters' => array('StringTrim'),
             'required' => false,
             'validators' => array(array('StringLength',true, array(1,25))),
+            'decorators'=>$this->elementDecorators,
         ));
 
         $this->addElement('hidden','interessi');
@@ -98,6 +106,7 @@ class Application_Form_Amministrazione_Utente_Aggiungi extends Zend_Form
 
         $this->addElement('submit', 'add', array(
             'label' => 'Aggiungi Utente',
+            'decorators'=>$this->buttonDecorators,
         ));
     }
 }

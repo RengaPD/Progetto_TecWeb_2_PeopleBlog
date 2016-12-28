@@ -1,5 +1,5 @@
 <?php
-class Application_Form_Utente_Blog_Crea extends Zend_Form
+class Application_Form_Utente_Blog_Crea extends App_Form_Abstract
 {
     protected $_userModel;
 
@@ -18,6 +18,7 @@ class Application_Form_Utente_Blog_Crea extends Zend_Form
             'validators' => array(array('NotEmpty',true,array('messages'=>array(
                 'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
             )))),
+            'decorators'=>$this->elementDecorators,
         ));
 
         $this->addElement('text', 'titolo', array(
@@ -27,6 +28,7 @@ class Application_Form_Utente_Blog_Crea extends Zend_Form
             'validators' => array(array('NotEmpty',true,array('messages'=>array(
                 'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
             )))),
+            'decorators'=>$this->elementDecorators,
         ));
 
         $this->addElement('textarea', 'post', array(
@@ -36,10 +38,12 @@ class Application_Form_Utente_Blog_Crea extends Zend_Form
             'validators' => array(array('NotEmpty',true,array('messages'=>array(
                 'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
             )))),
+            'decorators'=>$this->elementDecorators,
         ));
         
         $this->addElement('submit', 'add', array(
             'label' => 'Crea il tuo blog!',
+            'decorators'=>$this->buttonDecorators,
         ));
     }
 }

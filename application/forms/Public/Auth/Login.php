@@ -1,6 +1,6 @@
 <?php
 
-class Application_Form_Public_Auth_Login extends Zend_Form
+class Application_Form_Public_Auth_Login extends App_Form_Abstract
 {
     public function init()
     {
@@ -16,6 +16,7 @@ class Application_Form_Public_Auth_Login extends Zend_Form
             'validators' => array(array('NotEmpty',true,array('messages'=>array(
                 'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
             )))),
+            'decorators'=>$this->elementDecorators,
         ));
 		
 		$this->addElement('password', 'password', array(
@@ -25,10 +26,12 @@ class Application_Form_Public_Auth_Login extends Zend_Form
             'validators' => array(array('NotEmpty',true,array('messages'=>array(
                 'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
             )))),
+            'decorators'=>$this->elementDecorators,
         ));
 
         $this->addElement('submit', 'login', array(
             'label'    => 'Login',
+            'decorators'=>$this->buttonDecorators,
         ));
     }
 }

@@ -1,5 +1,5 @@
 <?php
-class Application_Form_Utente_Profilo_Aggiorna extends Zend_Form
+class Application_Form_Utente_Profilo_Aggiorna extends App_Form_Abstract
 {
     protected $_publicModel;
 
@@ -21,6 +21,7 @@ class Application_Form_Utente_Profilo_Aggiorna extends Zend_Form
                 'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
             ))),
                 array('StringLength',true, array(1,25))),
+            'decorators'=>$this->elementDecorators,
         ));
         
         $this->addElement('text', 'Cognome', array(
@@ -31,6 +32,7 @@ class Application_Form_Utente_Profilo_Aggiorna extends Zend_Form
                 'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
             ))),
                 array('StringLength',true, array(1,25))),
+            'decorators'=>$this->elementDecorators,
         ));
 
         $this->addElement('text', 'username', array(
@@ -41,6 +43,7 @@ class Application_Form_Utente_Profilo_Aggiorna extends Zend_Form
                 'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
             ))),
                 array('StringLength',true, array(1,25))),
+            'decorators'=>$this->elementDecorators,
         ));
 
         $this->addElement('text', 'eta', array(
@@ -55,7 +58,9 @@ class Application_Form_Utente_Profilo_Aggiorna extends Zend_Form
                 array('Between',true,array('min'=>18,
                     'max'=>120,
                     'messages'=>array('notBetween'=>"Hai inserito un'età non ammessa"))),
-            )));
+
+            ),
+            'decorators'=>$this->elementDecorators,));
 
         $this->addElement('text', 'email', array(
             'label' => 'email',
@@ -68,28 +73,17 @@ class Application_Form_Utente_Profilo_Aggiorna extends Zend_Form
                     'emailAddressInvalid'=>'Il valore inserito non è una stringa',
                     'emailAddressInvalidFormat'=>"'%value%' non è un formato email accettabile"
                 )))),
+            'decorators'=>$this->elementDecorators,
         ));
 
-        $this->addElement('password', 'password', array(
+        $this->addElement('text', 'password', array(
             'label' => 'Password',
             'filters' => array('StringTrim'),
             'required' => true,
             'validators' => array(array('NotEmpty',true,array('messages'=>array(
                 'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
             )))),
-        ));
-
-        $this->addElement('password', 'passwordripeti', array(
-            'label' => 'Ripeti password',
-            'filters' => array('StringTrim'),
-            'required' => true,
-            'validators' => array(array('NotEmpty',true,array('messages'=>array(
-                'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
-            ))),
-                array('Identical',true,array('token'=>'password',
-                    'messages'=>array(
-                        'notSame'=>'Le due password non coincidono'
-                    )))),
+            'decorators'=>$this->elementDecorators,
         ));
 
         $this->addElement('hidden','ruolo');
@@ -102,6 +96,7 @@ class Application_Form_Utente_Profilo_Aggiorna extends Zend_Form
                 'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
             ))),
                 array('StringLength',true, array(1,20000))),
+            'decorators'=>$this->elementDecorators,
         ));
 
         $this->addElement('hidden','public');
@@ -109,6 +104,7 @@ class Application_Form_Utente_Profilo_Aggiorna extends Zend_Form
 
         $this->addElement('submit', 'add', array(
             'label' => 'Aggiorna profilo',
+            'decorators'=>$this->buttonDecorators,
         ));
     }
 }
