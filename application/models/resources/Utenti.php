@@ -70,7 +70,7 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
 
     public function showUserbyID($id) //funziona
     {
-        $select=$this->select()->where('id=?',$id);
+        $select=$this->select()->where('id= ?',$id);
         $res=$this->fetchAll($select);
         return $res;
     }

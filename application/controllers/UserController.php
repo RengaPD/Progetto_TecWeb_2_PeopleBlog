@@ -420,44 +420,54 @@ class UserController extends Zend_Controller_Action
 		$inattesa=$this->_userModel->mostrainattesa($id);
         $richieste=$this->_userModel->mostrainviate($id);
 		$richiesteinattesa='';
-		for($i=0;$i<sizeof($inattesa);$i++)
-		{
-			//idamico_a contiene l'id di chi ha FATTO la richiesta, ovvero di chi me l'ha inviata
-			$id_inattesa=$inattesa[$i]['idamico_a'];
-            var_dump($id_inattesa);
-			$res =$this->_userModel->mostrautente($id_inattesa)->toArray();
-            var_dump($res);
-			$richiesteinattesa[$i]['mex']="".$res[0]['Nome']." ".$res[0]['Cognome']." ti ha inviato una richiesta di amicizia";
-			$richiesteinattesa[$i]['id']=$id_inattesa;
-            $richiesteinattesa[$i]['immagine']=$res[0]['immagine'];
+        if($inattesa){
+            for($i=0;$i<sizeof($inattesa);$i++)
+            {
+                //idamico_a contiene l'id di chi ha FATTO la richiesta, ovvero di chi me l'ha inviata
+                $id_Inattesa=$inattesa[$i]['idamico_a'];
+                $res =$this->_userModel->mostrautente($id_Inattesa)->toArray();
+                $richiesteinattesa[$i]['mex']="".$res[0]['Nome']." ".$res[0]['Cognome']." ti ha inviato una richiesta di amicizia";
+                $richiesteinattesa[$i]['id']=$id_Inattesa;
+                $richiesteinattesa[$i]['immagine']=$res[0]['immagine'];
 
-		}
-		$richiesteaccettate='';
-		for($i=0;$i<sizeof($amiciaccettati);$i++)
-		{
-			if($id==$amiciaccettati[$i]['idamico_a']) //l'amico da visualizzare è l'altro
-			{
-				$id_accettato=$amiciaccettati[$i]['idamico_b'];
-			}
-			else
-				$id_accettato=$amiciaccettati[$i]['idamico_a'];
-			$res=$this->_userModel->mostrautente($id_accettato)->toArray();
-			$richiesteaccettate[$i]['mex']="".$res[0]['Nome']." ".$res[0]['Cognome']."";
-			$richiesteaccettate[$i]['id']=$id_accettato;
-            $richiesteaccettate[$i]['immagine']=$res[0]['immagine'];
-		}
-        $richiesteinviate='';
-        for($i=0;$i<=sizeof($richieste);$i++)
-        {
-            $id_richiesto=$richieste[$i]['idamico_b'];
-            $res=$this->_userModel->mostrautente($id_richiesto)->toArray();
-            $richiesteinviate[$i]['mex']="Hai inviato una richiesta a ".$res[0]['Nome']." ".$res[0]['Cognome']."";
-            $richiesteinviate[$i]['id']=$id_richiesto;
-            $richiesteinviate[$i]['immagine']=$res[0]['immagine'];
+
+            }
+            $this->view->assign('inattesa',$richiesteinattesa);
         }
-		$this->view->assign('amici',$richiesteaccettate);
-		$this->view->assign('inattesa',$richiesteinattesa);
-        $this->view->assign('inviate',$richiesteinviate);
+
+		$richiesteaccettate='';
+        if($amiciaccettati)
+        {
+            for($i=0;$i<sizeof($amiciaccettati);$i++)
+            {
+                if($id==$amiciaccettati[$i]['idamico_a']) //l'amico da visualizzare è l'altro
+                {
+                    $id_accettato=$amiciaccettati[$i]['idamico_b'];
+                }
+                else
+                {
+                    $id_accettato=$amiciaccettati[$i]['idamico_a'];
+                }
+                $res=$this->_userModel->mostrautente($id_accettato)->toArray();
+                $richiesteaccettate[$i]['mex']="".$res[0]['Nome']." ".$res[0]['Cognome']."";
+                $richiesteaccettate[$i]['id']=$id_accettato;
+                $richiesteaccettate[$i]['immagine']=$res[0]['immagine'];
+            }
+            $this->view->assign('amici',$richiesteaccettate);
+        }
+		if($richieste)
+        {
+            $richiesteinviate='';
+            for($i=0;$i<=sizeof($richieste);$i++)
+            {
+                $id_richiesto=$id;
+                $res=$this->_userModel->mostrautente($id)->toArray();
+                $richiesteinviate[$i]['mex']="Hai inviato una richiesta a ".$res[0]['Nome']." ".$res[0]['Cognome']."";
+                $richiesteinviate[$i]['id']=$id_richiesto;
+                $richiesteinviate[$i]['immagine']=$res[0]['immagine'];
+            }
+            $this->view->assign('inviate',$richiesteinviate);
+        }
 		$bottone=new Zend_Form_Element_Submit('accetta');
         $bottone->setLabel('Accetta');
         $this->view->assign('accettaamico',$bottone);
