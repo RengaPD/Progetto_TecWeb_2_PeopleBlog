@@ -1,5 +1,5 @@
 <?php
-class Application_Form_Utente_Blog_Posta extends Zend_Form
+class Application_Form_Utente_Blog_Posta extends App_Form_Abstract
 {
     protected $_blogModel;
 
@@ -16,18 +16,25 @@ class Application_Form_Utente_Blog_Posta extends Zend_Form
             'label' => 'Titolo del tuo post',
             'filters' => array('StringTrim'),
             'required' => true,
-            'validators' => array(array('StringLength',true, array(1,200))),
+            'validators' => array(array('NotEmpty',true,array('messages'=>array(
+                'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
+            )))),
+            'decorators'=>$this->elementDecorators,
         ));
 
         $this->addElement('textarea', 'content', array(
             'label' => 'Il tuo post',
             'filters' => array('StringTrim'),
             'required' => true,
-            'validators' => array(array('StringLength',true, array(1,10000))),
+            'validators' => array(array('NotEmpty',true,array('messages'=>array(
+                'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
+            )))),
+            'decorators'=>$this->elementDecorators,
         ));
 
         $this->addElement('submit', 'add', array(
             'label' => 'Invia!',
+            'decorators'=>$this->buttonDecorators,
         ));
     }
 }

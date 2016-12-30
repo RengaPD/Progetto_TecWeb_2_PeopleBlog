@@ -13,16 +13,6 @@ search style
     float: right;
     font-size: 26px;
 }
-#privacybox {
-     background:#d02aa3; color:#ffffff;
-     border: 1px solid #fff;
-     margin-top: 50px;
-     height: 40px;
-     width: 600px;
-     padding: 10px;
-     float: right;
-     font-size: 26px;
- }
 .ui-autocomplete {
     max-height: 200px;
     overflow-y: auto;
@@ -121,9 +111,9 @@ HEADER CLASSES
 -------------------------------------------------*/
 
 .header-wrap { width:100%; overflow:hidden; background:#00c0ff;}
-.header { width:960px; overflow:hidden; margin:0 auto;}
+.header { width:1060px; overflow:hidden; margin:0 auto;}
 
-.menu { float:left; width:505px;}
+.menu { float:left; width:800px;}
 .menu ul li { float:left; width:100px; margin-right:1px;}
 .menu ul li a { display:block; width:100px; height:80px; line-height:80px; text-align:center; color:#ffffff; background:#1ac6ff;}
 .menu ul li a:hover { background:#33cdff;} 
@@ -172,8 +162,8 @@ BANNER CLASSES
 /*-------------------------------------------------
 LAYOUT CLASSS
 -------------------------------------------------*/
-.page-wrapper { width:100%; margin:0 auto; overflow:hidden;display: inline; }
-.primary-content { float:left; width:60%; overflow:visible;margin-left: 5%;}
+.page-wrapper { width:100%; margin:0 auto; overflow:hidden;display: inline;}
+.primary-content { float:left; width:60%; overflow:visible;margin-left: 5%; min-height:650px;}
 .sidebar { float:right; width:30%; overflow:hidden;display: inline;}
 
 /*-------------------------------------------------
@@ -441,4 +431,46 @@ ul.comments-holder li.comment-holder:hover .comment-buttons-holder{
 .post-button-wrapper:hover{
     background: #2e5cc2;
     color:#fff;
+}
+
+/*-------------
+       Gestione amici
+-------------------------*/
+
+.testo-richiesta {
+    position:absolute;
+    margin-top:45px;
+    margin-left:125px;
+    height:100px;
+    width:250px;
+}
+
+.bottone-accetta {
+    margin-top:45px;
+    margin-left: 385px;
+    width:45px;
+    position:absolute;
+    background-color: white;
+    border: none;
+    color: white;
+    padding: 10px 27px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+}
+
+.bottone-rifiuta {
+    margin-top:105px;
+    margin-left: 385px;
+    width:45px;
+    position:absolute;
+    background-color: white;
+    border: none;
+    color: white;
+    padding: 10px 27px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
 }

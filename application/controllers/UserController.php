@@ -35,27 +35,33 @@ class UserController extends Zend_Controller_Action
             $nome_mittente = $res[0]['Nome'] . ' ' . $res[0]['Cognome'];
             switch ($notifiche[$i]['tipologia']) {
                 case 1: {
-                    $messaggio[$i] = '<li>Hai ricevuto una richiesta di amicizia da ' . $nome_mittente . '</li>';
+                    $messaggio[$i]['mex'] = '<li>Hai ricevuto una richiesta di amicizia da ' . $nome_mittente . '</li>';
+					$messaggio[$i]['data']= $notifiche[$i]['datetime'];
                     break;
                 }
                 case 2: {
-                    $messaggio[$i] = '<li>' . $nome_mittente . ' ha commentato un tuo post!</li>';
+                    $messaggio[$i]['mex'] = '<li>' . $nome_mittente . ' ha commentato un tuo post!</li>';
+					$messaggio[$i]['data']= $notifiche[$i]['datetime'];
                     break;
                 }
                 case 3: {
-                    $messaggio[$i] = '<li>Hai ricevuto una notifica dallo staff</li>';
+                    $messaggio[$i]['mex'] = '<li>Hai ricevuto una notifica dallo staff</li>';
+					$messaggio[$i]['data']= $notifiche[$i]['datetime'];
                     break;
                 }
                 case 4: {
-                    $messaggio[$i] = '<li>' . $nome_mittente . ' ti ha eliminato dagli amici</li>';
+                    $messaggio[$i]['mex']= '<li>' . $nome_mittente . ' ti ha eliminato dagli amici</li>';
+					$messaggio[$i]['data']= $notifiche[$i]['datetime'];
                     break;
                 }
-                case 5: {
-                    $messaggio[$i] = '<li>' . $nome_mittente . ' ha inserito un nuovo post nel suo blog</li>';
+                case 6: {
+                    $messaggio[$i]['mex'] = '<li>' . $nome_mittente . ' ha inserito un nuovo post nel suo blog</li>';
+					$messaggio[$i]['data']= $notifiche[$i]['datetime'];
                     break;
                 }
                 default: {
-                    $messaggio[$i] = '<li>' . $notifiche[$i]['testo'] . '</li>';
+                    $messaggio[$i]['mex'] = '<li>' . $notifiche[$i]['testo'] . '</li>';
+					$messaggio[$i]['data']= $notifiche[$i]['datetime'];
                     break;
 
                 }
@@ -151,7 +157,7 @@ class UserController extends Zend_Controller_Action
         {
             $this->view->assign('staff',false);
         }
-        if (isset($_GET["id"])){$id = $_GET["id"];}else{ $id = $this->getParam('id');}
+        if (isset($_POST["id"])){$id = $_POST["id"];}else{ $id = $this->getParam('id');}
 
 
 
@@ -306,7 +312,7 @@ class UserController extends Zend_Controller_Action
 
     }
     
-    //----------------------------------------------------------funzioni blog-----------------------------------------
+    //funzioni blog-----------------------------------------
     
     public function creablogAction() //ok funziona!
     {
@@ -343,7 +349,7 @@ class UserController extends Zend_Controller_Action
 
     }
     
-    //------------------------------------------------------funzioni post ----------------------------------
+    //funzioni post ----------------------------------
     public function modificapostAction()
     {
       
@@ -369,9 +375,6 @@ class UserController extends Zend_Controller_Action
         $this->view->assign('form', $form);
     }
 
-
-
-
     public function cancellapostAction()
     {
         $this->_helper->getHelper('layout')->disableLayout();
@@ -393,7 +396,6 @@ class UserController extends Zend_Controller_Action
 
     }
 
-
     public function updateajaxcommentAction()
     {
         $this->_helper->getHelper('layout')->disableLayout();
@@ -402,49 +404,78 @@ class UserController extends Zend_Controller_Action
 
             $data = $this->_userModel->selezionatutticommentipost(intval($_POST['idpost']))->toArray();
 
+
+
                 $this->getResponse()->setHeader('Content-type', 'application/json')->setBody(json_encode($data));
 
         }
     }
 
-	//-------------------------------------FUNZIONI AMICI-------------------------------------------
+	//funzioni amici
 
 	public function gestisciamiciAction()
 	{
 		$id=Zend_Auth::getInstance()->getIdentity()->id;
-        $amiciaccettati= $this->_userModel->mostraamici($id);
+        $amiciaccettati=$this->_userModel->mostraamici($id);
 		$inattesa=$this->_userModel->mostrainattesa($id);
+        $richieste=$this->_userModel->mostrainviate($id);
 		$richiesteinattesa='';
-		for($i=0;$i<sizeof($inattesa);$i++)
-		{
-			//idamico_a contiene l'id di chi ha FATTO la richiesta, ovvero di chi me l'ha inviata
-			$id_inattesa=$inattesa[$i]['idamico_a'];
-			$res = $this->_userModel->mostrautente($id_inattesa)->toArray();
-			$richiesteinattesa[$i]['mex']="".$res[0]['Nome']." ".$res[0]['Cognome']." ti ha inviato una richiesta di amicizia";
-			$richiesteinattesa[$i]['id']=$id_inattesa;
+        if($inattesa){
+            for($i=0;$i<sizeof($inattesa);$i++)
+            {
+                //idamico_a contiene l'id di chi ha FATTO la richiesta, ovvero di chi me l'ha inviata
+                $id_Inattesa=$inattesa[$i]['idamico_a'];
+                $res =$this->_userModel->mostrautente($id_Inattesa)->toArray();
+                $richiesteinattesa[$i]['mex']="".$res[0]['Nome']." ".$res[0]['Cognome']." ti ha inviato una richiesta di amicizia";
+                $richiesteinattesa[$i]['id']=$id_Inattesa;
+                $richiesteinattesa[$i]['immagine']=$res[0]['immagine'];
 
-		}
+
+            }
+            $this->view->assign('inattesa',$richiesteinattesa);
+        }
+
 		$richiesteaccettate='';
-		for($i=0;$i<sizeof($amiciaccettati);$i++)
-		{
-			if($id==$amiciaccettati[$i]['idamico_a']) //l'amico da visualizzare è l'altro
-			{
-				$id_accettato=$amiciaccettati[$i]['idamico_b'];
-			}
-			else
-				$id_accettato=$amiciaccettati[$i]['idamico_a'];
-			$res=$this->_userModel->mostrautente($id_accettato)->toArray();
-			$richiesteaccettate[$i]['mex']="".$res[0]['Nome']." ".$res[0]['Cognome']."";
-			$richiesteaccettate[$i]['id']=$id_accettato;
-		}
-		$this->view->assign('amici',$richiesteaccettate);
-		$this->view->assign('inattesa',$richiesteinattesa);
+        if($amiciaccettati)
+        {
+            for($i=0;$i<sizeof($amiciaccettati);$i++)
+            {
+                if($id==$amiciaccettati[$i]['idamico_a']) //l'amico da visualizzare è l'altro
+                {
+                    $id_accettato=$amiciaccettati[$i]['idamico_b'];
+                }
+                else
+                {
+                    $id_accettato=$amiciaccettati[$i]['idamico_a'];
+                }
+                $res=$this->_userModel->mostrautente($id_accettato)->toArray();
+                $richiesteaccettate[$i]['mex']="".$res[0]['Nome']." ".$res[0]['Cognome']."";
+                $richiesteaccettate[$i]['id']=$id_accettato;
+                $richiesteaccettate[$i]['immagine']=$res[0]['immagine'];
+            }
+            $this->view->assign('amici',$richiesteaccettate);
+        }
+		if($richieste)
+        {
+            $richiesteinviate='';
+            for($i=0;$i<=sizeof($richieste);$i++)
+            {
+                $id_richiesto=$id;
+                $res=$this->_userModel->mostrautente($id)->toArray();
+                $richiesteinviate[$i]['mex']="Hai inviato una richiesta a ".$res[0]['Nome']." ".$res[0]['Cognome']."";
+                $richiesteinviate[$i]['id']=$id_richiesto;
+                $richiesteinviate[$i]['immagine']=$res[0]['immagine'];
+            }
+            $this->view->assign('inviate',$richiesteinviate);
+        }
 		$bottone=new Zend_Form_Element_Submit('accetta');
         $bottone->setLabel('Accetta');
         $this->view->assign('accettaamico',$bottone);
 		$bottone=new Zend_Form_Element_Submit('elimina');
         $bottone->setLabel('Elimina');
         $this->view->assign('eliminaamico',$bottone);
+		$bottone=new Zend_Form_Element_Submit('rifiuta');
+        $bottone->setLabel('Rifiuta');
 	}
 
 	public function accettaamicoAction()
@@ -465,29 +496,6 @@ class UserController extends Zend_Controller_Action
 		$this->redirect('user/gestisciamici');
 	}
 
-
-	//--------------------- FUNZIONI COMMENTI----------------------------------
-
-
-    public function commentaAction()
-    {
-        $this->_helper->getHelper('layout')->disableLayout();
-        $this->_helper->viewRenderer->setNoRender();
-        if (isset($_POST["comment"]) && isset($_POST["idpost"])) {
-
-            //verifica che il commento sia mio o che io sia staff o amministratore
-
-            $this->_userModel->inseriscicommento(($_POST['comment']), $_POST["idpost"]);
-
-
-
-            $this->getResponse()->setHeader('Content-type', 'application/json')->setBody(json_encode(array("comment" => $_POST["comment"])));
-
-
-
-        }
-    }
-
 	public function cancellacommentoAction()
     {
         $this->_helper->getHelper('layout')->disableLayout();
@@ -496,101 +504,19 @@ class UserController extends Zend_Controller_Action
 
             //verifica che il commento sia mio o che io sia staff o amministratore
 
-            $data = $this->_userModel->proprietadelcommento(intval($_POST['idcomment']), Zend_Auth::getInstance()->getIdentity()->id);
+            $data = $this->_userModel->proprietadelcommento(intval($_POST['idcommento']));
 
-
-            if($data || (Zend_Auth::getInstance()->getIdentity()->ruolo == "admin") || (Zend_Auth::getInstance()->getIdentity()->ruolo == "staff")){
+            if($data | (Zend_Auth::getInstance()->getIdentity()->ruolo == "admin") | (Zend_Auth::getInstance()->getIdentity()->ruolo == "staff")){
 
                 $this->_userModel->eliminacommento(intval($_POST['idcomment']));
-                $this->getResponse()->setHeader('Content-type', 'application/json')->setBody(json_encode(array("cancellacommAction" => "ok")));
+                $this->getResponse()->setHeader('Content-type', 'application/json')->setBody(json_encode("ok"));
 
             }
-            //questa funzione cosí fatta nel caso si provi a cancellare un commento che non ci appartiene o che
-            //non siamo autorizzati a cancellare manda in errore l'ajax nella funzione che cancella il commento nel postscript
+            //elimina il commento
 
 
 
         }
     }
-
-
-    //-----------------FUNZIONI PRIVACY
-
-
-    public function gestisciprivacyblogAction()
-    {
-        $blog = $this->_getParam('id_blog');
-
-        //prendo il titolo del blog
-        $info = $this->_userModel->visualizzaBlogdaID($blog)->toArray();
-        $blogtitle = $info[0]['titolo'];
-        $this->view->assign('blogtitle', $blogtitle);
-        $this->view->assign('idblog', intval($blog));
-
-
-    }
-    public function privacyreadruleAction()
-    {
-        $this->_helper->getHelper('layout')->disableLayout();
-        $this->_helper->viewRenderer->setNoRender();
-        if (isset($_POST["id_blog"])) {
-            $blog = $this->getParam('id_blog');
-
-
-            $users = $this->_blogModel->prendiTuttiGliUtentiPrivacy($blog)->toArray();
-
-            $this->getResponse()->setHeader('Content-type', 'application/json')->setBody(json_encode($users));
-
-
-
-        }
-
-    }
-    public function privacyremoveruleAction()
-    {
-        $this->_helper->getHelper('layout')->disableLayout();
-        $this->_helper->viewRenderer->setNoRender();
-        if (isset($_POST["idblog"]) && isset($_POST["user"])) {
-
-            $blog = $this->getParam('user');
-            $user = $this->getParam('idblog');
-
-            $this->_blogModel->cancellaRegolaPrivacy($blog,$user);
-            $this->getResponse()->setHeader('Content-type', 'application/json')->setBody(json_encode(array("privacyRemoveAction" => "ok")));
-
-        }
-
-
-    }
-    public function privacyaddruleAction()
-    {
-        $this->_helper->getHelper('layout')->disableLayout();
-        $this->_helper->viewRenderer->setNoRender();
-        if (isset($_POST["blogid"]) && isset($_POST["user"])) {
-
-            $blog = $this->getParam('user');
-            $user = $this->getParam('blogid');
-
-            $this->_blogModel->aggiungiRegolaPrivacy($blog,$user);
-            $this->getResponse()->setHeader('Content-type', 'application/json')->setBody(json_encode(array("privacyaddAction" => "ok")));
-
-        }
-
-    }
-    public function ajaxsearchforprivacyAction()
-    {
-        $this->_helper->getHelper('layout')->disableLayout();
-        $this->_helper->viewRenderer->setNoRender();
-        if (isset($_POST["query"])){
-
-            $user = $this->_userModel->cercaUtentiNoIoNoStaff($_POST["query"])->toArray();
-            if ($user != null) {
-                $this->getResponse()->setHeader('Content-type', 'application/json')->setBody(json_encode($user));
-
-            }
-        }
-    }
-
-
 
 }

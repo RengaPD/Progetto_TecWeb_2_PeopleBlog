@@ -3,6 +3,7 @@
 <head>
     <?php echo $this->headMeta(); ?>
     <?php $this->headTitle()->append('Amministratore'); ?>
+    <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/style.css'); ?>
     <?php echo $this->headTitle(); ?>
     <?php echo $this->headLink() ?>
     <?php echo $this->headScript() ?>
@@ -30,33 +31,9 @@
         <div class="logo">
             <h1>People Blog</h1>
         </div>
-        <div class="search">
-            <div class="search-input">
-                <input type="text" class="search-text-field" value="Search Here ..." />
-            </div>
-            <div class="search-button"><a href="#"><img src="<?=$this->baseUrl('images/search.gif')?>" alt="Cerca" /></a></div>
-        </div>
     </div>
 </div>
 <!-- end of header wrapper -->
-<?php /*<div class="banner-wrap marginBottom">
-    <div class="banner-left"><img src="images/left-shadow.gif" /></div>
-    <div class="banner">
-        <div class="banner-image">
-            <div class="banner-data">
-                <div class="caption1">
-                    <h1>Pellentesque et aliquet massa donec</h1>
-                </div>
-                <div class="caption2">
-                    <h2> sit amet auctor anteroin sit amet elit doco ipory</h2>
-                </div>
-                <div class="caption3"> Fusce vel ipsum magna, nec tempor neque<br />
-                    orem ipsum dolor sit ametris odonil kusi </div>
-            </div>
-        </div>
-    </div>
-    <div class="banner-right"><img src="images/right-shadow.gif" /></div>
-</div>*/ ?>
 <!-- end of header wrapper -->
 <!-- end of panel wrapper -->
 <div class="page-wrapper">
@@ -64,19 +41,7 @@
         <p><?php echo $this->layout()->content; ?></p>
     </div>
     <!-- end of Primary content -->
-    <div class="sidebar marLeft30">
-        <div class="panel">
-            <div class="title">
-                <h1>Suspendise diegnis</h1>
-            </div>
-            <div class="content">
-                <ul>
-                    --
-                </ul>
-            </div>
-            <div class="button-link"></div>
-        </div>
-    </div>
+    
     <!-- end of Sidebar -->
 </div>
 <!-- end of page wrapper -->

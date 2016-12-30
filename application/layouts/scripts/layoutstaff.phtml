@@ -3,6 +3,7 @@
 <head>
     <?php echo $this->headMeta(); ?>
     <?php $this->headTitle()->append('Staffer'); ?>
+    <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/style.css'); ?>
     <?php echo $this->headTitle(); ?>
     <?php echo $this->headLink() ?>
     <?php echo $this->headScript() ?>
@@ -28,13 +29,10 @@
 <div class="logo-sarch-wrap">
     <div class="logo-search-container">
         <div class="logo">
-            <h1>Business Template</h1>
+            <h1>PEOPLEBLOG</h1>
         </div>
         <div class="search">
-            <div class="search-input">
-                <input type="text" class="search-text-field" value="Search Here ..." />
-            </div>
-            <div class="search-button"><a href="#"><img src="<?=$this->baseUrl('images/search.gif')?>" alt="Cerca" /></a></div>
+
         </div>
     </div>
 </div>
@@ -65,15 +63,7 @@
     </div>
     <!-- end of Primary content -->
     <div class="sidebar marLeft30">
-        <div class="panel">
-            <div class="title">
-                <h1>Suspendise diegnis</h1>
-            </div>
-            <div class="content">
-                <ul>
-
-                </ul>
-            </div>
+        
             <div class="button-link"></div>
         </div>
     </div>

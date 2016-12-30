@@ -1,33 +1,19 @@
 <div class="primary-content"><div class="datagrid">
-    <table class="thead">
+    <table class="thead" border="2" cellpadding="3" bgcolor="white">
     <tr>
-        <th>Id</th>
         <th>Titolo Blog</th>
-        <th>Titolo post</th>
-        <th>Id_Autore</th>
-        <th>Modifica</th>
         <th>Cancella</th>
     </tr>
     <?php foreach($this->risultato as $post) :?>
 
-        <?php $id=$post['id']; ?>
+
+        <?php $id=$post['idblog']; ?>
         <?php $id_user=$post['id_user'];?>
         <?php echo "<tr>
-          <td>" . $post['id'] . "</td>
-          <td>" . $post['titoloblog'] . "</td>
           <td>" . $post['titolo'] . "</td>
-          <td>" . $post['id_user'] . "</td>
           <td>"; ?><a href="<?= $this->url(array(
             'controller'=>'staff',
-            'action'=>'modificablog',
-            'id'=>"$id",
-            'id_user'=>"$id_user"),
-            'default',true);
-        ?>"><?php echo $this->bottonemod ?></a>
-        <?php echo"</td>
-        <td>"; ?><a href="<?= $this->url(array(
-            'controller'=>'staff',
-            'action'=>'cancellablog',
+            'action'=>'cancellainteroblog',
             'id'=>"$id",
             'id_user'=>"$id_user"),
             'default',true);

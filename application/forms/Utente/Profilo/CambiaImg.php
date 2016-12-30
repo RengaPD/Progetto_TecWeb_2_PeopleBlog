@@ -1,5 +1,5 @@
 <?php
-class Application_Form_Utente_Profilo_CambiaImg extends Zend_Form
+class Application_Form_Utente_Profilo_CambiaImg extends App_Form_Abstract
 {
     protected $_publicModel;
 
@@ -16,11 +16,13 @@ class Application_Form_Utente_Profilo_CambiaImg extends Zend_Form
             'filters' => array('StringTrim'),
             'required' => true,
             'validators' => array(array('StringLength',true, array(1,50))),
+            'decorators'=>$this->fileDecorators,
         ));
         $this->immagine->setDestination(PUBLIC_PATH.'/images/profiles/');
         
         $this->addElement('submit', 'add', array(
             'label' => 'Aggiorna profilo',
+            'decorators'=>$this->buttonDecorators,
         ));
     }
 }

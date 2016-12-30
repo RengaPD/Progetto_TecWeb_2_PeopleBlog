@@ -18,6 +18,16 @@ class Application_Resource_Amici extends Zend_Db_Table_Abstract
         $res=$db->fetchAll();
         return $res;
     }
+	
+	public function showpending($id_user)
+	{
+		$query='SELECT * FROM amicizie WHERE idamico_b= "'.$id_user.'" AND state= "requested"';
+		$db = Zend_Db_Table_Abstract::getDefaultAdapter()->query($query);
+        $res=$db->fetchAll();
+        return $res;
+		
+	}
+    
     
     public function show_all_request($id_user){
         $query='SELECT * FROM amicizie WHERE idamico_a ='.$id_user.' OR idamico_b ='.$id_user.'';
@@ -73,8 +83,8 @@ class Application_Resource_Amici extends Zend_Db_Table_Abstract
         $auth=Zend_Auth::getInstance();
         $id_remover=$auth->getIdentity()->id;
 
-        $query = 'DELETE * FROM amicizie  WHERE ((requestedby = "'.$id_remover.'" AND  idamico_b = "'.$id_removed.'") OR (requestedby = "'.$id_removed.'" AND idamico_b = "'.$id_remover.'))" AND state = "accepted" ';
-        Zend_Db_Table_Abstract::getDefaultAdapter()->query($query);
+        $query = 'DELETE FROM amicizie  WHERE ((requestedby = "'.$id_remover.'" AND  idamico_b = "'.$id_removed.'") OR (requestedby = "'.$id_removed.'" AND idamico_b = "'.$id_remover.'")) AND state = "accepted" ';
+        $db=Zend_Db_Table_Abstract::getDefaultAdapter()->query($query);
 
 
     }
@@ -83,19 +93,20 @@ class Application_Resource_Amici extends Zend_Db_Table_Abstract
 
         $auth=Zend_Auth::getInstance();
         $id_user=$auth->getIdentity()->id;
-        $select=$this->select()->where('requestedby =?', $id_requester)
-            ->where('idamico_b =?', $id_user);
-
-        $this->update(array('state'=>'accepted'), $select);
+        //$select=$this->select()->where('requestedby =?', $id_requester)->where('idamico_b =?', $id_user);
+		$where=array();
+		$where[] = $this->getAdapter()->quoteInto('requestedby= ?',$id_requester);
+		$where[] = $this->getAdapter()->quoteInto('idamico_b = ?', $id_user);
+        $this->update(array('state'=>'accepted'), $where);
     }
     public function refuserequest($id_requester)
     {
         $auth=Zend_Auth::getInstance();
         $id_user=$auth->getIdentity()->id;
-        $select=$this->select()->where('requestedby =?', $id_requester)
-            ->where('idamico_b =?', $id_user);
-
-        $this->update(array('state'=>'refused'), $select);
+        $where=array();
+		$where[] = $this->getAdapter()->quoteInto('requestedby= ?',$id_requester);
+		$where[] = $this->getAdapter()->quoteInto('idamico_b = ?', $id_user);
+        $this->update(array('state'=>'refused'), $where);
     }
     public function arefriends($ida,$idb)
     {

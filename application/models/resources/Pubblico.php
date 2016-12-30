@@ -12,7 +12,14 @@ class Application_Resource_Pubblico extends Zend_Db_Table_Abstract
 
     public function register($info)
     {
-        $this->insert($info);
+        $this->insert(array('Nome'=>$info['Nome'],
+            'Cognome'=>$info['Cognome'],
+            'username'=>$info['username'],
+            'immagine'=>'prova.jpg',
+            'email'=>$info['email'],
+            'password'=>$info['password'],
+            'ruolo'=>$info['ruolo'],
+            'interessi'=>$info['interessi']));
     }
 
    

@@ -56,4 +56,9 @@
 
     <?php endforeach ?>
 </table>
+<!--------Paginazione---->
+<?php if($this->risultato instanceof Zend_Paginator) {
+	  		echo $this->paginationControl($this->risultato,'Sliding','/admin/_paginator.phtml');
+	  } 
+	  ?>
 </div></div>

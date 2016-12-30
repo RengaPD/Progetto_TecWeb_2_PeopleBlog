@@ -1,0 +1,67 @@
+<div class="primary-content">
+    <p>Qui puoi vedere tutte le informazioni sui tuoi amici:</p><br><br><br>
+	
+	<h1><b>Richieste in attesa:<b></h1>
+	<?php if($this->inattesa) :?>
+	<?php foreach($this->inattesa as $inattesa) :?>
+	<?php $id=$inattesa['id']; ?>
+	<div class="rettangolo">
+		<div class="immagine-profilo">
+			<img width="100" height="100" src=<?php echo "".PUBLIC_PATH."/images/profiles/".$inattesa['immagine'].""; ?>>
+		</div>
+		<div class="testo-richiesta">
+			<?php echo $inattesa['mex']; ?>
+		</div>
+		<div class="bottone-accetta">
+			<a href="<?= $this->url(array(
+				'controller'=>'user',
+				'action'=>'accettaamico',
+				'id'=>"$id"),
+				'default',true);
+			?>">Accetta</a>
+		</div>
+	</div>
+	<?php endforeach; ?>
+	<?php else: ?>
+		<?php echo "<p>Non hai nessuna richiesta</p>"; ?>
+	<?php endif; ?>
+	<h1><b>Richieste inviate:<b></h1>
+	<?php if($this->inviate) :?>
+		<?php foreach($this->inviate as $inviate) :?>
+			<?php $id=$inviate['id']; ?>
+			<div class="rettangolo">
+				<div class="immagine-profilo">
+					<img width="100" height="100" src=<?php echo "".PUBLIC_PATH."/images/profiles/".$inviate['immagine'].""; ?>>
+				</div>
+				<div class="testo-richiesta">
+					<?php echo $inviate['mex']; ?>
+				</div>
+			</div>
+		<?php endforeach; ?>
+	<?php else: ?>
+		<?php echo "<p>Non hai nessuna inviato nessuna richiesta</p>"; ?>
+	<?php endif; ?>
+	<h1><b>Amici:<b></h1>
+	<?php if($this->amici) :?>
+		<?php foreach($this->amici as $amici) :?>
+			<?php $id=$amici['id']; ?>
+			<div class="rettangolo">
+				<div class="immagine-profilo">
+				</div>
+				<div class="testo-richiesta">
+					<?php echo $amici['mex']; ?>
+				</div>
+				<div class="bottone-accetta">
+					<a href="<?= $this->url(array(
+						'controller'=>'user',
+						'action'=>'eliminaamico',
+						'id'=>"$id"),
+						'default',true);
+					?>">Elimina</a>
+				</div>
+			</div>
+		<?php endforeach; ?>
+	<?php else: ?>
+		<?php echo "<p>Non hai amici</p>"; ?>
+	<?php endif; ?>
+</div>

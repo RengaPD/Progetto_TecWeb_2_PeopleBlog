@@ -23,6 +23,12 @@
         ?>"
            title="Modifica profilo">Modifica Profilo</a>
     </li>
+	<li><a href="<?= $this->url(array(
+            'controller'=>'user',
+            'action'=>'gestisciamici',),
+            'default',true);
+        ?>" title="Gestisci amici">Gestisci amici</a>
+    </li>
     <?php $user=Zend_Auth::getInstance(); ?>
     <?php if($user->hasIdentity()) :?>
         <li><a href="<?= $this->url(array(
@@ -43,6 +49,19 @@
                     'default',true);
                 ?>"
                    title="Gestisci sito"><i class="icon-user"></i>Amministrazione</a></li>
+        <?php endif ?>
+
+    <?php endif ?>
+    <?php if($user->hasIdentity()) :?>
+        <?php $permesso=$user->getIdentity()->ruolo; ?>
+        <?php if((!$permesso==null)&&($permesso=='staff')) :?>
+
+            <li><a href="<?= $this->url(array(
+                    'controller'=>'staff',
+                    'action'=>'index'),
+                    'default',true);
+                ?>"
+                   title="Gestisci sito"><i class="icon-user"></i>Staff</a></li>
         <?php endif ?>
 
     <?php endif ?>

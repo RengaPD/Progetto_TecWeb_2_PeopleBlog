@@ -1,15 +1,17 @@
-<?php echo $this->doctype(); ?>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" lang="it">
+<?php
+$this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
+$this->headTitle()->setSeparator(' - ');
+$this->headTitle('ProgTweb');
+echo $this->doctype(); ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <?php echo $this->headMeta(); ?>
-
-    <?php $this->headTitle()->append('Utente Non Registrato'); ?>
     <?php echo $this->headTitle(); ?>
-    <?php echo $this->headLink() ?>
-    <?php echo $this->headScript() ?>
+    <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/style.css'); ?>
+    <?php echo $this->headLink()->prependStylesheet('http://fonts.googleapis.com/css?family=Droid+Sans:400,700'); ?>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
-
 <body>
 <div class="header-wrap">
     <div class="header">
@@ -58,7 +60,7 @@
 <!-- end of panel wrapper -->
 <div class="page-wrapper">
     <div class="primary-content">
-        <p><?php echo $this->layout()->content; ?></p>
+        <?php echo $this->layout()->content; ?>
     </div>
     <!-- end of Primary content
     <div class="sidebar marLeft30">

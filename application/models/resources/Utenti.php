@@ -26,11 +26,12 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
         $res=$this->fetchRow($select);
 		return $res;
     }
-
+	
     public function insertUtenti($info) //funziona
     {
         $this->insert(array('Nome'=>$info['nome'],
             'Cognome'=>$info['cognome'],
+			'username'=>$info['username'],
             'immagine'=>'prova.jpg',
             'email'=>$info['email'],
             'password'=>$info['password'],
@@ -44,6 +45,7 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
         $where = $this->getAdapter()->quoteInto('id= ?', $id);
         $this->update(array('Nome'=>$info['Nome'],
             'Cognome'=>$info['Cognome'],
+			'username'=>$info['username'],
             'eta'=>$info['eta'],
             'email'=>$info['email'],
             'password'=>$info['password'],
@@ -51,7 +53,8 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
             'interessi'=>$info['interessi']), $where);
     }
 
-    public function showUtenti($pagina=null)
+	
+	public function showUtenti($pagina=null)
 	{
 		$select=$this->select()->order('id');
 		if (null !== $pagina) {
@@ -67,7 +70,7 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
 
     public function showUserbyID($id) //funziona
     {
-        $select=$this->select()->where('id=?',$id);
+        $select=$this->select()->where('id= ?',$id);
         $res=$this->fetchAll($select);
         return $res;
     }
@@ -125,17 +128,6 @@ class Application_Resource_Utenti extends Zend_Db_Table_Abstract
         $auth=Zend_Auth::getInstance();
         $where=$this->getAdapter()->quoteInto('id=?',$id);
         $this->update(array('immagine'=>$dati['immagine']), $where);
-    }
-
-    public function findUsersNotMeNotStaff($info) //funziona
-    {
-
-        $query = $this->select()
-            ->where("ruolo = 'utente'")
-            ->where('Nome LIKE ?',$info.'%')
-            ->orWhere('Cognome LIKE ?',$info.'%');
-        $res=$this->fetchAll($query);
-        return $res;
     }
 
 }

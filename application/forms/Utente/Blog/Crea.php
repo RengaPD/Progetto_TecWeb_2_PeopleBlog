@@ -1,5 +1,5 @@
 <?php
-class Application_Form_Utente_Blog_Crea extends Zend_Form
+class Application_Form_Utente_Blog_Crea extends App_Form_Abstract
 {
     protected $_userModel;
 
@@ -11,27 +11,40 @@ class Application_Form_Utente_Blog_Crea extends Zend_Form
         $this->setAction('');
         $this->setAttrib('enctype', 'multipart/form-data');
 
-
+        $this->addElement('text', 'nomeblog', array(
+            'label' => 'Nome blog',
+            'filters' => array('StringTrim'),
+            'required' => true,
+            'validators' => array(array('NotEmpty',true,array('messages'=>array(
+                'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
+            )))),
+            'decorators'=>$this->elementDecorators,
+        ));
 
         $this->addElement('text', 'titolo', array(
-            'label' => 'Titolo del Blog',
+            'label' => 'Titolo primo post',
             'filters' => array('StringTrim'),
             'required' => true,
-            'validators' => array(array('StringLength',true, array(1,25))),
+            'validators' => array(array('NotEmpty',true,array('messages'=>array(
+                'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
+            )))),
+            'decorators'=>$this->elementDecorators,
         ));
-        $this->titolo->setAttrib('class','input_text');
 
         $this->addElement('textarea', 'post', array(
-            'label' => 'Descrizione',
+            'label' => 'Primo post',
             'filters' => array('StringTrim'),
             'required' => true,
-            'validators' => array(array('StringLength',true, array(1,10000))),
+            'validators' => array(array('NotEmpty',true,array('messages'=>array(
+                'isEmpty'=>'Il campo è obbligatorio e non può essere vuoto'
+            )))),
+            'decorators'=>$this->elementDecorators,
         ));
-        $this->post->setAttrib('class','message');
-        $this->addElement('submit', 'add', array('label' => 'Crea il tuo blog!',
+        
+        $this->addElement('submit', 'add', array(
+            'label' => 'Crea il tuo blog!',
+            'decorators'=>$this->buttonDecorators,
         ));
-        $this->add->setAttrib('class','button');
-
     }
 }
 ?>
