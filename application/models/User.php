@@ -40,6 +40,11 @@ class Application_Model_User extends App_Model_Abstract
 		return $this->getResource('Amici')->showpending($id_user);
 	}
     
+    public function mostrainviate($id_user)
+    {
+        return $this->getResource('Amici')->show_outgoing_requests($id_user);
+    }
+    
     public function aggiungiamico($id_user)
     {
         return $this->getResource('Amici')->sendrequest($id_user);

@@ -9,7 +9,11 @@ class Application_Model_Staff extends App_Model_Abstract
 	}
 
     public function visualizzaBlog(){
-        return $this->getResource('Blog')->showblog();
+        return $this->getResource('Blog')->showBlog();
+    }
+
+    public function eliminablog($id) {
+    return $this->getResource('Blog')->deleteblog($id);
     }
 
     public function visualizzaBlogdaID($id){

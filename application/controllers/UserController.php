@@ -54,7 +54,7 @@ class UserController extends Zend_Controller_Action
 					$messaggio[$i]['data']= $notifiche[$i]['datetime'];
                     break;
                 }
-                case 5: {
+                case 6: {
                     $messaggio[$i]['mex'] = '<li>' . $nome_mittente . ' ha inserito un nuovo post nel suo blog</li>';
 					$messaggio[$i]['data']= $notifiche[$i]['datetime'];
                     break;
@@ -416,16 +416,20 @@ class UserController extends Zend_Controller_Action
 	public function gestisciamiciAction()
 	{
 		$id=Zend_Auth::getInstance()->getIdentity()->id;
-        $amiciaccettati= $this->_userModel->mostraamici($id);
+        $amiciaccettati=$this->_userModel->mostraamici($id);
 		$inattesa=$this->_userModel->mostrainattesa($id);
+        $richieste=$this->_userModel->mostrainviate($id);
 		$richiesteinattesa='';
 		for($i=0;$i<sizeof($inattesa);$i++)
 		{
 			//idamico_a contiene l'id di chi ha FATTO la richiesta, ovvero di chi me l'ha inviata
 			$id_inattesa=$inattesa[$i]['idamico_a'];
-			$res = $this->_userModel->mostrautente($id_inattesa)->toArray();
+            var_dump($id_inattesa);
+			$res =$this->_userModel->mostrautente($id_inattesa)->toArray();
+            var_dump($res);
 			$richiesteinattesa[$i]['mex']="".$res[0]['Nome']." ".$res[0]['Cognome']." ti ha inviato una richiesta di amicizia";
 			$richiesteinattesa[$i]['id']=$id_inattesa;
+            $richiesteinattesa[$i]['immagine']=$res[0]['immagine'];
 
 		}
 		$richiesteaccettate='';
@@ -440,9 +444,20 @@ class UserController extends Zend_Controller_Action
 			$res=$this->_userModel->mostrautente($id_accettato)->toArray();
 			$richiesteaccettate[$i]['mex']="".$res[0]['Nome']." ".$res[0]['Cognome']."";
 			$richiesteaccettate[$i]['id']=$id_accettato;
+            $richiesteaccettate[$i]['immagine']=$res[0]['immagine'];
 		}
+        $richiesteinviate='';
+        for($i=0;$i<=sizeof($richieste);$i++)
+        {
+            $id_richiesto=$richieste[$i]['idamico_b'];
+            $res=$this->_userModel->mostrautente($id_richiesto)->toArray();
+            $richiesteinviate[$i]['mex']="Hai inviato una richiesta a ".$res[0]['Nome']." ".$res[0]['Cognome']."";
+            $richiesteinviate[$i]['id']=$id_richiesto;
+            $richiesteinviate[$i]['immagine']=$res[0]['immagine'];
+        }
 		$this->view->assign('amici',$richiesteaccettate);
 		$this->view->assign('inattesa',$richiesteinattesa);
+        $this->view->assign('inviate',$richiesteinviate);
 		$bottone=new Zend_Form_Element_Submit('accetta');
         $bottone->setLabel('Accetta');
         $this->view->assign('accettaamico',$bottone);

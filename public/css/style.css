@@ -432,3 +432,45 @@ ul.comments-holder li.comment-holder:hover .comment-buttons-holder{
     background: #2e5cc2;
     color:#fff;
 }
+
+/*-------------
+       Gestione amici
+-------------------------*/
+
+.testo-richiesta {
+    position:absolute;
+    margin-top:45px;
+    margin-left:125px;
+    height:100px;
+    width:250px;
+}
+
+.bottone-accetta {
+    margin-top:45px;
+    margin-left: 385px;
+    width:45px;
+    position:absolute;
+    background-color: white;
+    border: none;
+    color: white;
+    padding: 10px 27px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+}
+
+.bottone-rifiuta {
+    margin-top:105px;
+    margin-left: 385px;
+    width:45px;
+    position:absolute;
+    background-color: white;
+    border: none;
+    color: white;
+    padding: 10px 27px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+}

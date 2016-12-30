@@ -52,5 +52,18 @@
         <?php endif ?>
 
     <?php endif ?>
+    <?php if($user->hasIdentity()) :?>
+        <?php $permesso=$user->getIdentity()->ruolo; ?>
+        <?php if((!$permesso==null)&&($permesso=='staff')) :?>
+
+            <li><a href="<?= $this->url(array(
+                    'controller'=>'staff',
+                    'action'=>'index'),
+                    'default',true);
+                ?>"
+                   title="Gestisci sito"><i class="icon-user"></i>Staff</a></li>
+        <?php endif ?>
+
+    <?php endif ?>
 
 </ul>
